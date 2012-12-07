@@ -8,17 +8,17 @@
 
 """
 
-from bs4 import BeautifulSoup
-import ply.lex as lex
-
 # import collections
 import locale
 import os
 # import re
 import sys
 
-from Stat import Stat
-from Word import Word
+from bs4 import BeautifulSoup
+import ply.lex as lex
+
+from gen_stat import Stat
+from word import Word
 
 
 # DEFINE SOME VARIABLES
@@ -61,14 +61,16 @@ tokens = ('ALLCAPSW',
           'WASTE'
 )
 
-# # special states the lexer can be in - only html tag - useless if BeautifulSoup's get_text() method is used
+# # special states the lexer can be in - only html tag
+# useless if BeautifulSoup's get_text() method is used
 # states = (
 #     ('htmltag', 'inclusive'),
 # )
 
 # identifying tokens: structure is the same for all:
 # - regexp to select the token
-# - extract the word from the unicode string, and lowercase it to avoid lowercase/uppercase troubles when comparing words
+# - extract the word from the unicode string, and lowercase it
+# to avoid lowercase/uppercase troubles when comparing words
 # - assigns the type to the token
 # - return the token
 
@@ -122,7 +124,8 @@ def t_ALPHANUM(token):
     return token
 
 
-# is the token a word with the first letter capital and all the remaining letters lowercase?
+# is the token a word with the first letter capital
+# and all the remaining letters lowercase?
 def t_TITLEW(token):
     r'[A-Z][a-z]+'
     token.value = str(token.value.lower())
@@ -178,15 +181,17 @@ def t_error(t):
 
 
 def process_tokens(results, is_spam):
-    """
-    processes tokens extracted from the training set
-    for every token, extracts the value (the word itself) and its type (lowercase word, title, link, etc)
-    then updates all the stats for the word and the mail
+    """Process tokens extracted from the training set.
+
+    For every token, extract the value (the word itself)
+    and its type (lowercase word, title, link, etc),
+    then update all the stats for the word and the mail.
 
     :param results: the list of tokens recognized
     :type results: array of tokens.
     :param is_spam: a flag to identify if the mail if spam or ham
     :type is_spam: bool.
+
     """
 
     # flag for building the Word object
@@ -198,8 +203,9 @@ def process_tokens(results, is_spam):
         # extracts type and value from the token
         type, value = token[0], token[1]
 
-        # insert the word into the dictionary (if not read before), or update its stats (if already met)
-        # we don't consider words of type 'WASTE' ("useless" chars) as real words
+        # insert the word into the dictionary (if not read before),
+        # or update its stats (if already met)
+        # we don't consider words of type 'WASTE' as real words
         if type != 'WASTE':
             if value in words:
                 # update the correct stat for the word (already met)
@@ -208,22 +214,30 @@ def process_tokens(results, is_spam):
                 else:
                     words[value].ham_occurrences  += 1
             else:
-                # creates a new Word object for the never-met-before word, and insert it into the bag
+                # creates a new Word object for the never-met-before word,
+                # and insert it into the bag
                 new_word = Word(spam_no, 1 - spam_no)
                 words[value] = new_word
 
-        # updates general stats, based on the type of the word and the status of the mail (spam/ham)
-        # short words may be of any type (|word| <= threshold), excepting 'WASTE'
+        # updates general stats, based on the type of the word
+        # and the status of the mail (spam/ham). Short words may be
+        # of any type (|word| <= threshold), excepting 'WASTE'
         if is_spam:
             if len(value) <= SHORT_THR and type != 'WASTE':
                 general_stats['SHORTWORDS'].spam += 1
-            if len(value) >= VERYLONG_THR and not (type == 'MAILADDR' or type == 'LINKADDR' or type == 'USERHOST'):
+            if (len(value) >= VERYLONG_THR and
+                     not (type == 'MAILADDR'
+                       or type == 'LINKADDR'
+                       or type == 'USERHOST')):
                 general_stats['LOONGWORDS'].spam += 1
             general_stats[type].spam += 1
         else:
             if len(value) <= SHORT_THR and type != 'WASTE':
                 general_stats['SHORTWORDS'].ham += 1
-            if len(value) >= VERYLONG_THR and not (type == 'MAILADDR' or type == 'LINKADDR' or type == 'USERHOST'):
+            if (len(value) >= VERYLONG_THR and
+                     not (type == 'MAILADDR'
+                       or type == 'LINKADDR'
+                       or type == 'USERHOST')):
                 general_stats['LOONGWORDS'].ham += 1
             general_stats[type].ham += 1
 
@@ -240,14 +254,16 @@ lexer = lex.lex()
 # APPLY LEX
 
 def lexer_words(text, is_spam):
-    """
-    apply lexical analysis to the text of mails
-    takes as input the mail text and its status (spam/ham) and extract the valid tokens
+    """Apply lexical analysis to the text of mails.
+
+    as Take input the mail text and its status (spam/ham)
+    and extract the valid tokens.
 
     :param text: the text of the mail to be parsed
     :type text: str.
     :param is_spam: flag to identify the mail as spam or ham
     :type is_spam: bool.
+
     """
     # recognize the utf-8 chars
     lexer.input(unicode(text))
@@ -265,17 +281,19 @@ def lexer_words(text, is_spam):
     # print result
     return process_tokens(result, is_spam)
 
-# if we don't want to use the entire mail archive for train the system, then we have to keep track of how many mails (of each kind) we have opened
+# if we don't want to use the entire mail archive for train the system, then
+# we have to keep track of how many mails (of each kind) we have opened
 if SIZE_OF_BAGS > 0:
     i = 0
 
 
-"""
-read all the given 'ham' mails, or the first SIZE_OF_BAGS if this value is >0
-ham mails must be in  /path/to/project/directory/spam/ham/
-spam mails must be in /path/to/project/directory/spam/spam/
-we are in /path/to/project/directory/
-first, move to the right dir
+"""Read all the given 'ham' mails, or the first SIZE_OF_BAGS if this value is >0.
+Ham mails must be in  /path/to/project/directory/spam/ham/
+Spam mails must be in /path/to/project/directory/spam/spam/
+We are in /path/to/project/directory/
+First, move to the right dir, then one by one read all the mails
+and send them to the lexer.
+
 """
 os.chdir("spam/ham/")
 # runs through all the files
@@ -287,10 +305,10 @@ for file in os.listdir("."):
     # close file
     in_file.close()
 
-    # print "\n\n\n\n\n#############################################   ", file, "  ############\n\n\n"
     print "Processing file", file  # , "\n\n"
 
-    # use BeautifulSoup for extracting useful text, striping out HTML tag chars (using get_text()), and send the mail content to the lexer
+    # use BeautifulSoup for extracting useful text, striping out HTML tag chars
+    # (using get_text()), and send the mail content to the lexer
     soup = BeautifulSoup(''.join(mail))
     # print soup.prettify()
     # print soup.get_text()
@@ -307,16 +325,16 @@ for file in os.listdir("."):
             i = 0
             break
 
-"""
-now go for the spam mails. Code works exactly like the above rows
-we still are in /path/to/project/directory/spam/ham/, so we move to the right dir
+"""Now go for the spam mails. Code works exactly like the above rows.
+We still are in /path/to/project/directory/spam/ham/,
+so we move to the right dir.
+
 """
 os.chdir("../spam/")
 for file in os.listdir("."):
     in_file = open(file, "r")
     mail = in_file.read()
     in_file.close()
-    # print "\n\n\n\n\n#############################################   ", file, "  ############\n\n\n"
     print "Processing file", file  # , "\n\n"
     soup = BeautifulSoup(''.join(mail))
     lexer_words(soup.get_text(), True)
@@ -328,27 +346,10 @@ for file in os.listdir("."):
             break
 
 
-# # print , general_stats['LINKADDR'].spam
-# # print "# links in ham traning set:",  general_stats['LINKADDR'].ham
-# print "# mail addresses in spam traning set:", general_stats['MAILADDR'].spam
-# print "# mail addresses in ham traning set:",  general_stats['MAILADDR'].ham
-# print "# host addresses in spam traning set:", general_stats['USERHOST'].spam
-# print "# host addresses in ham traning set:",  general_stats['USERHOST'].ham
-# print "# good words in spam traning set:", general_stats['LOWERCASEW'].spam
-# print "# good words in ham traning set:",  general_stats['LOWERCASEW'].ham
-# print "# title words in spam traning set:", general_stats['TITLEW'].spam
-# print "# title words in ham traning set:",  general_stats['TITLEW'].ham
-# print "# allcaps words in spam traning set:", general_stats['ALLCAPSW'].spam
-# print "# allcaps words in ham traning set:",  general_stats['ALLCAPSW'].ham
-# print "# bimbominkia words in spam traning set:", general_stats['ALPHANUM'].spam
-# print "# bimbominkia words in ham traning set:",  general_stats['ALPHANUM'].ham
-# print "# short words in spam traning set:", general_stats['SHORTWORDS'].spam
-# print "# short words in ham traning set:",  general_stats['SHORTWORDS'].ham
-# print "# waste chars in spam traning set:", general_stats['WASTE'].spam
-# print "# waste chars in ham traning set:",  general_stats['WASTE'].ham
-
 # for feature in general_stats.itervalues():
-#     # print general_stats[feature].description, "\t\t", general_stats[feature].spam, "\t\t", general_stats[feature].ham
+#     # print general_stats[feature].description, "\t\t",
+#             general_stats[feature].spam, "\t\t",
+#             general_stats[feature].ham
 #     print feature.description, "\t\t", feature.spam, "\t\t", feature.ham
 
 
@@ -361,7 +362,6 @@ locale.setlocale(locale.LC_NUMERIC, "")
 def format_num(num):
     """Format a number according to given places.
     Adds commas, etc. Will truncate floats into ints!"""
-
     try:
         inum = int(num)
         return locale.format("%.*f", (0, inum), True)
@@ -372,7 +372,6 @@ def format_num(num):
 
 def get_max_width(table, index):
     """Get the maximum width of the given column index"""
-
     return max([len(format_num(row[index])) for row in table])
 
 
@@ -413,16 +412,22 @@ out = sys.stdout
 
 table = [['word', 'spam', 'ham']]
 for item in words.iterkeys():
-    table.append([item, words[item].spam_occurrences, words[item].ham_occurrences])
+    table.append([item, words[item].spam_occurrences,
+                        words[item].ham_occurrences])
 
 pprint_table(out, table)
 
 
-table = [['Feature description', '# occurrences in spam mails', '# occurrences in ham mails']]
+table = [['Feature description',
+          '# occurrences in spam mails',
+          '# occurrences in ham mails']]
+
 for item in general_stats.itervalues():
     table.append([item.description, item.spam, item.ham])
 
 print "\nResults:"
+
+
 pprint_table(out, table)
 
 ########################################
@@ -431,12 +436,11 @@ pprint_table(out, table)
 #                                      #
 ########################################
 
-os.chdir("../mine/")
-for file in os.listdir("."):
-    in_file = open(file, "r")
-    mail = in_file.read()
-    in_file.close()
-    # print "\n\n\n\n\n#############################################   ", file, "  ############\n\n\n"
-    print "Processing file", file  # , "\n\n"
-    soup = BeautifulSoup(''.join(mail))
-    lexer_words(soup.get_text(), True)
+# os.chdir("../mine/")
+# for file in os.listdir("."):
+#     in_file = open(file, "r")
+#     mail = in_file.read()
+#     in_file.close()
+#     print "Processing file", file  # , "\n\n"
+#     soup = BeautifulSoup(''.join(mail))
+#     lexer_words(soup.get_text(), True)
