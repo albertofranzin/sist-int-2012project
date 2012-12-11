@@ -4,9 +4,10 @@ from word import Word
 
 
 class Lexer:
-    """Lexical Analyzer
+    """Lexical Analyzer.
 
     Use Ply's lexer to identify the tokens and to classify them.
+    See http://www.dabeaz.com/ply/ to know how it works.
 
     """
 
@@ -17,10 +18,10 @@ class Lexer:
         and its type (lowercase word, title, link, etc),
         then update all the stats for the word and the mail.
 
-        :param results: the list of tokens recognized
-        :type results: array of tokens.
-        :param is_spam: a flag to identify if the mail if spam or ham
-        :type is_spam: bool.
+        :param results: the list of tokens recognized.
+        :type results: array of tokens
+        :param is_spam: a flag to identify if the mail if spam or ham.
+        :type is_spam: bool
 
         """
 
@@ -47,6 +48,7 @@ class Lexer:
                     # creates a new Word object for the never-met-before word,
                     # and insert it into the bag
                     new_word = Word(spam_no, 1 - spam_no)
+                    # print "Lexer :: process_tokens :: new word :: ", value
                     words[value] = new_word
 
             # updates general stats, based on the type of the word
@@ -72,20 +74,23 @@ class Lexer:
                 general_stats[type].ham += 1
 
         # just a check
-        # print general_stats['LINKADDR'].spam
-        # print general_stats['LINKADDR'].ham
-        return (words, general_stats)
+        # if config.VERBOSE:
+        #     print general_stats['LINKADDR'].ham
+        #     print general_stats['LINKADDR'].spam
+
+        # looks like that the return is not needed...
+        # return (words, general_stats)
 
     def lexer_words(self, text, is_spam, words, general_stats, config):
         """Apply lexical analysis to the text of mails.
 
-        as Take input the mail text and its status (spam/ham)
+        Take as input the mail text and its status (spam/ham)
         and extract the valid tokens.
 
-        :param text: the text of the mail to be parsed
-        :type text: str.
-        :param is_spam: flag to identify the mail as spam or ham
-        :type is_spam: bool.
+        :param text: the text of the mail to be parsed.
+        :type text: str
+        :param is_spam: flag to identify the mail as spam or ham.
+        :type is_spam: bool
 
         """
         # recognize the utf-8 chars
@@ -101,11 +106,21 @@ class Lexer:
                 break
             # print token.value
             result = result + [(token.type, token.value)]
-        # print result
-        return self.process_tokens(result, is_spam,
-                                   words, general_stats, config)
+        # if config.VERBOSE:
+        #     print result
+        self.process_tokens(result, is_spam, words, general_stats, config)
 
     def __init__(self):
+        """
+        Constructor: creates the `Ply` lexer and defines all the rules to identify
+        and classify the tokens.
+
+        All the ``t_TOKEN()`` methods are defined as inner methods inside here.
+
+        :return: the `Ply` lexer object.
+
+        """
+
         print "Lexer :: tryin' to create ply's lex.lex()"
 
         # DEFINE LEX RULES
