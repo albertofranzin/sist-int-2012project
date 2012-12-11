@@ -9,7 +9,6 @@
 """
 
 from naive_bayes import Bayes
-from trainer import Trainer
 
 if __name__ == '__main__':
 
@@ -17,30 +16,18 @@ if __name__ == '__main__':
     bayes = Bayes()
     print "main :: Bayes object created"
 
-    print "main :: tryin' to create the Trainer"
-    trainer = Trainer()
-    print "main :: Trainer created"
+    # print "main :: tryin' to train bayes"
+    # # bayes train
+    # print "main :: bayes trained"
 
-    print "main :: tryin' to train bayes"
-    (bayes.words, bayes.general_stats) = trainer.train(bayes.words,
-                                bayes.general_stats, bayes.config)
-    print "main :: bayes trained"
+    # print "main :: training: done (... magari...)"
 
-    print "main :: training: done (... magari...)"
+    # # bayes.bayes_print(True, True)
 
-    bayes.bayes_print()
+    # print "tryin' to classify"
+    # print "..."
 
-    ########################################
-    #                                      #
-    # ok, now the classification begins... #
-    #                                      #
-    ########################################
-
-    # os.chdir("../mine/")
-    # for file in os.listdir("."):
-    #     in_file = open(file, "r")
-    #     mail = in_file.read()
-    #     in_file.close()
-    #     print "Processing file", file  # , "\n\n"
-    #     soup = BeautifulSoup(''.join(mail))
-    #     lexer_words(soup.get_text(), True)
+    print "main :: test training"
+    bayes.train()
+    print "main :: test classifier"
+    bayes.test_bayes()
