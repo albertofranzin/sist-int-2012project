@@ -3,7 +3,6 @@ import os
 from bs4 import BeautifulSoup
 
 from gen_stat import Stat
-# from lexer import Lexer
 
 
 class Utils:
@@ -26,7 +25,7 @@ class Utils:
         :param read_mails: tells if the user wants to read mails or plain text;
         :type read_mails: bool
         :param words: the list of words read so far, and their stats;
-        :type words: array of :class:`word.Word` objects
+        :type words: array of :class:`gen_stat.Word` objects
         :param general_stats: the overall stats of the features;
         :type general_stats: associative array {str, :class:`gen_stat.Stat`}
         :param config: contains some general parameters and configurations;
@@ -86,13 +85,13 @@ class Utils:
         Calls method Utils._read_files, passing the same parameters received,
         with `read_mails` flag set to True.
 
-        :param path: the relative path from the current position
-        to the desidered directory;
+        :param path: the relative path from the current position \
+            to the desidered directory;
         :type path: str
         :param how_many: how many files to read. 0 == unlimited;
         :type how_many: int
         :param words: the list of words read so far, and their stats;
-        :type words: array of :class:`word.Word` objects
+        :type words: array of :class:`gen_stat.Word` objects
         :param general_stats: the overall stats of the features;
         :type general_stats: associative array {str, :class:`gen_stat.Stat`}
         :param config: contains some general parameters and configurations;
@@ -100,6 +99,7 @@ class Utils:
         :return: a list containing all the mails in the given files.
 
         """
+
         return Utils._read_files(path, how_many, True,
                 words, general_stats, config)
 
@@ -111,8 +111,8 @@ class Utils:
         Calls method Utils._read_files, passing the same parameters received,
         with `read_mails` flag set to False.
 
-        :param path: the relative path from the current position
-        to the desidered directory;
+        :param path: the relative path from the current position \
+            to the desidered directory;
         :type path: str
         :param how_many: how many files to read. 0 = unlimited;
         :type how_many: int
@@ -121,6 +121,7 @@ class Utils:
         :return: a list containing all the text in the given files.
 
         """
+
         return Utils._read_files(path, how_many, False, [], [], config)
 
     @staticmethod
@@ -130,7 +131,9 @@ class Utils:
         From http://stackoverflow.com/questions/312443 (thanks).
 
         :param l: the list to be splitted;
+        :type l: list of objects
         :param n: the size of the generated chunks.
+        :type n: int
 
         """
 

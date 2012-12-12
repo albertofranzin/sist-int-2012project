@@ -16,7 +16,7 @@ from lexer import Lexer
 
 class Trainer:
     """Trains the network, computing the stats for the main features
-                and for the single words."""
+    and for the single words."""
 
     def __init__(self):
         """Constructor."""
@@ -107,9 +107,9 @@ class Trainer:
         :param words: the array of stats for the single words detected.
         :type words: array of Word objects
         :param general_stats: the overall stats of the set.
-        :type general_stats: array of {str, Stat}
+        :type general_stats: array of {str, :class:`gen_stat.Stat`}
         :param config: contains some configurations.
-        :type config: Config object
+        :type config: :class:`config.Config` object
 
         """
 
@@ -117,7 +117,7 @@ class Trainer:
         for mail in mails:
             # print mail
             soup = BeautifulSoup(''.join(mail))
-            self.lexer.lexer_words(soup.get_text(), is_spam,
+            self.lexer.lexer_words(soup.get_text(), True, is_spam,
                     words, general_stats, config)
         print "Trainer :: train :: done"
 
@@ -126,7 +126,7 @@ class Trainer:
         Print out the overall stats given. For test purposes.
 
         :param general_stats: the overall stats to be printed.
-        :type general_stats: array of {str, Stat}
+        :type general_stats: array of {str, :class:`gen_stat.Stat`}
 
         """
 
