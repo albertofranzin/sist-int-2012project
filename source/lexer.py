@@ -1,27 +1,41 @@
 import ply.lex as lex
 
-from word import Word
+from gen_stat import Word
 
 
 class Lexer:
-    """Lexical Analyzer.
-
-    Use Ply's lexer to identify the tokens and to classify them.
+    """Lexical Analyzer. Use Ply's lexer to identify the tokens and to classify them.
     See http://www.dabeaz.com/ply/ to know how it works.
 
     """
 
-    def process_tokens(self, results, is_spam, words, general_stats, config):
+    def _process_tokens(self, results, in_training, is_spam, words,
+                general_stats, config):
         """Process tokens extracted from the training set.
 
         For every token, extract the value (the word itself)
         and its type (lowercase word, title, link, etc),
         then update all the stats for the word and the mail.
 
-        :param results: the list of tokens recognized.
+        :param results: the list of tokens recognized;
         :type results: array of tokens
-        :param is_spam: a flag to identify if the mail if spam or ham.
+        :param in_training: flag to tell if the lexing is performed during training\
+            (`True`) or during validation or testing (`False`). If we are performing\
+            the training step, then we know if the mail processed is ham or spam, and
+            so we can fill appropriately the `general_stats` array of
+            :class:`gen_stat.Stat`, otherwise the array will be filled with
+            :class:`mail_stat.Mail_stat` objects;
+        :param is_spam: flag to identify the mail as spam or ham (useless if \
+            `in_training == False`);
         :type is_spam: bool
+        :param words: the list of words read so far, and their stats;
+        :type words: array of :class:`gen_stat.Word` objects
+        :param general_stats: the overall stats of the features. Feature type may be\
+            of two types:\
+                :class:`gen_stat.Stat` (`in_training == True`), or\
+                :class:`mail_stat.Mail_stat` (`in_training == False`);
+        :param config: contains some general parameters and configurations.
+        :type config: :class:`config.Config` object
 
         """
 
@@ -81,18 +95,34 @@ class Lexer:
         # looks like that the return is not needed...
         # return (words, general_stats)
 
-    def lexer_words(self, text, is_spam, words, general_stats, config):
-        """Apply lexical analysis to the text of mails.
+    def lexer_words(self, text, in_training, is_spam, words, general_stats, config):
+        """
+        Apply lexical analysis to the text of mails.
 
-        Take as input the mail text and its status (spam/ham)
-        and extract the valid tokens.
+        May
 
-        :param text: the text of the mail to be parsed.
+        :param text: the text of the mail to be parsed;
         :type text: str
-        :param is_spam: flag to identify the mail as spam or ham.
+        :param in_training: flag to tell if the lexing is performed during training\
+            (`True`) or during validation or testing (`False`). If we are performing\
+            the training step, then we know if the mail processed is ham or spam, and
+            so we can fill appropriately the `general_stats` array of
+            :class:`gen_stat.Stat`, otherwise the array will be filled with
+            :class:`mail_stat.Mail_stat` objects;
+        :param is_spam: flag to identify the mail as spam or ham (useless if \
+            `in_training == False`);
         :type is_spam: bool
+        :param words: the list of words read so far, and their stats;
+        :type words: array of :class:`gen_stat.Word` objects
+        :param general_stats: the overall stats of the features. Feature type may be\
+            of two types:\
+                :class:`gen_stat.Stat` (`in_training == True`), or\
+                :class:`mail_stat.Mail_stat` (`in_training == False`);
+        :param config: contains some general parameters and configurations.
+        :type config: :class:`config.Config` object
 
         """
+
         # recognize the utf-8 chars
         self.lexer.input(unicode(text))
         # creates empty list for the results
@@ -108,7 +138,8 @@ class Lexer:
             result = result + [(token.type, token.value)]
         # if config.VERBOSE:
         #     print result
-        self.process_tokens(result, is_spam, words, general_stats, config)
+        self._process_tokens(result, in_training, is_spam,
+                words, general_stats, config)
 
     def __init__(self):
         """
@@ -116,8 +147,6 @@ class Lexer:
         and classify the tokens.
 
         All the ``t_TOKEN()`` methods are defined as inner methods inside here.
-
-        :return: the `Ply` lexer object.
 
         """
 

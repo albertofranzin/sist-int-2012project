@@ -15,7 +15,6 @@ import sys
 
 from classifier import Classifier
 from config import Config
-# from gen_stat import Stat
 from lexer import Lexer
 from trainer import Trainer
 from utils import Utils
@@ -283,7 +282,7 @@ class Bayes():
         :param spam_val_list: the spam mails of the validation set;
         :type spam_val_list: array of mails
         :param words: the list of words read so far, and their stats;
-        :type words: array of :class:`word.Word` objects
+        :type words: array of :class:`gen_stat.Word` objects
         :param general_stats: the overall stats of the features;
         :type general_stats: associative array {str, :class:`gen_stat.Stat`}
         :param config: contains some general parameters and configurations;
@@ -299,7 +298,7 @@ class Bayes():
         lexer = Lexer()
 
         for mail in ham_val_list:
-            lexer.lexer_words(mail, True, ws, gs, config)
+            lexer.lexer_words(mail, False, True, ws, gs, config)
             # classify as spam/ham?
 
         return 0
@@ -333,7 +332,8 @@ class Bayes():
         boh_list = Utils.read_mails(self.initial_path + "/spam/mine/ham/",
                 1, mws, mgs, self.config)
         self.trainer.train(boh_list, False, mws, mgs, self.config)
-        self.bayes_print(mws, mgs)
+        # self.bayes_print(False, True)
+        self.trainer.trainer_print(mgs)
 
         print "Bayes :: test_bayes :: going to test the classifier"
         Classifier.classify(mws, mgs, self.words, self.general_stats, self.config)

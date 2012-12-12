@@ -11,6 +11,7 @@
 from naive_bayes import Bayes
 
 if __name__ == '__main__':
+    """Main."""
 
     print "main :: tryin' to create the Bayes object"
     bayes = Bayes()

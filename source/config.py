@@ -2,26 +2,27 @@ class Config():
     """
     Contains some general configurations.
 
-    The available parameters are:
-    - CROSS_VALIDATION (bool): True if k-fold cross-validation is chosen,
-        False otherwise;
-    - CROSS_VALIDATION_FOLDS (int): the number of folds for
-        cross-validation, if enabled;
-    - OVERALL_FEATS_SPAM_W (float, \in [0,1]): the weight of the overall stats
-        when computing the spamicity of a mail. The remaining part is given by
-        the word stats;
-    - SHORT_THR (int): length of a word to be identified as `very short`;
-    - SIZE_OF_BAGS (int): number of ham and spam mails for training;
-    - SIZE_OF_VAL_BAGS (int): number of ham and spam mails for validation;
-    - SMOOTH_VALUE (int): smoothing value to be used in classification;
-    - SPAM_THR (float, \in [0,1]): probability threshold to mark a mail as spam;
-    - VERBOSE (bool): if True, displays more messages;
-    - VERYLONG_THR (int): length of a word to be identified as `very long`.
+    The available parameters are (with `[default]` values):
+
+    - CROSS_VALIDATION (bool): True if k-fold cross-validation is chosen.\
+        False otherwise [True];
+    - CROSS_VALIDATION_FOLDS (int): the number of folds for\
+        cross-validation, if enabled [4];
+    - OVERALL_FEATS_SPAM_W (float, \in [0,1]): the weight of the overall stats\
+        when computing the spamicity of a mail. The remaining part is given by\
+        the word stats [0.7];
+    - SHORT_THR (int): length of a word to be identified as `very short` [1];
+    - SIZE_OF_BAGS (int): number of ham and spam mails for training [50];
+    - SIZE_OF_VAL_BAGS (int): number of ham and spam mails for validation [10];
+    - SMOOTH_VALUE (int): smoothing value to be used in classification [1];
+    - SPAM_THR (float, \in [0,1]): probability threshold to mark a mail as spam [0.95];
+    - VERBOSE (bool): if True, displays more messages [True];
+    - VERYLONG_THR (int): length of a word to be identified as `very long` [20].
 
     """
 
     def __init__(self):
-        """Constructor."""
+        """Constructor. Initialize all the parameters to their default value."""
 
         # some constants:
 
