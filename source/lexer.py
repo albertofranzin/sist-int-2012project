@@ -1,6 +1,7 @@
 import ply.lex as lex
 
 from gen_stat import Word
+from test_stat import Test_word
 
 
 class Lexer:
@@ -16,6 +17,10 @@ class Lexer:
         For every token, extract the value (the word itself)
         and its type (lowercase word, title, link, etc),
         then update all the stats for the word and the mail.
+        If the analyzed mail belongs to a training set, then the stats
+        are updated according to the (known) class of the mail. Otherwise,
+        the stats cannot be associated to any class, since this is yet to
+        be detected.
 
         :param results: the list of tokens recognized;
         :type results: array of tokens
@@ -24,7 +29,7 @@ class Lexer:
             the training step, then we know if the mail processed is ham or spam, and
             so we can fill appropriately the `general_stats` array of
             :class:`gen_stat.Stat`, otherwise the array will be filled with
-            :class:`mail_stat.Mail_stat` objects;
+            :class:`test_stat.Test_stat` objects;
         :param is_spam: flag to identify the mail as spam or ham (useless if \
             `in_training == False`);
         :type is_spam: bool
@@ -33,59 +38,92 @@ class Lexer:
         :param general_stats: the overall stats of the features. Feature type may be\
             of two types:\
                 :class:`gen_stat.Stat` (`in_training == True`), or\
-                :class:`mail_stat.Mail_stat` (`in_training == False`);
+                :class:`test_stat.Test_stat` (`in_training == False`);
         :param config: contains some general parameters and configurations.
         :type config: :class:`config.Config` object
 
         """
 
-        # flag for building the Word object
-        spam_no = 1 if is_spam else 0
+        if in_training:
+            # flag for building the Word object
+            spam_no = 1 if is_spam else 0
 
-        # runs through the list of tokens
-        for token in results:
+            # runs through the list of tokens
+            for token in results:
 
-            # extracts type and value from the token
-            type, value = token[0], token[1]
+                # extracts type and value from the token
+                type, value = token[0], token[1]
 
-            # insert the word into the dictionary (if not read before),
-            # or update its stats (if already met)
-            # we don't consider words of type 'WASTE' as real words
-            if type != 'WASTE':
-                if value in words:
-                    # update the correct stat for the word (already met)
-                    if is_spam:
-                        words[value].spam_occurrences += 1
+                # insert the word into the dictionary (if not read before),
+                # or update its stats (if already met)
+                # we don't consider words of type 'WASTE' as real words
+                if type != 'WASTE':
+                    if value in words:
+                        # update the correct stat for the word (already met)
+                        if is_spam:
+                            words[value].spam_occurrences += 1
+                        else:
+                            words[value].ham_occurrences  += 1
                     else:
-                        words[value].ham_occurrences  += 1
-                else:
-                    # creates a new Word object for the never-met-before word,
-                    # and insert it into the bag
-                    new_word = Word(spam_no, 1 - spam_no)
-                    # print "Lexer :: process_tokens :: new word :: ", value
-                    words[value] = new_word
+                        # creates a new Word object for the never-met-before word,
+                        # and insert it into the bag
+                        new_word = Word(spam_no, 1 - spam_no)
+                        # print "Lexer :: process_tokens :: new word :: ", value
+                        words[value] = new_word
 
-            # updates general stats, based on the type of the word
-            # and the status of the mail (spam/ham). Short words may be
-            # of any type (|word| <= threshold), excepting 'WASTE'
-            if is_spam:
+                # updates general stats, based on the type of the word
+                # and the status of the mail (spam/ham). Short words may be
+                # of any type (|word| <= threshold), excepting 'WASTE'
+                if is_spam:
+                    if len(value) <= config.SHORT_THR and type != 'WASTE':
+                        general_stats['SHORTWORDS'].spam += 1
+                    if (len(value) >= config.VERYLONG_THR and
+                             not (type == 'MAILADDR'
+                               or type == 'LINKADDR'
+                               or type == 'USERHOST')):
+                        general_stats['LOONGWORDS'].spam += 1
+                    general_stats[type].spam += 1
+                else:
+                    if len(value) <= config.SHORT_THR and type != 'WASTE':
+                        general_stats['SHORTWORDS'].ham += 1
+                    if (len(value) >= config.VERYLONG_THR and
+                             not (type == 'MAILADDR'
+                               or type == 'LINKADDR'
+                               or type == 'USERHOST')):
+                        general_stats['LOONGWORDS'].ham += 1
+                    general_stats[type].ham += 1
+
+        else:
+            # runs through the list of tokens
+            for token in results:
+
+                # extracts type and value from the token
+                type, value = token[0], token[1]
+
+                # insert the word into the dictionary (if not read before),
+                # or update its stats (if already met)
+                # we don't consider words of type 'WASTE' as real words
+                if type != 'WASTE':
+                    if value in words:
+                        words[value].occurrences += 1
+                    else:
+                        # creates a new Word object for the never-met-before word,
+                        # and insert it into the bag
+                        new_word = Test_word(1)
+                        # print "Lexer :: process_tokens :: new word :: ", value
+                        words[value] = new_word
+
+                # updates general stats, based on the type of the word
+                # w/o knowing the class of the mail. Short words may be
+                # of any type (|word| <= threshold), excepting 'WASTE'
                 if len(value) <= config.SHORT_THR and type != 'WASTE':
-                    general_stats['SHORTWORDS'].spam += 1
+                    general_stats['SHORTWORDS'].count += 1
                 if (len(value) >= config.VERYLONG_THR and
                          not (type == 'MAILADDR'
                            or type == 'LINKADDR'
                            or type == 'USERHOST')):
-                    general_stats['LOONGWORDS'].spam += 1
-                general_stats[type].spam += 1
-            else:
-                if len(value) <= config.SHORT_THR and type != 'WASTE':
-                    general_stats['SHORTWORDS'].ham += 1
-                if (len(value) >= config.VERYLONG_THR and
-                         not (type == 'MAILADDR'
-                           or type == 'LINKADDR'
-                           or type == 'USERHOST')):
-                    general_stats['LOONGWORDS'].ham += 1
-                general_stats[type].ham += 1
+                    general_stats['LOONGWORDS'].count += 1
+                general_stats[type].count += 1
 
         # just a check
         # if config.VERBOSE:
@@ -95,7 +133,8 @@ class Lexer:
         # looks like that the return is not needed...
         # return (words, general_stats)
 
-    def lexer_words(self, text, in_training, is_spam, words, general_stats, config):
+    def lexer_words(self, text, in_training, is_spam,
+                words, general_stats, config):
         """
         Apply lexical analysis to the text of mails.
 
@@ -108,7 +147,7 @@ class Lexer:
             the training step, then we know if the mail processed is ham or spam, and
             so we can fill appropriately the `general_stats` array of
             :class:`gen_stat.Stat`, otherwise the array will be filled with
-            :class:`mail_stat.Mail_stat` objects;
+            :class:`test_stat.Test_stat` objects;
         :param is_spam: flag to identify the mail as spam or ham (useless if \
             `in_training == False`);
         :type is_spam: bool
@@ -117,7 +156,7 @@ class Lexer:
         :param general_stats: the overall stats of the features. Feature type may be\
             of two types:\
                 :class:`gen_stat.Stat` (`in_training == True`), or\
-                :class:`mail_stat.Mail_stat` (`in_training == False`);
+                :class:`test_stat.Test_stat` (`in_training == False`);
         :param config: contains some general parameters and configurations.
         :type config: :class:`config.Config` object
 

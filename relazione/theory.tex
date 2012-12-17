@@ -1,0 +1,56 @@
+\section{Bayesian networks}
+\subsection{The Bayes' theorem}
+The theorem stated by Thomas Bayes says that, given two events $A$ and $B$, respectively with probabilities $P(A)$ and $P(B)$:
+\[ P(A|B) = \frac{P(A \cap B)}{P(B)} = \frac{P(B|A)P(A)}{P(B)}. \]
+
+We call $P(A)$ the \textit{prior} probability of A, that is our initial, unconditioned knowledge about A, $P(B|A)$ is the \textit{likelihood}, i.e. the function of the parameter having a certain value given the outcome, and $P(A|B)$ the \textit{a posteriori probability of A given B}, that describes our modified knowledge about event $A$ given that we know the event $B$ has occurred.
+
+While the Bayes' theorem is universally accepted, there are two possible interpretations: the frequentist approach, that relies on the knowledge (or the possibility of discovering) of the probability of an event
+
+A typical application of Bayes' theorem is diagnostic. Given the results of a medical exam and the accuracy of the exam (percentage of false positives and false negatives), we can compute the probability of effectively having the disease.
+
+\subsubsection{Conditional independence}
+Given three events $A$, $B$ and $C$, we say that $A$ and $B$ are \textit{conditionally independent} if $P(A \cap B | C) = P(A|C)P(B|C)$, or, equivalently, $P(A | B \cap C) = P(A|B)$.
+
+\subsubsection{Explaining away}
+When an event has multiple causes, then we say that seeing one cause of the possible ones may ``explain away'' all the other causes, because it becomes less likely for them to happen.
+
+For example, suppose that I am late for the lesson: I may be late because the train is late, or because I didn't hear the alarm. If the train is late, it becomes less likely that I haven't heard the alarm.
+
+\subsection{Bayesian networks}
+A Bayesian network is a probabilistic model that defines a probability distribution over a graph of variables. The nodes represent the events, and the (directed) arcs mean the probabilistic relationship between events. An arc going from node $X$ to node $Y$ with an associated probability $p$ means that $Y$ is conditionally dependent from $X$ with probability $p$.
+
+The name ``Bayesian network'' has been coined by Judea Pearl in 1985 (see \citeauthor{pearl1985bayesian}), to underline three characteristics of this model:
+
+\begin{enumerate}[noitemsep]
+  \item it 
+\end{enumerate}
+
+\subsubsection{The \textit{naive} approach}
+Bayesian networks require a huge number of variables: because of the chain rule of probabilities, if a node has $k$ incoming arcs, then it requires $2^k$ variables. Furthermore, it may difficult to compute the joint probability of variables.
+
+The \textit{naive} approach works under the strong assumption of independence among variables. It is called ``naive'' since this assumption is not always realistic: for example, if we meet, in a spam mail, the words ``buy replica watches'' (which already is a set of words) we expect to read some watch brands too. Anyway, while considering all the subset of words requires exponential time, the assumption of independence allows us to consider each word alone, pulling it out of context, and therefore it allows the computation to drop from exponential to linear time. Moreover, the calculation of the probabilities is now reduced to a product of the single probabilities of the variables. Maybe surprisingly, this approach works quite well in practice, being both fast and accurate, despite its ``naivety''.
+
+\subsection{Naive Bayes for spam classification}
+We describe now how to apply the theory above to a real problem, in this case the classification of a mail as a spam mail or a valid mail.
+
+We define a mail as \textit{spam} if it contains undesidered or illegal content. A valid mail is conversely defined as \textit{ham}.
+
+The naive approach that tells us to consider each words alone, allows to represent the document as a \textit{bag of words}, which is a dictionary containing the words encountered in the mails, each one associated with its frequency.
+
+In addiction to the words, often we can easily distinguish a spam email from a valid one by looking at it and recognizing some of these characteristics: bad grammar, bad syntax, excessive use of images, lots of links, and many others. Detecting these features may be useful to correctly classify an email.
+
+\subsubsection{Algorithm}
+\paragraph{Data structures}
+To represent the \textit{bag of words}, we need a dictionary of \verb!(word, stats)!. We need also to store the statistics for the various features detected, in an analogous data structure containing \verb!(feature, stats)!. In both cases, the statistics have to distinguish between frequency in spam mails and frequency in ham mails. This is enough to contain all the informations we need to know about the training set.
+
+The statistics of the mails in the validation set and in the test set will be stored in similar data structures, but their stats will contain only the number of times the words and the featured have been observed, since the network does not know the status of the mail when these operations are performed.
+
+\paragraph{Training}
+To train the system, we have to feed the network with the training set. The network will read the mails, extract the actual content and adjust the count of both words and features.
+
+\paragraph{Validation}
+The next step is to measure how good the results of the training are. To accomplish this, we provide the network other mails of which we already know the status, to later check the results. The network will read each mail, extract the stats and compare them to the overall statistics generated during the training step. The result of the classification will be the class that maximizes the probability for the mail to belong to that class.
+
+\paragraph{Testing}
+sf

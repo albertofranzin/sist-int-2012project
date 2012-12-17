@@ -13,7 +13,7 @@ import math
 import os
 import sys
 
-from classifier import Classifier
+# from classifier import Classifier
 from config import Config
 from lexer import Lexer
 from trainer import Trainer
@@ -25,6 +25,15 @@ class Bayes():
     Contains the Bayes network and some possible operations: training,
     validation, k-fold cross-validation, formatted print of the data.
     For the other operations, instantiate the apposite classes.
+
+    Methods contained:
+    __init__
+    bayes_print
+    _k_fold_cross_validation
+    train
+    validate
+    test_bayes
+    classify
 
     """
 
@@ -181,21 +190,53 @@ class Bayes():
         spam_chunks = Utils.chunks(spam_list, fold_size)
         ham_chunks  = Utils.chunks(ham_list, fold_size)
 
+        # print spam_list
+
+        # raw_input("got it?")
+
         for iteration in range(0, folds):
+            # for every iteration, join up the training set chunks, leaving out
+            # each time only one chunk.
+            # The chunk left out will be the validation set.
             spam_kfold_train = []
+            spam_kfold_valid = []
             ham_kfold_train  = []
-            spam_kfold_valid = spam_chunks[iteration]
-            ham_kfold_valid  = ham_chunks[iteration]
+            ham_kfold_valid  = []
+
             for it in range(0, folds):
                 if it != iteration:
                     spam_kfold_train.append(spam_chunks[it])
                     ham_kfold_train.append(ham_chunks[it])
-                ws = {}
-                gs = Utils.create_stats()
-                Trainer.train(ws, gs, self.config)
-                accuracy.append(Trainer.tr)
+                else:
+                    spam_kfold_valid.append(spam_chunks[it])
+                    ham_kfold_valid.append(ham_chunks[it])
 
-        return 0.5
+            wos = {}
+            gos = Utils.create_stats()
+
+            spam_kfold_train = Utils.merge_lists(spam_kfold_train)
+            spam_kfold_valid = Utils.merge_lists(spam_kfold_valid)
+            ham_kfold_train  = Utils.merge_lists(ham_kfold_train)
+            ham_kfold_valid  = Utils.merge_lists(ham_kfold_valid)
+            print len(spam_kfold_train), len(spam_kfold_valid),
+            print len(ham_kfold_train), len(ham_kfold_valid)
+            # raw_input("mah na mah na")
+
+            self.trainer.train(spam_kfold_train, True, wos, gos, self.config)
+            self.trainer.train(ham_kfold_train, False, wos, gos, self.config)
+
+            # if self.config.VERBOSE:
+            #     self.trainer.trainer_print(gos)
+            #     self.bayes_print(wos, gos)
+
+            accuracy.append(self.validate(ham_kfold_valid, spam_kfold_valid,
+                wos, gos, self.config))
+
+            # raw_input("ok, ok")
+
+        print "KFOLD-CROSS-VALIDATION :: ", accuracy
+
+        return 0
 
     #
     # train
@@ -245,8 +286,7 @@ class Bayes():
 
         # is cross-validation the chosen option?
         if self.config.CROSS_VALIDATION:
-            # call cross-validation function
-            pass
+            self._k_fold_cross_validation(spam_list, ham_list)
         else:
             # train directly
             self.trainer.train(spam_list, True,
@@ -291,17 +331,39 @@ class Bayes():
 
         """
 
-        size = config.SIZE_OF_VAL_BAGS
-        size += 1
+        print len(ham_val_list), len(spam_val_list)
+        raw_input("kahdkjsa")
+
+        count = 0
         ws = {}
-        gs = Utils.create_stats()
+        gs = Utils.create_test_stats()
         lexer = Lexer()
+        false_positives = 0
+        false_negatives = 0
 
         for mail in ham_val_list:
-            lexer.lexer_words(mail, False, True, ws, gs, config)
-            # classify as spam/ham?
+            lexer.lexer_words(mail, False, True, ws, gs, self.config)
+            res = self.classify(ws, gs, words, general_stats)
+            if res == False:
+                count += 1
+            else:
+                false_positives += 1
 
-        return 0
+        # raw_input("ok, now try with spam mails")
+
+        ws = {}
+        gs = Utils.create_test_stats()
+        for mail in spam_val_list:
+            lexer.lexer_words(mail, False, False, ws, gs, self.config)
+            res = self.classify(ws, gs, words, general_stats)
+            if res == True:
+                count += 1
+            else:
+                false_negatives += 1
+
+        print "false pos:", false_positives, "false neg:", false_negatives
+
+        return 1.0 * count / (2.0 * self.config.SIZE_OF_VAL_BAGS)
 
     #
     # test
@@ -310,30 +372,123 @@ class Bayes():
     def test_bayes(self):
         """Performs some test - needed to try some functions."""
 
-        mws = {}
-        mgs = Utils.create_stats()
+        # mws = {}
+        # mgs = Utils.create_test_stats()
 
-        print "Bayes :: test_bayes :: reading the mails"
-        boh_list = Utils.read_mails(self.initial_path + "/spam/mine/",
-                3, mws, mgs, self.config)
+        # print "Bayes :: test_bayes :: reading the mails"
+        # boh_list = Utils.read_mails(self.initial_path + "/spam/mine/",
+        #         3, mws, mgs, self.config)
 
-        print "Bayes :: test_bayes :: going to train"
-        self.trainer.train(boh_list, True, mws, mgs, self.config)
+        # print "Bayes :: test_bayes :: going to train"
+        # self.trainer.train(boh_list, True, mws, mgs, self.config)
         # self.bayes_print(mws, mgs)
 
-        print "Bayes :: test_bayes :: going to test the classifier"
-        Classifier.classify(mws, mgs, self.words, self.general_stats, self.config)
+        # print "Bayes :: test_bayes :: going to test the classifier"
+        # Classifier.classify(mws, mgs, self.words, self.general_stats, self.config)
 
-        raw_input('\nMay I go on? ')
+        # raw_input('\nMay I go on? ')
 
-        print "Bayes :: test_bayes :: now try some ham"
-        mws = {}
-        mgs = Utils.create_stats()
-        boh_list = Utils.read_mails(self.initial_path + "/spam/mine/ham/",
-                1, mws, mgs, self.config)
-        self.trainer.train(boh_list, False, mws, mgs, self.config)
-        # self.bayes_print(False, True)
-        self.trainer.trainer_print(mgs)
+        # print "Bayes :: test_bayes :: now try some ham"
+        # mws = {}
+        # mgs = Utils.create_stats()
+        # boh_list = Utils.read_mails(self.initial_path + "/spam/mine/ham/",
+        #         1, mws, mgs, self.config)
+        # self.trainer.train(boh_list, False, mws, mgs, self.config)
+        # # self.bayes_print(False, True)
+        # self.trainer.trainer_print(mgs)
 
-        print "Bayes :: test_bayes :: going to test the classifier"
-        Classifier.classify(mws, mgs, self.words, self.general_stats, self.config)
+        # print "Bayes :: test_bayes :: going to test the classifier"
+        # Classifier.classify(mws, mgs, self.words, self.general_stats, self.config)
+        pass
+
+    def classify(self, ws, gs, ovrl_ws, ovrl_gs):
+        """
+        Classification function which guesses the class of a mail. The Bayesian logic\
+        is applied here.
+
+        The method iterates through all the words identified in the mail,
+        and for each one computes how much likely it is for the word to belong
+        to a spam mail or to a ham mail. Then it does the same for each general
+        feature of the mail. Finally, the method combines the two results
+        and tells which class the mail is more likely to be.
+
+        The method relies on the correct tuning of the parameters contained in
+        the :class:`config.Config` class.
+
+        :param ws: the list of words of the mail to be classified, and their stats;
+        :type ws: array of :class:`test_stat.Test_word` objects
+        :param gs: array containing the features encontered in the mail;
+        :type gs: array of :class:`test_stat.Test_stat` objects
+        :return: `True` if the mail is classified as spam, `False` if it is\
+            considered ham.
+
+        """
+
+        ovrl_words = self.words.keys()
+        smth = self.config.SMOOTH_VALUE
+        ovrl_pspam = 1.0
+        ovrl_pham = 1.0
+        for word in ws.keys():
+            word_count = ws[word].occurrences
+            if word in ovrl_words:
+                # already met
+                s_occ = ovrl_ws[word].spam_occurrences / 1.0 / self.config.SIZE_OF_BAGS
+                h_occ = ovrl_ws[word].ham_occurrences / 1.0 / self.config.SIZE_OF_BAGS
+                t_occ = s_occ + h_occ
+                pws = ((s_occ + smth) / (t_occ + 2.0 * smth)) ** word_count
+                pwh = ((h_occ + smth) / (t_occ + 2.0 * smth)) ** word_count
+                if pws > pwh:
+                    print "-- ", word, " is more likely to be spam",
+                    if pws + pwh > 0:
+                        print 1.0 * pws / (1.0 * pws + 1.0 * pwh),
+                else:
+                    print "-- ", word, " is more likely to be ham",
+                    if pws + pwh > 0:
+                        print 1.0 * pwh / (1.0 * pws + 1.0 * pwh),
+                print word_count, s_occ, h_occ
+
+                ovrl_pspam *= pws
+                ovrl_pham *= pwh
+            else:
+                # never met before
+                pass
+
+        # compute the prob for the general stats
+        prob_gen_spam = 1.0
+        prob_gen_ham = 1.0
+        stats = gs.keys()
+        for stat_id in stats:
+            stat = gs[stat_id].count
+            ds = math.fabs(ovrl_gs[stat_id].spam / 1.0 / self.config.SIZE_OF_BAGS - stat)
+            dh = math.fabs(ovrl_gs[stat_id].ham / 1.0 / self.config.SIZE_OF_BAGS - stat)
+            prob_gen_spam *= (dh + smth) / (ds + dh + 2.0 * smth)
+            prob_gen_ham *= (ds + smth) / (ds + dh + 2.0 * smth)
+
+            if self.config.VERBOSE:
+                if ds < dh:
+                    print "-- ", gs[stat_id].description, " is more likely to be spam",
+                    if ds + dh > 0:
+                        print 1.0 * ds / (1.0 * ds + dh), 1.0 * dh / (1.0 * ds + dh),
+                else:
+                    print "-- ", gs[stat_id].description, " is more likely to be ham",
+                    if ds + dh > 0:
+                        print 1.0 * ds / (1.0 * ds + dh), 1.0 * dh / (1.0 * ds + dh),
+                print stat, ovrl_gs[stat_id].spam / 1.0 / self.config.SIZE_OF_BAGS,
+                print ovrl_gs[stat_id].ham / 1.0 / self.config.SIZE_OF_BAGS
+
+        final_prob_spam = prob_gen_spam * self.config.OVERALL_FEATS_SPAM_W + ovrl_pspam * (1 - self.config.OVERALL_FEATS_SPAM_W)
+        final_prob_ham = prob_gen_ham * self.config.OVERALL_FEATS_SPAM_W + ovrl_pham * (1 - self.config.OVERALL_FEATS_SPAM_W)
+        print "** **", final_prob_spam, final_prob_ham, "** **"
+        #if final_prob_spam > final_prob_ham and
+        if (final_prob_spam / (final_prob_spam + final_prob_ham)) >= self.config.SPAM_THR:
+            print "Mail is more likely to be spam",
+            ret_val = True
+        else:
+            print "Mail is more likely to be ham",
+            ret_val = False
+
+        print (final_prob_spam / (final_prob_spam + final_prob_ham)) * 100.0
+
+        # raw_input("insert coin to continue...")
+
+        return ret_val

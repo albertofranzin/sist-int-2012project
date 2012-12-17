@@ -16,7 +16,8 @@ class Test_stat:
 class Test_word:
     """
     Stats for a single word: how many times this word appears in the parsed
-    mail. Class used when validating and testing the network.
+    mail. Class used when validating and testing the network. It is probably
+    useless, but it keeps some "simmetry" with the one used in training.
 
     """
 
