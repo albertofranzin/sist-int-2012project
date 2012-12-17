@@ -27,29 +27,30 @@ class Config():
         # some constants:
 
         # do I have to do cross-validation?
-        self.CROSS_VALIDATION = False
+        self.CROSS_VALIDATION = True
 
         # # of cross-validation folds (if enabled)
         self.CROSS_VALIDATION_FOLDS = 4
 
         # weight of the overall features stats over the word spamminess
-        self.OVERALL_FEATS_SPAM_W = 0.7
+        self.OVERALL_FEATS_SPAM_W = 0.6
 
         # length of a token to be defined "a short word"
         self.SHORT_THR = 1
 
         # size of training sets
-        self.SIZE_OF_BAGS = 50
+        self.SIZE_OF_BAGS = 70
 
         # size of validation sets
         # (1 v.s. for ham, 1 for spam)
-        self.SIZE_OF_VAL_BAGS = 10
+        # MUST BE <= SIZE_OF_BAGS
+        self.SIZE_OF_VAL_BAGS = 20
 
         # smooth value
         self.SMOOTH_VALUE = 1
 
         # spam probability threshold for classification and validation
-        self.SPAM_THR = 0.95
+        self.SPAM_THR = 0.5
 
         # should I print lots of infos?
         self.VERBOSE = True

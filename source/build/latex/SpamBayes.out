@@ -1,14 +1,17 @@
-\BOOKMARK [0][-]{chapter.1}{Main module}{}
-\BOOKMARK [0][-]{chapter.2}{The Bayes network definition}{}
-\BOOKMARK [1][-]{section.2.1}{The Naive Bayes class}{chapter.2}
-\BOOKMARK [1][-]{section.2.2}{The configuration options manager}{chapter.2}
-\BOOKMARK [1][-]{section.2.3}{The training class}{chapter.2}
-\BOOKMARK [1][-]{section.2.4}{The classifier class}{chapter.2}
-\BOOKMARK [0][-]{chapter.3}{Feature statistics modules}{}
-\BOOKMARK [1][-]{section.3.1}{General stats for training sets}{chapter.3}
-\BOOKMARK [1][-]{section.3.2}{General stats for validation and test sets}{chapter.3}
-\BOOKMARK [0][-]{chapter.4}{Various tools and utilities}{}
-\BOOKMARK [1][-]{section.4.1}{The lexical analyzer}{chapter.4}
-\BOOKMARK [1][-]{section.4.2}{Other utilities}{chapter.4}
-\BOOKMARK [0][-]{section*.37}{Python Module Index}{}
-\BOOKMARK [0][-]{section*.38}{Index}{}
+\BOOKMARK [0][-]{chapter.1}{Introduction}{}
+\BOOKMARK [1][-]{section.1.1}{Download and installation}{chapter.1}
+\BOOKMARK [1][-]{section.1.2}{Usage}{chapter.1}
+\BOOKMARK [0][-]{chapter.2}{Main module}{}
+\BOOKMARK [0][-]{chapter.3}{The Bayes network definition}{}
+\BOOKMARK [1][-]{section.3.1}{The Naive Bayes class}{chapter.3}
+\BOOKMARK [1][-]{section.3.2}{The configuration options manager}{chapter.3}
+\BOOKMARK [1][-]{section.3.3}{The training class}{chapter.3}
+\BOOKMARK [1][-]{section.3.4}{The classifier class}{chapter.3}
+\BOOKMARK [0][-]{chapter.4}{Feature statistics modules}{}
+\BOOKMARK [1][-]{section.4.1}{General stats for training sets}{chapter.4}
+\BOOKMARK [1][-]{section.4.2}{General stats for validation and test sets}{chapter.4}
+\BOOKMARK [0][-]{chapter.5}{Various tools and utilities}{}
+\BOOKMARK [1][-]{section.5.1}{The lexical analyzer}{chapter.5}
+\BOOKMARK [1][-]{section.5.2}{Other utilities}{chapter.5}
+\BOOKMARK [0][-]{section*.45}{Python Module Index}{}
+\BOOKMARK [0][-]{section*.46}{Index}{}

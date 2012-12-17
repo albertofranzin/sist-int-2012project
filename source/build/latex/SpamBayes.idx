@@ -1,42 +1,45 @@
-\indexentry{spam\_bayes (module)|hyperpage}{1}
-\indexentry{naive\_bayes (module)|hyperpage}{3}
-\indexentry{Bayes (class in naive\_bayes)|hyperpage}{3}
-\indexentry{\_\_init\_\_() (naive\_bayes.Bayes method)|hyperpage}{3}
-\indexentry{\_k\_fold\_cross\_validation() (naive\_bayes.Bayes method)|hyperpage}{3}
-\indexentry{bayes\_print() (naive\_bayes.Bayes method)|hyperpage}{3}
-\indexentry{test\_bayes() (naive\_bayes.Bayes method)|hyperpage}{3}
-\indexentry{train() (naive\_bayes.Bayes method)|hyperpage}{3}
-\indexentry{validate() (naive\_bayes.Bayes method)|hyperpage}{4}
-\indexentry{config (module)|hyperpage}{4}
-\indexentry{Config (class in config)|hyperpage}{4}
-\indexentry{\_\_init\_\_() (config.Config method)|hyperpage}{4}
-\indexentry{trainer (module)|hyperpage}{5}
-\indexentry{Trainer (class in trainer)|hyperpage}{5}
-\indexentry{\_\_init\_\_() (trainer.Trainer method)|hyperpage}{5}
-\indexentry{train() (trainer.Trainer method)|hyperpage}{5}
-\indexentry{trainer\_print() (trainer.Trainer method)|hyperpage}{5}
-\indexentry{classifier (module)|hyperpage}{5}
-\indexentry{Classifier (class in classifier)|hyperpage}{5}
-\indexentry{classify() (classifier.Classifier static method)|hyperpage}{5}
-\indexentry{gen\_stat (module)|hyperpage}{7}
-\indexentry{Stat (class in gen\_stat)|hyperpage}{7}
-\indexentry{\_\_init\_\_() (gen\_stat.Stat method)|hyperpage}{7}
-\indexentry{Word (class in gen\_stat)|hyperpage}{7}
-\indexentry{\_\_init\_\_() (gen\_stat.Word method)|hyperpage}{7}
-\indexentry{test\_stat (module)|hyperpage}{7}
-\indexentry{Test\_stat (class in test\_stat)|hyperpage}{7}
-\indexentry{\_\_init\_\_() (test\_stat.Test\_stat method)|hyperpage}{7}
-\indexentry{Test\_word (class in test\_stat)|hyperpage}{7}
-\indexentry{\_\_init\_\_() (test\_stat.Test\_word method)|hyperpage}{7}
-\indexentry{lexer (module)|hyperpage}{9}
-\indexentry{Lexer (class in lexer)|hyperpage}{9}
-\indexentry{\_\_init\_\_() (lexer.Lexer method)|hyperpage}{9}
-\indexentry{\_process\_tokens() (lexer.Lexer method)|hyperpage}{9}
-\indexentry{lexer\_words() (lexer.Lexer method)|hyperpage}{9}
-\indexentry{utils (module)|hyperpage}{10}
-\indexentry{Utils (class in utils)|hyperpage}{10}
-\indexentry{\_read\_files() (utils.Utils static method)|hyperpage}{10}
-\indexentry{chunks() (utils.Utils static method)|hyperpage}{10}
-\indexentry{create\_stats() (utils.Utils static method)|hyperpage}{10}
-\indexentry{read\_mails() (utils.Utils static method)|hyperpage}{10}
-\indexentry{read\_text() (utils.Utils static method)|hyperpage}{11}
+\indexentry{spam\_bayes (module)|hyperpage}{3}
+\indexentry{naive\_bayes (module)|hyperpage}{5}
+\indexentry{Bayes (class in naive\_bayes)|hyperpage}{5}
+\indexentry{\_\_init\_\_() (naive\_bayes.Bayes method)|hyperpage}{5}
+\indexentry{\_k\_fold\_cross\_validation() (naive\_bayes.Bayes method)|hyperpage}{5}
+\indexentry{bayes\_print() (naive\_bayes.Bayes method)|hyperpage}{5}
+\indexentry{classify() (naive\_bayes.Bayes method)|hyperpage}{6}
+\indexentry{test\_bayes() (naive\_bayes.Bayes method)|hyperpage}{6}
+\indexentry{train() (naive\_bayes.Bayes method)|hyperpage}{6}
+\indexentry{validate() (naive\_bayes.Bayes method)|hyperpage}{6}
+\indexentry{config (module)|hyperpage}{7}
+\indexentry{Config (class in config)|hyperpage}{7}
+\indexentry{\_\_init\_\_() (config.Config method)|hyperpage}{7}
+\indexentry{trainer (module)|hyperpage}{7}
+\indexentry{Trainer (class in trainer)|hyperpage}{7}
+\indexentry{\_\_init\_\_() (trainer.Trainer method)|hyperpage}{7}
+\indexentry{train() (trainer.Trainer method)|hyperpage}{7}
+\indexentry{trainer\_print() (trainer.Trainer method)|hyperpage}{7}
+\indexentry{classifier (module)|hyperpage}{8}
+\indexentry{Classifier (class in classifier)|hyperpage}{8}
+\indexentry{classify() (classifier.Classifier static method)|hyperpage}{8}
+\indexentry{gen\_stat (module)|hyperpage}{9}
+\indexentry{Stat (class in gen\_stat)|hyperpage}{9}
+\indexentry{\_\_init\_\_() (gen\_stat.Stat method)|hyperpage}{9}
+\indexentry{Word (class in gen\_stat)|hyperpage}{9}
+\indexentry{\_\_init\_\_() (gen\_stat.Word method)|hyperpage}{9}
+\indexentry{test\_stat (module)|hyperpage}{10}
+\indexentry{Test\_stat (class in test\_stat)|hyperpage}{10}
+\indexentry{\_\_init\_\_() (test\_stat.Test\_stat method)|hyperpage}{10}
+\indexentry{Test\_word (class in test\_stat)|hyperpage}{10}
+\indexentry{\_\_init\_\_() (test\_stat.Test\_word method)|hyperpage}{10}
+\indexentry{lexer (module)|hyperpage}{11}
+\indexentry{Lexer (class in lexer)|hyperpage}{11}
+\indexentry{\_\_init\_\_() (lexer.Lexer method)|hyperpage}{11}
+\indexentry{\_process\_tokens() (lexer.Lexer method)|hyperpage}{11}
+\indexentry{lexer\_words() (lexer.Lexer method)|hyperpage}{11}
+\indexentry{utils (module)|hyperpage}{12}
+\indexentry{Utils (class in utils)|hyperpage}{12}
+\indexentry{\_read\_files() (utils.Utils static method)|hyperpage}{12}
+\indexentry{chunks() (utils.Utils static method)|hyperpage}{13}
+\indexentry{create\_stats() (utils.Utils static method)|hyperpage}{13}
+\indexentry{create\_test\_stats() (utils.Utils static method)|hyperpage}{13}
+\indexentry{merge\_lists() (utils.Utils static method)|hyperpage}{13}
+\indexentry{read\_mails() (utils.Utils static method)|hyperpage}{13}
+\indexentry{read\_text() (utils.Utils static method)|hyperpage}{13}

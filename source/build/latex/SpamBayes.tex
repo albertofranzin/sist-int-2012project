@@ -13,7 +13,7 @@
 
 
 \title{SpamBayes Documentation}
-\date{December 12, 2012}
+\date{December 14, 2012}
 \release{0.1}
 \author{Alberto Franzin, Fabio Palese}
 \newcommand{\sphinxlogo}{}
@@ -115,20 +115,75 @@
 
 
 
+\chapter{Introduction}
+\label{index:introduction}\label{index:spambayes-s-documentation}
+This document provides the documentation for the software written by Alberto Franzin and Fabio Palese as part of the examination for the course of Intelligent Systems (Sistemi Intelligenti), a.y. 2012/13, University of Padova, taught by prof. S. Badaloni and prof. F. Sambo.
+
+Our project consists in writing a bayesian spam classifier, using the Naive Bayes approach. We have built a Bayes network that can be configurated, trained and used to perform a check on a set of mails to detect if these ones are spam or good mails, called, from now onwards, `ham'.
+
+The theory and the practice lying below the project is available in the report and in the slides associated with it. Here we provide instead a reference for the modules written by us, and the way to use them, just in case.
+
+The whole code of the project is available at google code (see below).
+
+
+\section{Download and installation}
+\label{index:download-and-installation}
+To download the code, go to \emph{http://code.google.com/etc} and download the source packet.
+
+We suggest to use the svn repository available. To download the project, open a terminal, go to the chosen directory and type
+\emph{comando svn}.
+
+Python 2.7 is required. We have not performed any test with older versions, as well as newer ones, e.g. Python 3.0, so we cannot guarantee the correct working under these versions.
+
+To successfully launch the program, you need to fullfill the following dependencies:
+\begin{enumerate}
+\item {} 
+BeautifulSoup (from the bs4 module) (link) to extract the useful informations from the mail structure,
+
+\item {} 
+Ply (link) to extract and identify the tokens.
+
+\end{enumerate}
+
+The documentation for these two modules is available on the respective sites.
+
+The classifier expects to find the mail sets in the directory \emph{/path/of/the/project/spam/}, and, precisely:
+\begin{itemize}
+\item {} 
+spam mails in \emph{/path/of/the/project/spam/spam/}
+
+\item {} 
+ham mails in \emph{/path/of/the/project/spam/ham/}
+
+\end{itemize}
+
+SCRIVI DOVE TROVARE I TEST SET. FORSE È ANCHE IL CASO DI PERMETTERE DI CONFIGURARE DOVE TROVARE LA ROBA...
+
+\begin{notice}{warning}{Warning:}
+No checks are performed to verify the correctness of the settings. If the environment is inconsistent with respect to the specifications given here, the software may die at any moment during the execution.
+\end{notice}
+
+
+\section{Usage}
+\label{index:usage}
+To launch the program, from a terminal type
+\emph{python /path/of/the/project/spam\_bayes.py}.
+
+
 \chapter{Main module}
-\label{index:main-module}\label{index:spambayes-s-documentation}
-To launch the program, open a terminal, go to hell and type
-
-\emph{python spam\_bayes.py}
-
-Bye.
-\phantomsection\label{index:module-spam_bayes}\index{spam\_bayes (module)}
+\label{index:module-spam_bayes}\label{index:main-module}\index{spam\_bayes (module)}
 
 \chapter{The Bayes network definition}
 \label{index:the-bayes-network-definition}
+In these modules we have defined the actual Bayes network, and all its operations.
+
 
 \section{The Naive Bayes class}
-\label{index:module-naive_bayes}\label{index:the-naive-bayes-class}\index{naive\_bayes (module)}\index{Bayes (class in naive\_bayes)}
+\label{index:the-naive-bayes-class}
+The {\hyperref[index:module-naive_bayes]{\code{naive\_bayes}}} module provides the {\hyperref[index:naive_bayes.Bayes]{\code{naive\_bayes.Bayes}}} class, which contains the informations and the methods needed to perform training, validation and testing.
+
+Its main variables are the arrays of stats of the words and the features filled during the training. These arrays, respectively of type \{str, {\hyperref[index:gen_stat.Word]{\code{gen\_stat.Word}}}\} and \{str, {\hyperref[index:gen_stat.Stat]{\code{gen\_stat.Stat}}}\}. This class provides also the methods to train and validate the network.
+\phantomsection\label{index:module-naive_bayes}\index{naive\_bayes (module)}\index{Bayes (class in naive\_bayes)}
 
 \begin{fulllineitems}
 \phantomsection\label{index:naive_bayes.Bayes}\pysigline{\strong{class }\code{naive\_bayes.}\bfcode{Bayes}}
@@ -191,6 +246,37 @@ Each row must have the same number of columns.
 \textbf{print\_gen\_stats} (\emph{bool}) -- do I have to print the overall stats?
 
 \end{itemize}
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{classify() (naive\_bayes.Bayes method)}
+
+\begin{fulllineitems}
+\phantomsection\label{index:naive_bayes.Bayes.classify}\pysiglinewithargsret{\bfcode{classify}}{\emph{ws}, \emph{gs}}{}
+Classification function which guesses the class of a mail. The Bayesian logic        is applied here.
+
+The method iterates through all the words identified in the mail,
+and for each one computes how much likely it is for the word to belong
+to a spam mail or to a ham mail. Then it does the same for each general
+feature of the mail. Finally, the method combines the two results
+and tells which class the mail is more likely to be.
+
+The method relies on the correct tuning of the parameters contained in
+the {\hyperref[index:config.Config]{\code{config.Config}}} class.
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\textbf{ws} (array of {\hyperref[index:test_stat.Test_word]{\code{test\_stat.Test\_word}}} objects) -- the list of words of the mail to be classified, and their stats;
+
+\item {} 
+\textbf{gs} (array of {\hyperref[index:test_stat.Test_stat]{\code{test\_stat.Test\_stat}}} objects) -- array containing the features encontered in the mail;
+
+\end{itemize}
+
+\item[{Returns}] \leavevmode
+\emph{True} if the mail is classified as spam, \emph{False} if it is            considered ham.
 
 \end{description}\end{quote}
 
@@ -268,7 +354,9 @@ accuracy of the validation.
 
 
 \section{The configuration options manager}
-\label{index:module-config}\label{index:the-configuration-options-manager}\index{config (module)}\index{Config (class in config)}
+\label{index:the-configuration-options-manager}
+This is the module providing the basic configurations which allow the user to customize the behaviour of the software.
+\phantomsection\label{index:module-config}\index{config (module)}\index{Config (class in config)}
 
 \begin{fulllineitems}
 \phantomsection\label{index:config.Config}\pysigline{\strong{class }\code{config.}\bfcode{Config}}
@@ -408,9 +496,33 @@ TODO: INSERT DOCUMENTATION HERE!!!
 
 \chapter{Feature statistics modules}
 \label{index:feature-statistics-modules}
+When counting the statistics of the mails, we fall into one of the following two cases:
+\begin{enumerate}
+\item {} 
+we are training the network, so we process the mails knowing their ``spamminess'' status. In this case we are working with both spam and ham mails in `parallel', and we need to keep track of how many times a certain feature appears in spam mails, and how many times the same feature appears in ham mails;
+
+\item {} 
+we are validating the configuration, or discovering the status of a mail (a set of mails), so we can only count the features found. Of course, since a mail belongs only to one and only one (unknown, so far) class, we need only one value for each feature tracked.
+
+\end{enumerate}
+
+To meet this requirement, we provide two different modules. They are very similar, since they have the same purpose, but are used in different situations.
+
 
 \section{General stats for training sets}
-\label{index:general-stats-for-training-sets}\label{index:module-gen_stat}\index{gen\_stat (module)}\index{Stat (class in gen\_stat)}
+\label{index:general-stats-for-training-sets}
+The \emph{gen\_stat} module contains the general stats for the training step. The two classes contained are:
+\begin{enumerate}
+\item {} 
+\code{Stat}, containing the number of featured found in both the spam and ham sets, and
+
+\item {} 
+\code{Word}, containing the number of times the word has been found in both the spam and ham sets.
+
+\end{enumerate}
+
+Both the classes contain only the constructor, to initialize the variables, which are public and may be modified directly as needed.
+\phantomsection\label{index:module-gen_stat}\index{gen\_stat (module)}\index{Stat (class in gen\_stat)}
 
 \begin{fulllineitems}
 \phantomsection\label{index:gen_stat.Stat}\pysiglinewithargsret{\strong{class }\code{gen\_stat.}\bfcode{Stat}}{\emph{description}, \emph{words\_spam}, \emph{words\_ham}}{}
@@ -449,7 +561,19 @@ Constructor.
 
 
 \section{General stats for validation and test sets}
-\label{index:module-test_stat}\label{index:general-stats-for-validation-and-test-sets}\index{test\_stat (module)}\index{Test\_stat (class in test\_stat)}
+\label{index:general-stats-for-validation-and-test-sets}
+The \emph{test\_stat} module contains the general stats for the validation and testing step, when the status of the mail is unknown. The two classes contained are:
+\begin{enumerate}
+\item {} 
+\code{Test\_stat}, containing the number of featured found in the mail or in the set, and
+
+\item {} 
+\code{Test\_word}, containing the number of times the word has been found in the mail or in the set.
+
+\end{enumerate}
+
+Since the purpose of these classes is the same of the ones in the {\hyperref[index:module-gen_stat]{\code{gen\_stat}}} module, also in these module both the classes contain only the constructor.
+\phantomsection\label{index:module-test_stat}\index{test\_stat (module)}\index{Test\_stat (class in test\_stat)}
 
 \begin{fulllineitems}
 \phantomsection\label{index:test_stat.Test_stat}\pysiglinewithargsret{\strong{class }\code{test\_stat.}\bfcode{Test\_stat}}{\emph{description}, \emph{count}}{}
@@ -473,7 +597,8 @@ Constructor. Initialize the stat.
 \begin{fulllineitems}
 \phantomsection\label{index:test_stat.Test_word}\pysiglinewithargsret{\strong{class }\code{test\_stat.}\bfcode{Test\_word}}{\emph{occurrences}}{}
 Stats for a single word: how many times this word appears in the parsed
-mail. Class used when validating and testing the network.
+mail. Class used when validating and testing the network. It is probably
+useless, but it keeps some ``simmetry'' with the one used in training.
 \index{\_\_init\_\_() (test\_stat.Test\_word method)}
 
 \begin{fulllineitems}
@@ -491,7 +616,9 @@ Constructor.
 \label{index:various-tools-and-utilities}
 
 \section{The lexical analyzer}
-\label{index:the-lexical-analyzer}\label{index:module-lexer}\index{lexer (module)}\index{Lexer (class in lexer)}
+\label{index:the-lexical-analyzer}
+This is the module containing the lexical analyzer, based on Ply lexer.
+\phantomsection\label{index:module-lexer}\index{lexer (module)}\index{Lexer (class in lexer)}
 
 \begin{fulllineitems}
 \phantomsection\label{index:lexer.Lexer}\pysigline{\strong{class }\code{lexer.}\bfcode{Lexer}}
@@ -517,6 +644,10 @@ Process tokens extracted from the training set.
 For every token, extract the value (the word itself)
 and its type (lowercase word, title, link, etc),
 then update all the stats for the word and the mail.
+If the analyzed mail belongs to a training set, then the stats
+are updated according to the (known) class of the mail. Otherwise,
+the stats cannot be associated to any class, since this is yet to
+be detected.
 \begin{quote}\begin{description}
 \item[{Parameters}] \leavevmode\begin{itemize}
 \item {} 
@@ -526,7 +657,7 @@ then update all the stats for the word and the mail.
 \textbf{in\_training} -- flag to tell if the lexing is performed during training            (\emph{True}) or during validation or testing (\emph{False}). If we are performing            the training step, then we know if the mail processed is ham or spam, and
 so we can fill appropriately the \emph{general\_stats} array of
 {\hyperref[index:gen_stat.Stat]{\code{gen\_stat.Stat}}}, otherwise the array will be filled with
-\code{mail\_stat.Mail\_stat} objects;
+{\hyperref[index:test_stat.Test_stat]{\code{test\_stat.Test\_stat}}} objects;
 
 \item {} 
 \textbf{is\_spam} (\emph{bool}) -- flag to identify the mail as spam or ham (useless if             \emph{in\_training == False});
@@ -535,7 +666,7 @@ so we can fill appropriately the \emph{general\_stats} array of
 \textbf{words} (array of {\hyperref[index:gen_stat.Word]{\code{gen\_stat.Word}}} objects) -- the list of words read so far, and their stats;
 
 \item {} 
-\textbf{general\_stats} -- the overall stats of the features. Feature type may be            of two types:                {\hyperref[index:gen_stat.Stat]{\code{gen\_stat.Stat}}} (\emph{in\_training == True}), or                \code{mail\_stat.Mail\_stat} (\emph{in\_training == False});
+\textbf{general\_stats} -- the overall stats of the features. Feature type may be            of two types:                {\hyperref[index:gen_stat.Stat]{\code{gen\_stat.Stat}}} (\emph{in\_training == True}), or                {\hyperref[index:test_stat.Test_stat]{\code{test\_stat.Test\_stat}}} (\emph{in\_training == False});
 
 \item {} 
 \textbf{config} ({\hyperref[index:config.Config]{\code{config.Config}}} object) -- contains some general parameters and configurations.
@@ -562,7 +693,7 @@ May
 \textbf{in\_training} -- flag to tell if the lexing is performed during training            (\emph{True}) or during validation or testing (\emph{False}). If we are performing            the training step, then we know if the mail processed is ham or spam, and
 so we can fill appropriately the \emph{general\_stats} array of
 {\hyperref[index:gen_stat.Stat]{\code{gen\_stat.Stat}}}, otherwise the array will be filled with
-\code{mail\_stat.Mail\_stat} objects;
+{\hyperref[index:test_stat.Test_stat]{\code{test\_stat.Test\_stat}}} objects;
 
 \item {} 
 \textbf{is\_spam} (\emph{bool}) -- flag to identify the mail as spam or ham (useless if             \emph{in\_training == False});
@@ -571,7 +702,7 @@ so we can fill appropriately the \emph{general\_stats} array of
 \textbf{words} (array of {\hyperref[index:gen_stat.Word]{\code{gen\_stat.Word}}} objects) -- the list of words read so far, and their stats;
 
 \item {} 
-\textbf{general\_stats} -- the overall stats of the features. Feature type may be            of two types:                {\hyperref[index:gen_stat.Stat]{\code{gen\_stat.Stat}}} (\emph{in\_training == True}), or                \code{mail\_stat.Mail\_stat} (\emph{in\_training == False});
+\textbf{general\_stats} -- the overall stats of the features. Feature type may be            of two types:                {\hyperref[index:gen_stat.Stat]{\code{gen\_stat.Stat}}} (\emph{in\_training == True}), or                {\hyperref[index:test_stat.Test_stat]{\code{test\_stat.Test\_stat}}} (\emph{in\_training == False});
 
 \item {} 
 \textbf{config} ({\hyperref[index:config.Config]{\code{config.Config}}} object) -- contains some general parameters and configurations.
@@ -588,7 +719,26 @@ so we can fill appropriately the \emph{general\_stats} array of
 
 
 \section{Other utilities}
-\label{index:other-utilities}\label{index:module-utils}\index{utils (module)}\index{Utils (class in utils)}
+\label{index:other-utilities}
+All the generic purpose methods used in different locations are placed in the {\hyperref[index:utils.Utils]{\code{utils.Utils}}} class. Namely, these methods are used to:
+\begin{itemize}
+\item {} 
+read text from the files found in a given location. In particular, these methods can read text in mail format;
+
+\item {} 
+split a list in a given numbers of equally long lists (the last list may be shorter than the previous ones);
+
+\item {} 
+build an empty array containing the overall stats for the training set, thus discriminating the features found in the spam mails from the ones found in ham mails;
+
+\item {} 
+build an empty array containing the overall stats from a generic mail, without knowing its class (its status, ham or spam).
+
+\end{itemize}
+
+All these methods are static, so have to be invoked using the
+\emph{Utils.method()} syntax.
+\phantomsection\label{index:module-utils}\index{utils (module)}\index{Utils (class in utils)}
 
 \begin{fulllineitems}
 \phantomsection\label{index:utils.Utils}\pysigline{\strong{class }\code{utils.}\bfcode{Utils}}
@@ -602,24 +752,31 @@ Read the desidered number of text files from the given path.
 If desidered, extract first the text and then the tokens
 from the mails. Does nothing on the content of plain text files.
 \begin{quote}\begin{description}
-\item[{Parameters}] \leavevmode
-\textbf{path} -- the relative path from the current position
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\textbf{path} (\emph{str}) -- the relative path from the current position           to the desidered directory;
+
+\item {} 
+\textbf{how\_many} (\emph{int}) -- how many files to read. 0 == unlimited;
+
+\item {} 
+\textbf{read\_mails} (\emph{bool}) -- tells if the user wants to read mails or plain text;
+
+\item {} 
+\textbf{words} (array of {\hyperref[index:gen_stat.Word]{\code{gen\_stat.Word}}} objects) -- the list of words read so far, and their stats;
+
+\item {} 
+\textbf{general\_stats} (associative array \{str, {\hyperref[index:gen_stat.Stat]{\code{gen\_stat.Stat}}}\}) -- the overall stats of the features;
+
+\item {} 
+\textbf{config} ({\hyperref[index:config.Config]{\code{config.Config}}} object) -- contains some general parameters and configurations;
+
+\end{itemize}
+
+\item[{Returns}] \leavevmode
+a list containing all the mails in the given files.
 
 \end{description}\end{quote}
-
-to the desidered directory;
-:type path: str
-:param how\_many: how many files to read. 0 == unlimited;
-:type how\_many: int
-:param read\_mails: tells if the user wants to read mails or plain text;
-:type read\_mails: bool
-:param words: the list of words read so far, and their stats;
-:type words: array of {\hyperref[index:gen_stat.Word]{\code{gen\_stat.Word}}} objects
-:param general\_stats: the overall stats of the features;
-:type general\_stats: associative array \{str, {\hyperref[index:gen_stat.Stat]{\code{gen\_stat.Stat}}}\}
-:param config: contains some general parameters and configurations;
-:type config: {\hyperref[index:config.Config]{\code{config.Config}}} object
-:return: a list containing all the mails in the given files.
 
 \end{fulllineitems}
 
@@ -648,11 +805,45 @@ From \href{http://stackoverflow.com/questions/312443}{http://stackoverflow.com/q
 
 \begin{fulllineitems}
 \phantomsection\label{index:utils.Utils.create_stats}\pysiglinewithargsret{\strong{static }\bfcode{create\_stats}}{}{}
-Defines a new associative array of (str, Stat), containing all the
-overall stats to be evaluated by the Bayes network.
+Defines a new associative array of (str, {\hyperref[index:gen_stat.Stat]{\code{gen\_stat.Stat}}}),
+containing all the overall stats to be evaluated by the Bayes network
+in the training step.
 \begin{quote}\begin{description}
 \item[{Returns}] \leavevmode
 the newly created array.
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{create\_test\_stats() (utils.Utils static method)}
+
+\begin{fulllineitems}
+\phantomsection\label{index:utils.Utils.create_test_stats}\pysiglinewithargsret{\strong{static }\bfcode{create\_test\_stats}}{}{}
+Defines a new associative array of (str, \code{test\_stat.Stat}),
+containing all the overall stats to be evaluated by the Bayes network
+in the validation and testing steps.
+\begin{quote}\begin{description}
+\item[{Returns}] \leavevmode
+the newly created array.
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{merge\_lists() (utils.Utils static method)}
+
+\begin{fulllineitems}
+\phantomsection\label{index:utils.Utils.merge_lists}\pysiglinewithargsret{\strong{static }\bfcode{merge\_lists}}{\emph{lists}}{}
+Merge a list of lists into a single one.
+
+From \href{http://stackoverflow.com/questions/406121}{http://stackoverflow.com/questions/406121} (thanks)
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode
+\textbf{lists} (\emph{list}) -- the list of lists to be flattened;
+
+\item[{Returns}] \leavevmode
+the new list.
 
 \end{description}\end{quote}
 
@@ -669,7 +860,7 @@ with \emph{read\_mails} flag set to True.
 \begin{quote}\begin{description}
 \item[{Parameters}] \leavevmode\begin{itemize}
 \item {} 
-\textbf{path} (\emph{str}) -- the relative path from the current position             to the desidered directory;
+\textbf{path} (\emph{str}) -- the relative path from the current position to the                 desidered directory;
 
 \item {} 
 \textbf{how\_many} (\emph{int}) -- how many files to read. 0 == unlimited;
@@ -703,7 +894,7 @@ with \emph{read\_mails} flag set to False.
 \begin{quote}\begin{description}
 \item[{Parameters}] \leavevmode\begin{itemize}
 \item {} 
-\textbf{path} (\emph{str}) -- the relative path from the current position             to the desidered directory;
+\textbf{path} (\emph{str}) -- the relative path from the current position                 to the desidered directory;
 
 \item {} 
 \textbf{how\_many} (\emph{int}) -- how many files to read. 0 = unlimited;

@@ -52,17 +52,52 @@
 <ul class="simple">
 </ul>
 </div>
-<div class="section" id="main-module">
-<h2>Main module<a class="headerlink" href="#main-module" title="Permalink to this headline">¶</a></h2>
-<p>To launch the program, open a terminal, go to hell and type</p>
-<p><cite>python spam_bayes.py</cite></p>
-<p>Bye.</p>
-<span class="target" id="module-spam_bayes"></span></div>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>This document provides the documentation for the software written by Alberto Franzin and Fabio Palese as part of the examination for the course of Intelligent Systems (Sistemi Intelligenti), a.y. 2012/13, University of Padova, taught by prof. S. Badaloni and prof. F. Sambo.</p>
+<p>Our project consists in writing a bayesian spam classifier, using the Naive Bayes approach. We have built a Bayes network that can be configurated, trained and used to perform a check on a set of mails to detect if these ones are spam or good mails, called, from now onwards, &#8216;ham&#8217;.</p>
+<p>The theory and the practice lying below the project is available in the report and in the slides associated with it. Here we provide instead a reference for the modules written by us, and the way to use them, just in case.</p>
+<p>The whole code of the project is available at google code (see below).</p>
+<div class="section" id="download-and-installation">
+<h3>Download and installation<a class="headerlink" href="#download-and-installation" title="Permalink to this headline">¶</a></h3>
+<p>To download the code, go to <cite>http://code.google.com/etc</cite> and download the source packet.</p>
+<p>We suggest to use the svn repository available. To download the project, open a terminal, go to the chosen directory and type
+<cite>comando svn</cite>.</p>
+<p>Python 2.7 is required. We have not performed any test with older versions, as well as newer ones, e.g. Python 3.0, so we cannot guarantee the correct working under these versions.</p>
+<p>To successfully launch the program, you need to fullfill the following dependencies:</p>
+<ol class="arabic simple">
+<li>BeautifulSoup (from the bs4 module) (link) to extract the useful informations from the mail structure,</li>
+<li>Ply (link) to extract and identify the tokens.</li>
+</ol>
+<p>The documentation for these two modules is available on the respective sites.</p>
+<p>The classifier expects to find the mail sets in the directory <cite>/path/of/the/project/spam/</cite>, and, precisely:</p>
+<ul class="simple">
+<li>spam mails in <cite>/path/of/the/project/spam/spam/</cite></li>
+<li>ham mails in <cite>/path/of/the/project/spam/ham/</cite></li>
+</ul>
+<p>SCRIVI DOVE TROVARE I TEST SET. FORSE È ANCHE IL CASO DI PERMETTERE DI CONFIGURARE DOVE TROVARE LA ROBA...</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">No checks are performed to verify the correctness of the settings. If the environment is inconsistent with respect to the specifications given here, the software may die at any moment during the execution.</p>
+</div>
+</div>
+<div class="section" id="usage">
+<h3>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h3>
+<p>To launch the program, from a terminal type
+<cite>python /path/of/the/project/spam_bayes.py</cite>.</p>
+</div>
+</div>
+<div class="section" id="module-spam_bayes">
+<span id="main-module"></span><h2>Main module<a class="headerlink" href="#module-spam_bayes" title="Permalink to this headline">¶</a></h2>
+</div>
 <div class="section" id="the-bayes-network-definition">
 <h2>The Bayes network definition<a class="headerlink" href="#the-bayes-network-definition" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="module-naive_bayes">
-<span id="the-naive-bayes-class"></span><h3>The Naive Bayes class<a class="headerlink" href="#module-naive_bayes" title="Permalink to this headline">¶</a></h3>
-<dl class="class">
+<p>In these modules we have defined the actual Bayes network, and all its operations.</p>
+<div class="section" id="the-naive-bayes-class">
+<h3>The Naive Bayes class<a class="headerlink" href="#the-naive-bayes-class" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference internal" href="#module-naive_bayes" title="naive_bayes"><tt class="xref py py-mod docutils literal"><span class="pre">naive_bayes</span></tt></a> module provides the <a class="reference internal" href="#naive_bayes.Bayes" title="naive_bayes.Bayes"><tt class="xref py py-mod docutils literal"><span class="pre">naive_bayes.Bayes</span></tt></a> class, which contains the informations and the methods needed to perform training, validation and testing.</p>
+<p>Its main variables are the arrays of stats of the words and the features filled during the training. These arrays, respectively of type {str, <a class="reference internal" href="#gen_stat.Word" title="gen_stat.Word"><tt class="xref py py-class docutils literal"><span class="pre">gen_stat.Word</span></tt></a>} and {str, <a class="reference internal" href="#gen_stat.Stat" title="gen_stat.Stat"><tt class="xref py py-class docutils literal"><span class="pre">gen_stat.Stat</span></tt></a>}. This class provides also the methods to train and validate the network.</p>
+<span class="target" id="module-naive_bayes"></span><dl class="class">
 <dt id="naive_bayes.Bayes">
 <em class="property">class </em><tt class="descclassname">naive_bayes.</tt><tt class="descname">Bayes</tt><a class="headerlink" href="#naive_bayes.Bayes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Contains the Bayes network and some possible operations: training,
@@ -115,6 +150,34 @@ then calls the <a class="reference internal" href="#trainer.Trainer.train" title
 <li><strong>print_words</strong> (<em>bool</em>) &#8211; do I have to print the words retrieved?</li>
 <li><strong>print_gen_stats</strong> (<em>bool</em>) &#8211; do I have to print the overall stats?</li>
 </ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="naive_bayes.Bayes.classify">
+<tt class="descname">classify</tt><big>(</big><em>ws</em>, <em>gs</em><big>)</big><a class="headerlink" href="#naive_bayes.Bayes.classify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Classification function which guesses the class of a mail. The Bayesian logic        is applied here.</p>
+<p>The method iterates through all the words identified in the mail,
+and for each one computes how much likely it is for the word to belong
+to a spam mail or to a ham mail. Then it does the same for each general
+feature of the mail. Finally, the method combines the two results
+and tells which class the mail is more likely to be.</p>
+<p>The method relies on the correct tuning of the parameters contained in
+the <a class="reference internal" href="#config.Config" title="config.Config"><tt class="xref py py-class docutils literal"><span class="pre">config.Config</span></tt></a> class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ws</strong> (array of <a class="reference internal" href="#test_stat.Test_word" title="test_stat.Test_word"><tt class="xref py py-class docutils literal"><span class="pre">test_stat.Test_word</span></tt></a> objects) &#8211; the list of words of the mail to be classified, and their stats;</li>
+<li><strong>gs</strong> (array of <a class="reference internal" href="#test_stat.Test_stat" title="test_stat.Test_stat"><tt class="xref py py-class docutils literal"><span class="pre">test_stat.Test_stat</span></tt></a> objects) &#8211; array containing the features encontered in the mail;</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><cite>True</cite> if the mail is classified as spam, <cite>False</cite> if it is            considered ham.</p>
 </td>
 </tr>
 </tbody>
@@ -175,9 +238,10 @@ in the validation set.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-config">
-<span id="the-configuration-options-manager"></span><h3>The configuration options manager<a class="headerlink" href="#module-config" title="Permalink to this headline">¶</a></h3>
-<dl class="class">
+<div class="section" id="the-configuration-options-manager">
+<h3>The configuration options manager<a class="headerlink" href="#the-configuration-options-manager" title="Permalink to this headline">¶</a></h3>
+<p>This is the module providing the basic configurations which allow the user to customize the behaviour of the software.</p>
+<span class="target" id="module-config"></span><dl class="class">
 <dt id="config.Config">
 <em class="property">class </em><tt class="descclassname">config.</tt><tt class="descname">Config</tt><a class="headerlink" href="#config.Config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Contains some general configurations.</p>
@@ -276,9 +340,21 @@ evaluated, and for the single words.</p>
 </div>
 <div class="section" id="feature-statistics-modules">
 <h2>Feature statistics modules<a class="headerlink" href="#feature-statistics-modules" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="module-gen_stat">
-<span id="general-stats-for-training-sets"></span><h3>General stats for training sets<a class="headerlink" href="#module-gen_stat" title="Permalink to this headline">¶</a></h3>
-<dl class="class">
+<p>When counting the statistics of the mails, we fall into one of the following two cases:</p>
+<ol class="arabic simple">
+<li>we are training the network, so we process the mails knowing their &#8220;spamminess&#8221; status. In this case we are working with both spam and ham mails in &#8216;parallel&#8217;, and we need to keep track of how many times a certain feature appears in spam mails, and how many times the same feature appears in ham mails;</li>
+<li>we are validating the configuration, or discovering the status of a mail (a set of mails), so we can only count the features found. Of course, since a mail belongs only to one and only one (unknown, so far) class, we need only one value for each feature tracked.</li>
+</ol>
+<p>To meet this requirement, we provide two different modules. They are very similar, since they have the same purpose, but are used in different situations.</p>
+<div class="section" id="general-stats-for-training-sets">
+<h3>General stats for training sets<a class="headerlink" href="#general-stats-for-training-sets" title="Permalink to this headline">¶</a></h3>
+<p>The <cite>gen_stat</cite> module contains the general stats for the training step. The two classes contained are:</p>
+<ol class="arabic simple">
+<li><tt class="xref py py-class docutils literal"><span class="pre">Stat</span></tt>, containing the number of featured found in both the spam and ham sets, and</li>
+<li><tt class="xref py py-class docutils literal"><span class="pre">Word</span></tt>, containing the number of times the word has been found in both the spam and ham sets.</li>
+</ol>
+<p>Both the classes contain only the constructor, to initialize the variables, which are public and may be modified directly as needed.</p>
+<span class="target" id="module-gen_stat"></span><dl class="class">
 <dt id="gen_stat.Stat">
 <em class="property">class </em><tt class="descclassname">gen_stat.</tt><tt class="descname">Stat</tt><big>(</big><em>description</em>, <em>words_spam</em>, <em>words_ham</em><big>)</big><a class="headerlink" href="#gen_stat.Stat" title="Permalink to this definition">¶</a></dt>
 <dd><p>Stats for mail characteristics: how many times this feature appears in
@@ -307,9 +383,15 @@ training the network.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-test_stat">
-<span id="general-stats-for-validation-and-test-sets"></span><h3>General stats for validation and test sets<a class="headerlink" href="#module-test_stat" title="Permalink to this headline">¶</a></h3>
-<dl class="class">
+<div class="section" id="general-stats-for-validation-and-test-sets">
+<h3>General stats for validation and test sets<a class="headerlink" href="#general-stats-for-validation-and-test-sets" title="Permalink to this headline">¶</a></h3>
+<p>The <cite>test_stat</cite> module contains the general stats for the validation and testing step, when the status of the mail is unknown. The two classes contained are:</p>
+<ol class="arabic simple">
+<li><tt class="xref py py-class docutils literal"><span class="pre">Test_stat</span></tt>, containing the number of featured found in the mail or in the set, and</li>
+<li><tt class="xref py py-class docutils literal"><span class="pre">Test_word</span></tt>, containing the number of times the word has been found in the mail or in the set.</li>
+</ol>
+<p>Since the purpose of these classes is the same of the ones in the <a class="reference internal" href="#module-gen_stat" title="gen_stat"><tt class="xref py py-mod docutils literal"><span class="pre">gen_stat</span></tt></a> module, also in these module both the classes contain only the constructor.</p>
+<span class="target" id="module-test_stat"></span><dl class="class">
 <dt id="test_stat.Test_stat">
 <em class="property">class </em><tt class="descclassname">test_stat.</tt><tt class="descname">Test_stat</tt><big>(</big><em>description</em>, <em>count</em><big>)</big><a class="headerlink" href="#test_stat.Test_stat" title="Permalink to this definition">¶</a></dt>
 <dd><p>Stats for a single mail belonging to the test set or to
@@ -328,7 +410,8 @@ validating and testing the network.</p>
 <dt id="test_stat.Test_word">
 <em class="property">class </em><tt class="descclassname">test_stat.</tt><tt class="descname">Test_word</tt><big>(</big><em>occurrences</em><big>)</big><a class="headerlink" href="#test_stat.Test_word" title="Permalink to this definition">¶</a></dt>
 <dd><p>Stats for a single word: how many times this word appears in the parsed
-mail. Class used when validating and testing the network.</p>
+mail. Class used when validating and testing the network. It is probably
+useless, but it keeps some &#8220;simmetry&#8221; with the one used in training.</p>
 <dl class="method">
 <dt id="test_stat.Test_word.__init__">
 <tt class="descname">__init__</tt><big>(</big><em>occurrences</em><big>)</big><a class="headerlink" href="#test_stat.Test_word.__init__" title="Permalink to this definition">¶</a></dt>
@@ -341,9 +424,10 @@ mail. Class used when validating and testing the network.</p>
 </div>
 <div class="section" id="various-tools-and-utilities">
 <h2>Various tools and utilities<a class="headerlink" href="#various-tools-and-utilities" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="module-lexer">
-<span id="the-lexical-analyzer"></span><h3>The lexical analyzer<a class="headerlink" href="#module-lexer" title="Permalink to this headline">¶</a></h3>
-<dl class="class">
+<div class="section" id="the-lexical-analyzer">
+<h3>The lexical analyzer<a class="headerlink" href="#the-lexical-analyzer" title="Permalink to this headline">¶</a></h3>
+<p>This is the module containing the lexical analyzer, based on Ply lexer.</p>
+<span class="target" id="module-lexer"></span><dl class="class">
 <dt id="lexer.Lexer">
 <em class="property">class </em><tt class="descclassname">lexer.</tt><tt class="descname">Lexer</tt><a class="headerlink" href="#lexer.Lexer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Lexical Analyzer. Use Ply&#8217;s lexer to identify the tokens and to classify them.
@@ -362,7 +446,11 @@ and classify the tokens.</p>
 <dd><p>Process tokens extracted from the training set.</p>
 <p>For every token, extract the value (the word itself)
 and its type (lowercase word, title, link, etc),
-then update all the stats for the word and the mail.</p>
+then update all the stats for the word and the mail.
+If the analyzed mail belongs to a training set, then the stats
+are updated according to the (known) class of the mail. Otherwise,
+the stats cannot be associated to any class, since this is yet to
+be detected.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -372,10 +460,10 @@ then update all the stats for the word and the mail.</p>
 <li><strong>in_training</strong> &#8211; flag to tell if the lexing is performed during training            (<cite>True</cite>) or during validation or testing (<cite>False</cite>). If we are performing            the training step, then we know if the mail processed is ham or spam, and
 so we can fill appropriately the <cite>general_stats</cite> array of
 <a class="reference internal" href="#gen_stat.Stat" title="gen_stat.Stat"><tt class="xref py py-class docutils literal"><span class="pre">gen_stat.Stat</span></tt></a>, otherwise the array will be filled with
-<tt class="xref py py-class docutils literal"><span class="pre">mail_stat.Mail_stat</span></tt> objects;</li>
+<a class="reference internal" href="#test_stat.Test_stat" title="test_stat.Test_stat"><tt class="xref py py-class docutils literal"><span class="pre">test_stat.Test_stat</span></tt></a> objects;</li>
 <li><strong>is_spam</strong> (<em>bool</em>) &#8211; flag to identify the mail as spam or ham (useless if             <cite>in_training == False</cite>);</li>
 <li><strong>words</strong> (array of <a class="reference internal" href="#gen_stat.Word" title="gen_stat.Word"><tt class="xref py py-class docutils literal"><span class="pre">gen_stat.Word</span></tt></a> objects) &#8211; the list of words read so far, and their stats;</li>
-<li><strong>general_stats</strong> &#8211; the overall stats of the features. Feature type may be            of two types:                <a class="reference internal" href="#gen_stat.Stat" title="gen_stat.Stat"><tt class="xref py py-class docutils literal"><span class="pre">gen_stat.Stat</span></tt></a> (<cite>in_training == True</cite>), or                <tt class="xref py py-class docutils literal"><span class="pre">mail_stat.Mail_stat</span></tt> (<cite>in_training == False</cite>);</li>
+<li><strong>general_stats</strong> &#8211; the overall stats of the features. Feature type may be            of two types:                <a class="reference internal" href="#gen_stat.Stat" title="gen_stat.Stat"><tt class="xref py py-class docutils literal"><span class="pre">gen_stat.Stat</span></tt></a> (<cite>in_training == True</cite>), or                <a class="reference internal" href="#test_stat.Test_stat" title="test_stat.Test_stat"><tt class="xref py py-class docutils literal"><span class="pre">test_stat.Test_stat</span></tt></a> (<cite>in_training == False</cite>);</li>
 <li><strong>config</strong> (<a class="reference internal" href="#config.Config" title="config.Config"><tt class="xref py py-class docutils literal"><span class="pre">config.Config</span></tt></a> object) &#8211; contains some general parameters and configurations.</li>
 </ul>
 </td>
@@ -398,10 +486,10 @@ so we can fill appropriately the <cite>general_stats</cite> array of
 <li><strong>in_training</strong> &#8211; flag to tell if the lexing is performed during training            (<cite>True</cite>) or during validation or testing (<cite>False</cite>). If we are performing            the training step, then we know if the mail processed is ham or spam, and
 so we can fill appropriately the <cite>general_stats</cite> array of
 <a class="reference internal" href="#gen_stat.Stat" title="gen_stat.Stat"><tt class="xref py py-class docutils literal"><span class="pre">gen_stat.Stat</span></tt></a>, otherwise the array will be filled with
-<tt class="xref py py-class docutils literal"><span class="pre">mail_stat.Mail_stat</span></tt> objects;</li>
+<a class="reference internal" href="#test_stat.Test_stat" title="test_stat.Test_stat"><tt class="xref py py-class docutils literal"><span class="pre">test_stat.Test_stat</span></tt></a> objects;</li>
 <li><strong>is_spam</strong> (<em>bool</em>) &#8211; flag to identify the mail as spam or ham (useless if             <cite>in_training == False</cite>);</li>
 <li><strong>words</strong> (array of <a class="reference internal" href="#gen_stat.Word" title="gen_stat.Word"><tt class="xref py py-class docutils literal"><span class="pre">gen_stat.Word</span></tt></a> objects) &#8211; the list of words read so far, and their stats;</li>
-<li><strong>general_stats</strong> &#8211; the overall stats of the features. Feature type may be            of two types:                <a class="reference internal" href="#gen_stat.Stat" title="gen_stat.Stat"><tt class="xref py py-class docutils literal"><span class="pre">gen_stat.Stat</span></tt></a> (<cite>in_training == True</cite>), or                <tt class="xref py py-class docutils literal"><span class="pre">mail_stat.Mail_stat</span></tt> (<cite>in_training == False</cite>);</li>
+<li><strong>general_stats</strong> &#8211; the overall stats of the features. Feature type may be            of two types:                <a class="reference internal" href="#gen_stat.Stat" title="gen_stat.Stat"><tt class="xref py py-class docutils literal"><span class="pre">gen_stat.Stat</span></tt></a> (<cite>in_training == True</cite>), or                <a class="reference internal" href="#test_stat.Test_stat" title="test_stat.Test_stat"><tt class="xref py py-class docutils literal"><span class="pre">test_stat.Test_stat</span></tt></a> (<cite>in_training == False</cite>);</li>
 <li><strong>config</strong> (<a class="reference internal" href="#config.Config" title="config.Config"><tt class="xref py py-class docutils literal"><span class="pre">config.Config</span></tt></a> object) &#8211; contains some general parameters and configurations.</li>
 </ul>
 </td>
@@ -413,9 +501,18 @@ so we can fill appropriately the <cite>general_stats</cite> array of
 </dd></dl>
 
 </div>
-<div class="section" id="module-utils">
-<span id="other-utilities"></span><h3>Other utilities<a class="headerlink" href="#module-utils" title="Permalink to this headline">¶</a></h3>
-<dl class="class">
+<div class="section" id="other-utilities">
+<h3>Other utilities<a class="headerlink" href="#other-utilities" title="Permalink to this headline">¶</a></h3>
+<p>All the generic purpose methods used in different locations are placed in the <a class="reference internal" href="#utils.Utils" title="utils.Utils"><tt class="xref py py-class docutils literal"><span class="pre">utils.Utils</span></tt></a> class. Namely, these methods are used to:</p>
+<ul class="simple">
+<li>read text from the files found in a given location. In particular, these methods can read text in mail format;</li>
+<li>split a list in a given numbers of equally long lists (the last list may be shorter than the previous ones);</li>
+<li>build an empty array containing the overall stats for the training set, thus discriminating the features found in the spam mails from the ones found in ham mails;</li>
+<li>build an empty array containing the overall stats from a generic mail, without knowing its class (its status, ham or spam).</li>
+</ul>
+<p>All these methods are static, so have to be invoked using the
+<cite>Utils.method()</cite> syntax.</p>
+<span class="target" id="module-utils"></span><dl class="class">
 <dt id="utils.Utils">
 <em class="property">class </em><tt class="descclassname">utils.</tt><tt class="descname">Utils</tt><a class="headerlink" href="#utils.Utils" title="Permalink to this definition">¶</a></dt>
 <dd><p>Collection of various tools used in the project.</p>
@@ -429,23 +526,21 @@ from the mails. Does nothing on the content of plain text files.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> &#8211; the relative path from the current position</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>path</strong> (<em>str</em>) &#8211; the relative path from the current position           to the desidered directory;</li>
+<li><strong>how_many</strong> (<em>int</em>) &#8211; how many files to read. 0 == unlimited;</li>
+<li><strong>read_mails</strong> (<em>bool</em>) &#8211; tells if the user wants to read mails or plain text;</li>
+<li><strong>words</strong> (array of <a class="reference internal" href="#gen_stat.Word" title="gen_stat.Word"><tt class="xref py py-class docutils literal"><span class="pre">gen_stat.Word</span></tt></a> objects) &#8211; the list of words read so far, and their stats;</li>
+<li><strong>general_stats</strong> (associative array {str, <a class="reference internal" href="#gen_stat.Stat" title="gen_stat.Stat"><tt class="xref py py-class docutils literal"><span class="pre">gen_stat.Stat</span></tt></a>}) &#8211; the overall stats of the features;</li>
+<li><strong>config</strong> (<a class="reference internal" href="#config.Config" title="config.Config"><tt class="xref py py-class docutils literal"><span class="pre">config.Config</span></tt></a> object) &#8211; contains some general parameters and configurations;</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a list containing all the mails in the given files.</p>
+</td>
 </tr>
 </tbody>
 </table>
-<p>to the desidered directory;
-:type path: str
-:param how_many: how many files to read. 0 == unlimited;
-:type how_many: int
-:param read_mails: tells if the user wants to read mails or plain text;
-:type read_mails: bool
-:param words: the list of words read so far, and their stats;
-:type words: array of <a class="reference internal" href="#gen_stat.Word" title="gen_stat.Word"><tt class="xref py py-class docutils literal"><span class="pre">gen_stat.Word</span></tt></a> objects
-:param general_stats: the overall stats of the features;
-:type general_stats: associative array {str, <a class="reference internal" href="#gen_stat.Stat" title="gen_stat.Stat"><tt class="xref py py-class docutils literal"><span class="pre">gen_stat.Stat</span></tt></a>}
-:param config: contains some general parameters and configurations;
-:type config: <a class="reference internal" href="#config.Config" title="config.Config"><tt class="xref py py-class docutils literal"><span class="pre">config.Config</span></tt></a> object
-:return: a list containing all the mails in the given files.</p>
 </dd></dl>
 
 <dl class="staticmethod">
@@ -470,13 +565,47 @@ from the mails. Does nothing on the content of plain text files.</p>
 <dl class="staticmethod">
 <dt id="utils.Utils.create_stats">
 <em class="property">static </em><tt class="descname">create_stats</tt><big>(</big><big>)</big><a class="headerlink" href="#utils.Utils.create_stats" title="Permalink to this definition">¶</a></dt>
-<dd><p>Defines a new associative array of (str, Stat), containing all the
-overall stats to be evaluated by the Bayes network.</p>
+<dd><p>Defines a new associative array of (str, <a class="reference internal" href="#gen_stat.Stat" title="gen_stat.Stat"><tt class="xref py py-class docutils literal"><span class="pre">gen_stat.Stat</span></tt></a>),
+containing all the overall stats to be evaluated by the Bayes network
+in the training step.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the newly created array.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="utils.Utils.create_test_stats">
+<em class="property">static </em><tt class="descname">create_test_stats</tt><big>(</big><big>)</big><a class="headerlink" href="#utils.Utils.create_test_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines a new associative array of (str, <tt class="xref py py-class docutils literal"><span class="pre">test_stat.Stat</span></tt>),
+containing all the overall stats to be evaluated by the Bayes network
+in the validation and testing steps.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the newly created array.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="utils.Utils.merge_lists">
+<em class="property">static </em><tt class="descname">merge_lists</tt><big>(</big><em>lists</em><big>)</big><a class="headerlink" href="#utils.Utils.merge_lists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merge a list of lists into a single one.</p>
+<p>From <a class="reference external" href="http://stackoverflow.com/questions/406121">http://stackoverflow.com/questions/406121</a> (thanks)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>lists</strong> (<em>list</em>) &#8211; the list of lists to be flattened;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the new list.</td>
 </tr>
 </tbody>
 </table>
@@ -493,7 +622,7 @@ with <cite>read_mails</cite> flag set to True.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>path</strong> (<em>str</em>) &#8211; the relative path from the current position             to the desidered directory;</li>
+<li><strong>path</strong> (<em>str</em>) &#8211; the relative path from the current position to the                 desidered directory;</li>
 <li><strong>how_many</strong> (<em>int</em>) &#8211; how many files to read. 0 == unlimited;</li>
 <li><strong>words</strong> (array of <a class="reference internal" href="#gen_stat.Word" title="gen_stat.Word"><tt class="xref py py-class docutils literal"><span class="pre">gen_stat.Word</span></tt></a> objects) &#8211; the list of words read so far, and their stats;</li>
 <li><strong>general_stats</strong> (associative array {str, <a class="reference internal" href="#gen_stat.Stat" title="gen_stat.Stat"><tt class="xref py py-class docutils literal"><span class="pre">gen_stat.Stat</span></tt></a>}) &#8211; the overall stats of the features;</li>
@@ -519,7 +648,7 @@ with <cite>read_mails</cite> flag set to False.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>path</strong> (<em>str</em>) &#8211; the relative path from the current position             to the desidered directory;</li>
+<li><strong>path</strong> (<em>str</em>) &#8211; the relative path from the current position                 to the desidered directory;</li>
 <li><strong>how_many</strong> (<em>int</em>) &#8211; how many files to read. 0 = unlimited;</li>
 <li><strong>config</strong> (<a class="reference internal" href="#config.Config" title="config.Config"><tt class="xref py py-class docutils literal"><span class="pre">config.Config</span></tt></a> object;) &#8211; contains some general parameters and configurations;</li>
 </ul>
@@ -547,22 +676,27 @@ with <cite>read_mails</cite> flag set to False.</p>
   <h3><a href="#">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">SpamBayes&#8217;s documentation</a><ul>
-<li><a class="reference internal" href="#main-module">Main module</a></li>
+<li><a class="reference internal" href="#introduction">Introduction</a><ul>
+<li><a class="reference internal" href="#download-and-installation">Download and installation</a></li>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-spam_bayes">Main module</a></li>
 <li><a class="reference internal" href="#the-bayes-network-definition">The Bayes network definition</a><ul>
-<li><a class="reference internal" href="#module-naive_bayes">The Naive Bayes class</a></li>
-<li><a class="reference internal" href="#module-config">The configuration options manager</a></li>
+<li><a class="reference internal" href="#the-naive-bayes-class">The Naive Bayes class</a></li>
+<li><a class="reference internal" href="#the-configuration-options-manager">The configuration options manager</a></li>
 <li><a class="reference internal" href="#module-trainer">The training class</a></li>
 <li><a class="reference internal" href="#module-classifier">The classifier class</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#feature-statistics-modules">Feature statistics modules</a><ul>
-<li><a class="reference internal" href="#module-gen_stat">General stats for training sets</a></li>
-<li><a class="reference internal" href="#module-test_stat">General stats for validation and test sets</a></li>
+<li><a class="reference internal" href="#general-stats-for-training-sets">General stats for training sets</a></li>
+<li><a class="reference internal" href="#general-stats-for-validation-and-test-sets">General stats for validation and test sets</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#various-tools-and-utilities">Various tools and utilities</a><ul>
-<li><a class="reference internal" href="#module-lexer">The lexical analyzer</a></li>
-<li><a class="reference internal" href="#module-utils">Other utilities</a></li>
+<li><a class="reference internal" href="#the-lexical-analyzer">The lexical analyzer</a></li>
+<li><a class="reference internal" href="#other-utilities">Other utilities</a></li>
 </ul>
 </li>
 </ul>

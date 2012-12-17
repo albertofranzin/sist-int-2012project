@@ -1,8 +1,10 @@
+import itertools
 import os
 
 from bs4 import BeautifulSoup
 
 from gen_stat import Stat
+from test_stat import Test_stat
 
 
 class Utils:
@@ -17,8 +19,8 @@ class Utils:
         If desidered, extract first the text and then the tokens
         from the mails. Does nothing on the content of plain text files.
 
-        :param path: the relative path from the current position
-        to the desidered directory;
+        :param path: the relative path from the current position\
+           to the desidered directory;
         :type path: str
         :param how_many: how many files to read. 0 == unlimited;
         :type how_many: int
@@ -85,8 +87,8 @@ class Utils:
         Calls method Utils._read_files, passing the same parameters received,
         with `read_mails` flag set to True.
 
-        :param path: the relative path from the current position \
-            to the desidered directory;
+        :param path: the relative path from the current position to the \
+                desidered directory;
         :type path: str
         :param how_many: how many files to read. 0 == unlimited;
         :type how_many: int
@@ -112,7 +114,7 @@ class Utils:
         with `read_mails` flag set to False.
 
         :param path: the relative path from the current position \
-            to the desidered directory;
+                to the desidered directory;
         :type path: str
         :param how_many: how many files to read. 0 = unlimited;
         :type how_many: int
@@ -137,14 +139,32 @@ class Utils:
 
         """
 
-        for i in xrange(0, len(l), n):
-            yield l[i: i + n]
+        # for i in xrange(0, len(l), n):
+        #     yield l[i: i + n]
+
+        return [l[i: i + n] for i in range(0, len(l), n)]
+
+    @staticmethod
+    def merge_lists(lists):
+        """Merge a list of lists into a single one.
+
+        From http://stackoverflow.com/questions/406121 (thanks)
+
+        :param lists: the list of lists to be flattened;
+        :type lists: list
+        :return: the new list.
+
+        """
+
+        chain = itertools.chain(*lists)
+        return list(chain)
 
     @staticmethod
     def create_stats():
         """
-        Defines a new associative array of (str, Stat), containing all the
-        overall stats to be evaluated by the Bayes network.
+        Defines a new associative array of (str, :class:`gen_stat.Stat`),
+        containing all the overall stats to be evaluated by the Bayes network
+        in the training step.
 
         :return: the newly created array.
 
@@ -162,4 +182,29 @@ class Utils:
         gs['LOONGWORDS'] = Stat("# of non-address \"very long words\"", 0, 0)
         gs['WASTE']      = Stat("# of non-valid words", 0, 0)
         gs['NUMBER']     = Stat("# of numers", 0, 0)
+        return gs
+
+    @staticmethod
+    def create_test_stats():
+        """
+        Defines a new associative array of (str, :class:`test_stat.Stat`),
+        containing all the overall stats to be evaluated by the Bayes network
+        in the validation and testing steps.
+
+        :return: the newly created array.
+
+        """
+
+        gs = {}
+        gs['ALLCAPSW']   = Test_stat("# of all-caps words", 0)
+        gs['ALPHANUM']   = Test_stat("# of alphanumerical words", 0)
+        gs['USERHOST']   = Test_stat("# of string in user/hosts form", 0)
+        gs['LINKADDR']   = Test_stat("# of links", 0)
+        gs['MAILADDR']   = Test_stat("# of mail addresses", 0)
+        gs['LOWERCASEW'] = Test_stat("# of all lowercase words", 0)
+        gs['TITLEW']     = Test_stat("# of words with only the first letter capital", 0)
+        gs['SHORTWORDS'] = Test_stat("# of \"short words\"", 0)
+        gs['LOONGWORDS'] = Test_stat("# of non-address \"very long words\"", 0)
+        gs['WASTE']      = Test_stat("# of non-valid words", 0)
+        gs['NUMBER']     = Test_stat("# of numers", 0)
         return gs
