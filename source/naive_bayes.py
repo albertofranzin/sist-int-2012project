@@ -13,7 +13,7 @@ import math
 import os
 import sys
 
-# from classifier import Classifier
+from classifier import Classifier
 from config import Config
 from lexer import Lexer
 from trainer import Trainer
@@ -184,7 +184,7 @@ class Bayes():
         """
 
         folds     = self.config.CROSS_VALIDATION_FOLDS
-        fold_size = int(math.ceil(self.config.SIZE_OF_BAGS / folds))
+        fold_size = int(math.ceil(1.0 * self.config.SIZE_OF_BAGS / folds))
         accuracy = []
 
         spam_chunks = Utils.chunks(spam_list, fold_size)
@@ -289,20 +289,22 @@ class Bayes():
             self._k_fold_cross_validation(spam_list, ham_list)
         else:
             # train directly
-            self.trainer.train(spam_list, True,
-                    self.words, self.general_stats, self.config)
+            # raw_input("training HAM")
             self.trainer.train(ham_list, False,
                     self.words, self.general_stats, self.config)
+            # raw_input("training SPAM")
+            self.trainer.train(spam_list, True,
+                    self.words, self.general_stats, self.config)
 
-            if self.config.VERBOSE:
-                self.trainer.trainer_print(self.general_stats)
+            #if self.config.VERBOSE:
+            self.trainer.trainer_print(self.general_stats)
 
             # call normal validation function
             accuracy = self.validate(ham_val_list, spam_val_list,
                 self.words, self.general_stats, self.config)
 
-            if self.config.VERBOSE:
-                print "Bayes :: accuracy of the trained network: ", accuracy
+            # if self.config.VERBOSE:
+            print "Bayes :: accuracy of the trained network: ", accuracy
 
     #
     # validation
@@ -332,33 +334,44 @@ class Bayes():
         """
 
         print len(ham_val_list), len(spam_val_list)
-        raw_input("kahdkjsa")
+        raw_input("ready for validating?")
 
         count = 0
-        ws = {}
-        gs = Utils.create_test_stats()
         lexer = Lexer()
         false_positives = 0
         false_negatives = 0
 
         for mail in ham_val_list:
-            lexer.lexer_words(mail, False, True, ws, gs, self.config)
-            res = self.classify(ws, gs, words, general_stats)
+            ws = {}
+            gs = Utils.create_test_stats()
+            lexer.lexer_words(mail, False, False, ws, gs, self.config)
+            #res = self.classify(ws, gs, words, general_stats)
+            res = Classifier.classify(ws, gs, self.words,
+                        self.general_stats, self.config)
+
+            # has the mail been classified correctly?
             if res == False:
+                # yes
                 count += 1
             else:
+                # no
                 false_positives += 1
 
-        # raw_input("ok, now try with spam mails")
+        raw_input("ok, now try with spam mails")
 
-        ws = {}
-        gs = Utils.create_test_stats()
         for mail in spam_val_list:
+            ws = {}
+            gs = Utils.create_test_stats()
             lexer.lexer_words(mail, False, False, ws, gs, self.config)
-            res = self.classify(ws, gs, words, general_stats)
+            # res = self.classify(ws, gs, words, general_stats)
+            res = Classifier.classify(ws, gs, self.words,
+                        self.general_stats, self.config)
+            # has the mail been classified correctly?
             if res == True:
+                # yes
                 count += 1
             else:
+                # no
                 false_negatives += 1
 
         print "false pos:", false_positives, "false neg:", false_negatives
@@ -437,15 +450,16 @@ class Bayes():
                 t_occ = s_occ + h_occ
                 pws = ((s_occ + smth) / (t_occ + 2.0 * smth)) ** word_count
                 pwh = ((h_occ + smth) / (t_occ + 2.0 * smth)) ** word_count
-                if pws > pwh:
-                    print "-- ", word, " is more likely to be spam",
-                    if pws + pwh > 0:
-                        print 1.0 * pws / (1.0 * pws + 1.0 * pwh),
-                else:
-                    print "-- ", word, " is more likely to be ham",
-                    if pws + pwh > 0:
-                        print 1.0 * pwh / (1.0 * pws + 1.0 * pwh),
-                print word_count, s_occ, h_occ
+                if self.config.VERBOSE:
+                    if pws > pwh:
+                        print "-- ", word, " is more likely to be spam",
+                        if pws + pwh > 0:
+                            print 1.0 * pws / (1.0 * pws + 1.0 * pwh),
+                    else:
+                        print "-- ", word, " is more likely to be ham",
+                        if pws + pwh > 0:
+                            print 1.0 * pwh / (1.0 * pws + 1.0 * pwh),
+                    print word_count, s_occ, h_occ
 
                 ovrl_pspam *= pws
                 ovrl_pham *= pwh

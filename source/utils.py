@@ -1,5 +1,6 @@
 import itertools
 import os
+import random
 
 from bs4 import BeautifulSoup
 
@@ -38,18 +39,26 @@ class Utils:
 
         # if we don't want to use the entire mail archive for train the system,
         # then we have to keep track of how many mails we have opened
-        if how_many > 0:
-            processed_mails = 0
+        # if how_many > 0:
+        #     processed_mails = 0
 
         # # if we went to read mails, then we create the lexer to extract tokens
         # if read_mails:
         #     lexer = Lexer()
 
         file_list = []
+        print "path : ", os.getcwd()
         print "Utils :: _read_files :: ", path
+
         os.chdir(path)
         # runs through all the files
-        for file in os.listdir("."):
+        list_of_files = os.listdir(".")
+        random.shuffle(list_of_files)
+
+        if how_many > 0:
+            del list_of_files[how_many:]
+
+        for file in list_of_files:  # os.listdir("."):
             # open the file
             if config.VERBOSE:
                 print "Utils.read :: opening file", file  # , "\n\n"
@@ -70,12 +79,12 @@ class Utils:
             # close file
             in_file.close()
 
-            # keep the count of read mails if needed, and stop when done
-            if how_many > 0:
-                processed_mails += 1
-                if processed_mails >= how_many:
-                    processed_mails = 0
-                    break
+            # # keep the count of read mails if needed, and stop when done
+            # if how_many > 0:
+            #     processed_mails += 1
+            #     if processed_mails >= how_many:
+            #         processed_mails = 0
+            #         break
 
         return file_list
 
@@ -181,7 +190,7 @@ class Utils:
         gs['SHORTWORDS'] = Stat("# of \"short words\"", 0, 0)
         gs['LOONGWORDS'] = Stat("# of non-address \"very long words\"", 0, 0)
         gs['WASTE']      = Stat("# of non-valid words", 0, 0)
-        gs['NUMBER']     = Stat("# of numers", 0, 0)
+        gs['NUMBER']     = Stat("# of numbers", 0, 0)
         return gs
 
     @staticmethod
@@ -206,5 +215,5 @@ class Utils:
         gs['SHORTWORDS'] = Test_stat("# of \"short words\"", 0)
         gs['LOONGWORDS'] = Test_stat("# of non-address \"very long words\"", 0)
         gs['WASTE']      = Test_stat("# of non-valid words", 0)
-        gs['NUMBER']     = Test_stat("# of numers", 0)
+        gs['NUMBER']     = Test_stat("# of numbers", 0)
         return gs

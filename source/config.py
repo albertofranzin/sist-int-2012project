@@ -14,6 +14,7 @@ class Config():
     - SHORT_THR (int): length of a word to be identified as `very short` [1];
     - SIZE_OF_BAGS (int): number of ham and spam mails for training [50];
     - SIZE_OF_VAL_BAGS (int): number of ham and spam mails for validation [10];
+    - SIZE_OF_TEST_BAG (int): number of mails in the test set [30]
     - SMOOTH_VALUE (int): smoothing value to be used in classification [1];
     - SPAM_THR (float, \in [0,1]): probability threshold to mark a mail as spam [0.95];
     - VERBOSE (bool): if True, displays more messages [True];
@@ -27,7 +28,7 @@ class Config():
         # some constants:
 
         # do I have to do cross-validation?
-        self.CROSS_VALIDATION = True
+        self.CROSS_VALIDATION = False
 
         # # of cross-validation folds (if enabled)
         self.CROSS_VALIDATION_FOLDS = 4
@@ -39,12 +40,15 @@ class Config():
         self.SHORT_THR = 1
 
         # size of training sets
-        self.SIZE_OF_BAGS = 70
+        self.SIZE_OF_BAGS = 50
 
         # size of validation sets
         # (1 v.s. for ham, 1 for spam)
         # MUST BE <= SIZE_OF_BAGS
-        self.SIZE_OF_VAL_BAGS = 20
+        self.SIZE_OF_VAL_BAGS = 50
+
+        # size of test set
+        self.SIZE_OF_TEST_BAG = 30
 
         # smooth value
         self.SMOOTH_VALUE = 1
@@ -53,7 +57,7 @@ class Config():
         self.SPAM_THR = 0.5
 
         # should I print lots of infos?
-        self.VERBOSE = True
+        self.VERBOSE = False
 
         # length of a token to be defined "a very long word"
         self.VERYLONG_THR = 20
