@@ -5,13 +5,14 @@ from test_stat import Test_word
 
 
 class Lexer:
-    """Lexical Analyzer. Use Ply's lexer to identify the tokens and to classify them.
+    """
+    Lexical Analyzer. Use Ply's lexer to identify the tokens and to classify them.
     See http://www.dabeaz.com/ply/ to know how it works.
 
     """
 
     def _process_tokens(self, results, in_training, is_spam, words,
-                general_stats, config):
+                general_stats, params):
         """Process tokens extracted from the training set.
 
         For every token, extract the value (the word itself)
@@ -39,8 +40,8 @@ class Lexer:
             of two types:\
                 :class:`gen_stat.Stat` (`in_training == True`), or\
                 :class:`test_stat.Test_stat` (`in_training == False`);
-        :param config: contains some general parameters and configurations.
-        :type config: :class:`config.Config` object
+        :param params: contains some general parameters and configurations;
+        :type params: associative array
 
         """
 
@@ -75,18 +76,18 @@ class Lexer:
                 # and the status of the mail (spam/ham). Short words may be
                 # of any type (|word| <= threshold), excepting 'WASTE'
                 if is_spam:
-                    if len(value) <= config.SHORT_THR and type != 'WASTE':
+                    if len(value) <= params['SHORT_THR'] and type != 'WASTE':
                         general_stats['SHORTWORDS'].spam += 1
-                    if (len(value) >= config.VERYLONG_THR and
+                    if (len(value) >= params['VERYLONG_THR'] and
                              not (type == 'MAILADDR'
                                or type == 'LINKADDR'
                                or type == 'USERHOST')):
                         general_stats['LOONGWORDS'].spam += 1
                     general_stats[type].spam += 1
                 else:
-                    if len(value) <= config.SHORT_THR and type != 'WASTE':
+                    if len(value) <= params['SHORT_THR'] and type != 'WASTE':
                         general_stats['SHORTWORDS'].ham += 1
-                    if (len(value) >= config.VERYLONG_THR and
+                    if (len(value) >= params['VERYLONG_THR'] and
                              not (type == 'MAILADDR'
                                or type == 'LINKADDR'
                                or type == 'USERHOST')):
@@ -116,9 +117,9 @@ class Lexer:
                 # updates general stats, based on the type of the word
                 # w/o knowing the class of the mail. Short words may be
                 # of any type (|word| <= threshold), excepting 'WASTE'
-                if len(value) <= config.SHORT_THR and type != 'WASTE':
+                if len(value) <= params['SHORT_THR'] and type != 'WASTE':
                     general_stats['SHORTWORDS'].count += 1
-                if (len(value) >= config.VERYLONG_THR and
+                if (len(value) >= params['VERYLONG_THR'] and
                          not (type == 'MAILADDR'
                            or type == 'LINKADDR'
                            or type == 'USERHOST')):
@@ -134,7 +135,7 @@ class Lexer:
         # return (words, general_stats)
 
     def lexer_words(self, text, in_training, is_spam,
-                words, general_stats, config):
+                words, general_stats, params):
         """
         Apply lexical analysis to the text of mails.
 
@@ -157,8 +158,8 @@ class Lexer:
             of two types:\
                 :class:`gen_stat.Stat` (`in_training == True`), or\
                 :class:`test_stat.Test_stat` (`in_training == False`);
-        :param config: contains some general parameters and configurations.
-        :type config: :class:`config.Config` object
+        :param params: contains some general parameters and configurations;
+        :type params: associative array
 
         """
 
@@ -178,7 +179,7 @@ class Lexer:
         # if config.VERBOSE:
         #     print result
         self._process_tokens(result, in_training, is_spam,
-                words, general_stats, config)
+                words, general_stats, params)
 
     def __init__(self):
         """
@@ -280,7 +281,7 @@ class Lexer:
 
         # is the token a number?
         def t_NUMBER(token):
-            r'[0-9]+'
+            r'[0-9]+(?:\.[0-9]*)'
             token.type = 'NUMBER'
             return token
 

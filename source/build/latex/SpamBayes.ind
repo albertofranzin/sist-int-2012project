@@ -21,19 +21,20 @@
 
   \indexspace
   \bigletter C
-  \item chunks() (utils.Utils static method), \hyperpage{13}
-  \item Classifier (class in classifier), \hyperpage{8}
-  \item classifier (module), \hyperpage{8}
+  \item chunks() (utils.Utils static method), \hyperpage{12}
+  \item Classifier (class in classifier), \hyperpage{7}
+  \item classifier (module), \hyperpage{7}
   \item classify() (classifier.Classifier static method), \hyperpage{8}
-  \item classify() (naive\_bayes.Bayes method), \hyperpage{6}
-  \item Config (class in config), \hyperpage{7}
-  \item config (module), \hyperpage{7}
+  \item Config (class in config), \hyperpage{6}
+  \item config (module), \hyperpage{6}
+  \item cprint() (config.Config method), \hyperpage{7}
   \item create\_stats() (utils.Utils static method), \hyperpage{13}
   \item create\_test\_stats() (utils.Utils static method), \hyperpage{13}
 
   \indexspace
   \bigletter G
   \item gen\_stat (module), \hyperpage{9}
+  \item get\_params() (config.Config method), \hyperpage{7}
 
   \indexspace
   \bigletter L
@@ -73,6 +74,8 @@
 
   \indexspace
   \bigletter U
+  \item update\_stats() (naive\_bayes.Bayes method), \hyperpage{6}
+  \item update\_training\_stats() (naive\_bayes.Bayes method), \hyperpage{6}
   \item Utils (class in utils), \hyperpage{12}
   \item utils (module), \hyperpage{12}
 

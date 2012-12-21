@@ -1,5 +1,6 @@
 import ConfigParser
 
+
 class Config():
     """
     Contains some general configurations.
@@ -25,69 +26,110 @@ class Config():
     """
 
     def __init__(self):
-        """
-        Constructor. Initialize all the parameters to their default value.
+        """Constructor. Initialize all the parameters to their default value."""
 
-	If found in file config.cfg, initialize to that value.
+        # define the constants
+        self.params = {}
 
-        """
-
-        # some constants:
-	self.params = {}
-
-        # do I have to do cross-validation?
+        # do I have to do cross-validation? [False]
         self.params['CROSS_VALIDATION'] = False
 
-        # # of cross-validation folds (if enabled)
-        self.params['CROSS_VALIDATION_FOLDS'] = 4
+        # # of cross-validation folds (if enabled) [4]
+        self.params['CROSS_VALIDATION_FOLDS'] = 8
 
-        # weight of the overall features stats over the word spamminess
-        self.params['OVERALL_FEATS_SPAM_W'] = 0.6
+        # weight of the overall features stats over the word spamminess [0.0001]
+        self.params['OVERALL_FEATS_SPAM_W'] = 0.0001
 
-        # length of a token to be defined "a short word"
+        # threshold of deviance of a statistic from the average mean
+        self.params['RELEVANCE_THR'] = 0.15
+
+        # length of a token to be defined "a short word" [1]
         self.params['SHORT_THR'] = 1
 
-        # size of training sets
+        # size of training sets [50]
         self.params['SIZE_OF_BAGS'] = 50
 
-        # size of validation sets
-        # (1 v.s. for ham, 1 for spam)
-        # MUST BE <= SIZE_OF_BAGS
+        # size of validation sets (1 v.s. for ham, 1 for spam) [50]
         self.params['SIZE_OF_VAL_BAGS'] = 50
 
-        # size of test set
-        self.params['SIZE_OF_TEST_BAG'] = 30
+        # size of test set [1000]
+        self.params['SIZE_OF_TEST_BAGS'] = 50
 
-        # smooth value
-        self.params['SMOOTH_VALUE'] = 1
+        # smooth value [0]
+        self.params['SMOOTH_VALUE'] = 0.001
 
-        # spam probability threshold for classification and validation
-        self.params['SPAM_THR'] = 0.5
+        # spam probability threshold for classification and validation [0.2]
+        self.params['SPAM_THR'] = 0.2
 
-        # should I print lots of infos?
+        # should I print lots of infos? [False]
         self.params['VERBOSE'] = False
 
-        # length of a token to be defined "a very long word"
-        self.params['VERYLONG_THR'] = 20
+        # length of a token to be defined "a very long word" [20]
+        self.params['VERYLONG_THR'] = 18
 
+        # Read values from file spam_bayes.conf, and
+        # overwrite the default values
 
-        # Reading values from config.cfg
+        config_parser = ConfigParser.RawConfigParser()
 
-        config = ConfigParser.RawConfigParser()
+        config_parser.read('spam_bayes.conf')
 
-        config.read('config.cfg')
-
-        for (param,value) in self.params.items():
+        for (param, value) in self.params.items():
             try:
-                x = config.get('Main', param)
-                self.params[param] = x
+                user_value = config_parser.get('Main', param)
+
+                # check it param is an integer
+                try:
+                    self.params[param] = int(user_value)
+                    continue
+                except ValueError:
+                    pass
+
+                # check if param is a float
+                try:
+                    self.params[param] = float(user_value)
+                    continue
+                except ValueError:
+                    pass
+
+                # check if param is a boolean
+                # quick 'n' dirty, don't know if there is
+                # a more straightforward way
+                try:
+                    # self.params[param] = bool(user_value)
+                    if user_value == "True":
+                        self.params[param] = True
+                        continue
+                    elif user_value == "False":
+                        self.params[param] = False
+                        continue
+                except ValueError:
+                    pass
+
+                # finally, if it's nothing else, then it's a string
+                self.params[param] = user_value
             except ConfigParser.NoOptionError:
-                #print "Missing",param,"parameter, keeping default"
+                # print "Missing", param, "parameter, keeping default"
+                pass
+
+        if self.params['VERBOSE']:
+            self.cprint()
 
     def cprint(self):
-        """ Cprint. Print all the parameters and their assigned value """
+        """
+        Print all the parameters and their assigned value.
 
-        param_list=self.params.keys()
+        """
+
+        print "Parameters:"
+        param_list = self.params.keys()
         for param in param_list:
-		print param,"set to",self.params[param]
+                print param, "set to", self.params[param]
 
+    def get_params(self):
+        """
+        Return the parameter list.
+
+        """
+
+        return self.params

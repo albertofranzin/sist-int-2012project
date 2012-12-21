@@ -22,7 +22,7 @@ class Trainer:
         """Constructor."""
         self.lexer = Lexer()
 
-    def train(self, mails, is_spam, words, general_stats, config):
+    def train(self, mails, is_spam, words, general_stats, params):
         """The proper trainer method.
 
         For all the mails given, extract the single words and classify them,
@@ -37,17 +37,18 @@ class Trainer:
         :type words: array of Word objects
         :param general_stats: the overall stats of the set.
         :type general_stats: array of {str, :class:`gen_stat.Stat`}
-        :param config: contains some configurations.
-        :type config: :class:`config.Config` object
+        :param params: contains some general parameters and configurations;
+        :type params: associative array
 
         """
 
         print "Trainer :: train :: loop begins"
         for mail in mails:
             # print mail
+            # raw_input("go to next mail")
             soup = BeautifulSoup(''.join(mail))
             self.lexer.lexer_words(soup.get_text(), True, is_spam,
-                    words, general_stats, config)
+                    words, general_stats, params)
         print "Trainer :: train :: done"
 
     def trainer_print(self, general_stats):
