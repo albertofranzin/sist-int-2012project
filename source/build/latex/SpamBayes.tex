@@ -13,7 +13,7 @@
 
 
 \title{SpamBayes Documentation}
-\date{December 14, 2012}
+\date{December 21, 2012}
 \release{0.1}
 \author{Alberto Franzin, Fabio Palese}
 \newcommand{\sphinxlogo}{}
@@ -190,6 +190,15 @@ Its main variables are the arrays of stats of the words and the features filled 
 Contains the Bayes network and some possible operations: training,
 validation, k-fold cross-validation, formatted print of the data.
 For the other operations, instantiate the apposite classes.
+
+Methods contained:
+\_\_init\_\_
+bayes\_print
+\_k\_fold\_cross\_validation
+train
+validate
+test\_bayes
+classify
 \index{\_\_init\_\_() (naive\_bayes.Bayes method)}
 
 \begin{fulllineitems}
@@ -251,37 +260,6 @@ Each row must have the same number of columns.
 
 \end{fulllineitems}
 
-\index{classify() (naive\_bayes.Bayes method)}
-
-\begin{fulllineitems}
-\phantomsection\label{index:naive_bayes.Bayes.classify}\pysiglinewithargsret{\bfcode{classify}}{\emph{ws}, \emph{gs}}{}
-Classification function which guesses the class of a mail. The Bayesian logic        is applied here.
-
-The method iterates through all the words identified in the mail,
-and for each one computes how much likely it is for the word to belong
-to a spam mail or to a ham mail. Then it does the same for each general
-feature of the mail. Finally, the method combines the two results
-and tells which class the mail is more likely to be.
-
-The method relies on the correct tuning of the parameters contained in
-the {\hyperref[index:config.Config]{\code{config.Config}}} class.
-\begin{quote}\begin{description}
-\item[{Parameters}] \leavevmode\begin{itemize}
-\item {} 
-\textbf{ws} (array of {\hyperref[index:test_stat.Test_word]{\code{test\_stat.Test\_word}}} objects) -- the list of words of the mail to be classified, and their stats;
-
-\item {} 
-\textbf{gs} (array of {\hyperref[index:test_stat.Test_stat]{\code{test\_stat.Test\_stat}}} objects) -- array containing the features encontered in the mail;
-
-\end{itemize}
-
-\item[{Returns}] \leavevmode
-\emph{True} if the mail is classified as spam, \emph{False} if it is            considered ham.
-
-\end{description}\end{quote}
-
-\end{fulllineitems}
-
 \index{test\_bayes() (naive\_bayes.Bayes method)}
 
 \begin{fulllineitems}
@@ -313,10 +291,26 @@ present. The location of the mails is (for now?) hardcoded here.
 
 \end{fulllineitems}
 
+\index{update\_stats() (naive\_bayes.Bayes method)}
+
+\begin{fulllineitems}
+\phantomsection\label{index:naive_bayes.Bayes.update_stats}\pysiglinewithargsret{\bfcode{update\_stats}}{\emph{ws}, \emph{gs}, \emph{is\_spam}}{}
+update
+
+\end{fulllineitems}
+
+\index{update\_training\_stats() (naive\_bayes.Bayes method)}
+
+\begin{fulllineitems}
+\phantomsection\label{index:naive_bayes.Bayes.update_training_stats}\pysiglinewithargsret{\bfcode{update\_training\_stats}}{\emph{ws}, \emph{gs}}{}
+update
+
+\end{fulllineitems}
+
 \index{validate() (naive\_bayes.Bayes method)}
 
 \begin{fulllineitems}
-\phantomsection\label{index:naive_bayes.Bayes.validate}\pysiglinewithargsret{\bfcode{validate}}{\emph{ham\_val\_list}, \emph{spam\_val\_list}, \emph{words}, \emph{general\_stats}, \emph{config}}{}
+\phantomsection\label{index:naive_bayes.Bayes.validate}\pysiglinewithargsret{\bfcode{validate}}{\emph{ham\_val\_list}, \emph{spam\_val\_list}, \emph{words}, \emph{general\_stats}}{}
 Validation function.
 
 Get the validation sets and the results of the training, and
@@ -335,9 +329,6 @@ in the validation set.
 
 \item {} 
 \textbf{general\_stats} (associative array \{str, {\hyperref[index:gen_stat.Stat]{\code{gen\_stat.Stat}}}\}) -- the overall stats of the features;
-
-\item {} 
-\textbf{config} ({\hyperref[index:config.Config]{\code{config.Config}}} object) -- contains some general parameters and configurations;
 
 \end{itemize}
 
@@ -383,6 +374,9 @@ SIZE\_OF\_BAGS (int): number of ham and spam mails for training {[}50{]};
 SIZE\_OF\_VAL\_BAGS (int): number of ham and spam mails for validation {[}10{]};
 
 \item {} 
+SIZE\_OF\_TEST\_BAG (int): number of mails in the test set {[}30{]}
+
+\item {} 
 SMOOTH\_VALUE (int): smoothing value to be used in classification {[}1{]};
 
 \item {} 
@@ -400,6 +394,22 @@ VERYLONG\_THR (int): length of a word to be identified as \emph{very long} {[}20
 \begin{fulllineitems}
 \phantomsection\label{index:config.Config.__init__}\pysiglinewithargsret{\bfcode{\_\_init\_\_}}{}{}
 Constructor. Initialize all the parameters to their default value.
+
+\end{fulllineitems}
+
+\index{cprint() (config.Config method)}
+
+\begin{fulllineitems}
+\phantomsection\label{index:config.Config.cprint}\pysiglinewithargsret{\bfcode{cprint}}{}{}
+Print all the parameters and their assigned value.
+
+\end{fulllineitems}
+
+\index{get\_params() (config.Config method)}
+
+\begin{fulllineitems}
+\phantomsection\label{index:config.Config.get_params}\pysiglinewithargsret{\bfcode{get\_params}}{}{}
+Return the parameter list.
 
 \end{fulllineitems}
 
@@ -426,7 +436,7 @@ Constructor.
 \index{train() (trainer.Trainer method)}
 
 \begin{fulllineitems}
-\phantomsection\label{index:trainer.Trainer.train}\pysiglinewithargsret{\bfcode{train}}{\emph{mails}, \emph{is\_spam}, \emph{words}, \emph{general\_stats}, \emph{config}}{}
+\phantomsection\label{index:trainer.Trainer.train}\pysiglinewithargsret{\bfcode{train}}{\emph{mails}, \emph{is\_spam}, \emph{words}, \emph{general\_stats}, \emph{params}}{}
 The proper trainer method.
 
 For all the mails given, extract the single words and classify them,
@@ -447,7 +457,7 @@ evaluated, and for the single words.
 \textbf{general\_stats} (array of \{str, {\hyperref[index:gen_stat.Stat]{\code{gen\_stat.Stat}}}\}) -- the overall stats of the set.
 
 \item {} 
-\textbf{config} ({\hyperref[index:config.Config]{\code{config.Config}}} object) -- contains some configurations.
+\textbf{params} (\emph{associative array}) -- contains some general parameters and configurations;
 
 \end{itemize}
 
@@ -478,14 +488,45 @@ Print out the overall stats given. For test purposes.
 
 \begin{fulllineitems}
 \phantomsection\label{index:classifier.Classifier}\pysigline{\strong{class }\code{classifier.}\bfcode{Classifier}}
-Classify the test set.
+Classify an item.
 
-Apply Bayesian logic to classify the mails as spam or ham.
+This class contains the {\color{red}\bfseries{}:method:{}`classifier.Classifier.classify{}`} used to
+assign a class (spam/ham) to a mail, using the statistics computed
+for the processed mail, and the statistics of the training set.
 \index{classify() (classifier.Classifier static method)}
 
 \begin{fulllineitems}
-\phantomsection\label{index:classifier.Classifier.classify}\pysiglinewithargsret{\strong{static }\bfcode{classify}}{\emph{mws}, \emph{mgs}, \emph{words}, \emph{general\_stats}, \emph{config}}{}
-TODO: INSERT DOCUMENTATION HERE!!!
+\phantomsection\label{index:classifier.Classifier.classify}\pysiglinewithargsret{\strong{static }\bfcode{classify}}{\emph{ws}, \emph{gs}, \emph{ovrl\_ws}, \emph{ovrl\_gs}, \emph{params}}{}
+Classification function which guesses the class of a mail. The Bayesian theory        is applied here.
+
+The method iterates through all the words identified in the mail,
+and for each one computes how much likely it is for the word to belong
+to a spam mail or to a ham mail. Then it does the same for each general
+feature of the mail. Finally, the method combines the two results
+and tells which class the mail is more likely to be.
+
+The statistics computed for each mail will be used to update the
+general properties tables, based on the the class computed here.
+
+The method relies on the correct tuning of the parameters contained in
+the {\hyperref[index:config.Config]{\code{config.Config}}} class or set by the user.
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\textbf{ws} (array of {\hyperref[index:test_stat.Test_word]{\code{test\_stat.Test\_word}}} objects) -- the list of words of the mail to be classified, and their stats;
+
+\item {} 
+\textbf{gs} (array of {\hyperref[index:test_stat.Test_stat]{\code{test\_stat.Test\_stat}}} objects) -- array containing the features encontered in the mail;
+
+\item {} 
+\textbf{params} (\emph{associative array}) -- contains some general parameters and configurations;
+
+\end{itemize}
+
+\item[{Returns}] \leavevmode
+\emph{True} if the mail is classified as spam, \emph{False} if it is            considered ham.
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -638,7 +679,7 @@ All the \code{t\_TOKEN()} methods are defined as inner methods inside here.
 \index{\_process\_tokens() (lexer.Lexer method)}
 
 \begin{fulllineitems}
-\phantomsection\label{index:lexer.Lexer._process_tokens}\pysiglinewithargsret{\bfcode{\_process\_tokens}}{\emph{results}, \emph{in\_training}, \emph{is\_spam}, \emph{words}, \emph{general\_stats}, \emph{config}}{}
+\phantomsection\label{index:lexer.Lexer._process_tokens}\pysiglinewithargsret{\bfcode{\_process\_tokens}}{\emph{results}, \emph{in\_training}, \emph{is\_spam}, \emph{words}, \emph{general\_stats}, \emph{params}}{}
 Process tokens extracted from the training set.
 
 For every token, extract the value (the word itself)
@@ -669,7 +710,7 @@ so we can fill appropriately the \emph{general\_stats} array of
 \textbf{general\_stats} -- the overall stats of the features. Feature type may be            of two types:                {\hyperref[index:gen_stat.Stat]{\code{gen\_stat.Stat}}} (\emph{in\_training == True}), or                {\hyperref[index:test_stat.Test_stat]{\code{test\_stat.Test\_stat}}} (\emph{in\_training == False});
 
 \item {} 
-\textbf{config} ({\hyperref[index:config.Config]{\code{config.Config}}} object) -- contains some general parameters and configurations.
+\textbf{params} (\emph{associative array}) -- contains some general parameters and configurations;
 
 \end{itemize}
 
@@ -680,7 +721,7 @@ so we can fill appropriately the \emph{general\_stats} array of
 \index{lexer\_words() (lexer.Lexer method)}
 
 \begin{fulllineitems}
-\phantomsection\label{index:lexer.Lexer.lexer_words}\pysiglinewithargsret{\bfcode{lexer\_words}}{\emph{text}, \emph{in\_training}, \emph{is\_spam}, \emph{words}, \emph{general\_stats}, \emph{config}}{}
+\phantomsection\label{index:lexer.Lexer.lexer_words}\pysiglinewithargsret{\bfcode{lexer\_words}}{\emph{text}, \emph{in\_training}, \emph{is\_spam}, \emph{words}, \emph{general\_stats}, \emph{params}}{}
 Apply lexical analysis to the text of mails.
 
 May
@@ -705,7 +746,7 @@ so we can fill appropriately the \emph{general\_stats} array of
 \textbf{general\_stats} -- the overall stats of the features. Feature type may be            of two types:                {\hyperref[index:gen_stat.Stat]{\code{gen\_stat.Stat}}} (\emph{in\_training == True}), or                {\hyperref[index:test_stat.Test_stat]{\code{test\_stat.Test\_stat}}} (\emph{in\_training == False});
 
 \item {} 
-\textbf{config} ({\hyperref[index:config.Config]{\code{config.Config}}} object) -- contains some general parameters and configurations.
+\textbf{params} (\emph{associative array}) -- contains some general parameters and configurations;
 
 \end{itemize}
 
@@ -746,7 +787,7 @@ Collection of various tools used in the project.
 \index{\_read\_files() (utils.Utils static method)}
 
 \begin{fulllineitems}
-\phantomsection\label{index:utils.Utils._read_files}\pysiglinewithargsret{\strong{static }\bfcode{\_read\_files}}{\emph{path}, \emph{how\_many}, \emph{read\_mails}, \emph{words}, \emph{gen\_stats}, \emph{config}}{}
+\phantomsection\label{index:utils.Utils._read_files}\pysiglinewithargsret{\strong{static }\bfcode{\_read\_files}}{\emph{path}, \emph{how\_many}, \emph{read\_mails}, \emph{words}, \emph{gen\_stats}, \emph{params}}{}
 Read the desidered number of text files from the given path.
 
 If desidered, extract first the text and then the tokens
@@ -769,7 +810,7 @@ from the mails. Does nothing on the content of plain text files.
 \textbf{general\_stats} (associative array \{str, {\hyperref[index:gen_stat.Stat]{\code{gen\_stat.Stat}}}\}) -- the overall stats of the features;
 
 \item {} 
-\textbf{config} ({\hyperref[index:config.Config]{\code{config.Config}}} object) -- contains some general parameters and configurations;
+\textbf{params} (\emph{associative array}) -- contains some general parameters and configurations;
 
 \end{itemize}
 
@@ -852,7 +893,7 @@ the new list.
 \index{read\_mails() (utils.Utils static method)}
 
 \begin{fulllineitems}
-\phantomsection\label{index:utils.Utils.read_mails}\pysiglinewithargsret{\strong{static }\bfcode{read\_mails}}{\emph{path}, \emph{how\_many}, \emph{words}, \emph{general\_stats}, \emph{config}}{}
+\phantomsection\label{index:utils.Utils.read_mails}\pysiglinewithargsret{\strong{static }\bfcode{read\_mails}}{\emph{path}, \emph{how\_many}, \emph{words}, \emph{general\_stats}, \emph{params}}{}
 Read the desidered number of text files from the given path.
 
 Calls method Utils.\_read\_files, passing the same parameters received,
@@ -872,7 +913,7 @@ with \emph{read\_mails} flag set to True.
 \textbf{general\_stats} (associative array \{str, {\hyperref[index:gen_stat.Stat]{\code{gen\_stat.Stat}}}\}) -- the overall stats of the features;
 
 \item {} 
-\textbf{config} ({\hyperref[index:config.Config]{\code{config.Config}}} object) -- contains some general parameters and configurations;
+\textbf{params} (\emph{associative array}) -- contains some general parameters and configurations;
 
 \end{itemize}
 
@@ -886,7 +927,7 @@ a list containing all the mails in the given files.
 \index{read\_text() (utils.Utils static method)}
 
 \begin{fulllineitems}
-\phantomsection\label{index:utils.Utils.read_text}\pysiglinewithargsret{\strong{static }\bfcode{read\_text}}{\emph{path}, \emph{how\_many}, \emph{config}}{}
+\phantomsection\label{index:utils.Utils.read_text}\pysiglinewithargsret{\strong{static }\bfcode{read\_text}}{\emph{path}, \emph{how\_many}, \emph{params}}{}
 Read the desidered number of text files from the given path.
 
 Calls method Utils.\_read\_files, passing the same parameters received,
@@ -900,7 +941,7 @@ with \emph{read\_mails} flag set to False.
 \textbf{how\_many} (\emph{int}) -- how many files to read. 0 = unlimited;
 
 \item {} 
-\textbf{config} ({\hyperref[index:config.Config]{\code{config.Config}}} object;) -- contains some general parameters and configurations;
+\textbf{params} (\emph{associative array}) -- contains some general parameters and configurations;
 
 \end{itemize}
 

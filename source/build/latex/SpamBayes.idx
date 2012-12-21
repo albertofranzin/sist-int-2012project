@@ -4,20 +4,23 @@
 \indexentry{\_\_init\_\_() (naive\_bayes.Bayes method)|hyperpage}{5}
 \indexentry{\_k\_fold\_cross\_validation() (naive\_bayes.Bayes method)|hyperpage}{5}
 \indexentry{bayes\_print() (naive\_bayes.Bayes method)|hyperpage}{5}
-\indexentry{classify() (naive\_bayes.Bayes method)|hyperpage}{6}
 \indexentry{test\_bayes() (naive\_bayes.Bayes method)|hyperpage}{6}
 \indexentry{train() (naive\_bayes.Bayes method)|hyperpage}{6}
+\indexentry{update\_stats() (naive\_bayes.Bayes method)|hyperpage}{6}
+\indexentry{update\_training\_stats() (naive\_bayes.Bayes method)|hyperpage}{6}
 \indexentry{validate() (naive\_bayes.Bayes method)|hyperpage}{6}
-\indexentry{config (module)|hyperpage}{7}
-\indexentry{Config (class in config)|hyperpage}{7}
+\indexentry{config (module)|hyperpage}{6}
+\indexentry{Config (class in config)|hyperpage}{6}
 \indexentry{\_\_init\_\_() (config.Config method)|hyperpage}{7}
+\indexentry{cprint() (config.Config method)|hyperpage}{7}
+\indexentry{get\_params() (config.Config method)|hyperpage}{7}
 \indexentry{trainer (module)|hyperpage}{7}
 \indexentry{Trainer (class in trainer)|hyperpage}{7}
 \indexentry{\_\_init\_\_() (trainer.Trainer method)|hyperpage}{7}
 \indexentry{train() (trainer.Trainer method)|hyperpage}{7}
 \indexentry{trainer\_print() (trainer.Trainer method)|hyperpage}{7}
-\indexentry{classifier (module)|hyperpage}{8}
-\indexentry{Classifier (class in classifier)|hyperpage}{8}
+\indexentry{classifier (module)|hyperpage}{7}
+\indexentry{Classifier (class in classifier)|hyperpage}{7}
 \indexentry{classify() (classifier.Classifier static method)|hyperpage}{8}
 \indexentry{gen\_stat (module)|hyperpage}{9}
 \indexentry{Stat (class in gen\_stat)|hyperpage}{9}
@@ -37,7 +40,7 @@
 \indexentry{utils (module)|hyperpage}{12}
 \indexentry{Utils (class in utils)|hyperpage}{12}
 \indexentry{\_read\_files() (utils.Utils static method)|hyperpage}{12}
-\indexentry{chunks() (utils.Utils static method)|hyperpage}{13}
+\indexentry{chunks() (utils.Utils static method)|hyperpage}{12}
 \indexentry{create\_stats() (utils.Utils static method)|hyperpage}{13}
 \indexentry{create\_test\_stats() (utils.Utils static method)|hyperpage}{13}
 \indexentry{merge\_lists() (utils.Utils static method)|hyperpage}{13}

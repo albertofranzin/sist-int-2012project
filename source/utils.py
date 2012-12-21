@@ -13,7 +13,7 @@ class Utils:
 
     @staticmethod
     def _read_files(path, how_many, read_mails,
-            words, gen_stats, config):
+            words, gen_stats, params):
         """
         Read the desidered number of text files from the given path.
 
@@ -31,8 +31,8 @@ class Utils:
         :type words: array of :class:`gen_stat.Word` objects
         :param general_stats: the overall stats of the features;
         :type general_stats: associative array {str, :class:`gen_stat.Stat`}
-        :param config: contains some general parameters and configurations;
-        :type config: :class:`config.Config` object
+        :param params: contains some general parameters and configurations;
+        :type params: associative array
         :return: a list containing all the mails in the given files.
 
         """
@@ -60,7 +60,7 @@ class Utils:
 
         for file in list_of_files:  # os.listdir("."):
             # open the file
-            if config.VERBOSE:
+            if params['VERBOSE']:
                 print "Utils.read :: opening file", file  # , "\n\n"
             in_file = open(file, "r")
             # read all its content
@@ -89,7 +89,7 @@ class Utils:
         return file_list
 
     @staticmethod
-    def read_mails(path, how_many, words, general_stats, config):
+    def read_mails(path, how_many, words, general_stats, params):
         """
         Read the desidered number of text files from the given path.
 
@@ -105,17 +105,17 @@ class Utils:
         :type words: array of :class:`gen_stat.Word` objects
         :param general_stats: the overall stats of the features;
         :type general_stats: associative array {str, :class:`gen_stat.Stat`}
-        :param config: contains some general parameters and configurations;
-        :type config: :class:`config.Config` object
+        :param params: contains some general parameters and configurations;
+        :type params: associative array
         :return: a list containing all the mails in the given files.
 
         """
 
         return Utils._read_files(path, how_many, True,
-                words, general_stats, config)
+                words, general_stats, params)
 
     @staticmethod
-    def read_text(path, how_many, config):
+    def read_text(path, how_many, params):
         """
         Read the desidered number of text files from the given path.
 
@@ -127,13 +127,13 @@ class Utils:
         :type path: str
         :param how_many: how many files to read. 0 = unlimited;
         :type how_many: int
-        :param config: contains some general parameters and configurations;
-        :type config: :class:`config.Config` object;
+        :param params: contains some general parameters and configurations;
+        :type params: associative array
         :return: a list containing all the text in the given files.
 
         """
 
-        return Utils._read_files(path, how_many, False, [], [], config)
+        return Utils._read_files(path, how_many, False, [], [], params)
 
     @staticmethod
     def chunks(l, n):
