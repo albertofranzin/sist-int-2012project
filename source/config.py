@@ -1,3 +1,5 @@
+import ConfigParser
+
 class Config():
     """
     Contains some general configurations.
@@ -23,41 +25,69 @@ class Config():
     """
 
     def __init__(self):
-        """Constructor. Initialize all the parameters to their default value."""
+        """
+        Constructor. Initialize all the parameters to their default value.
+
+	If found in file config.cfg, initialize to that value.
+
+        """
 
         # some constants:
+	self.params = {}
 
         # do I have to do cross-validation?
-        self.CROSS_VALIDATION = False
+        self.params['CROSS_VALIDATION'] = False
 
         # # of cross-validation folds (if enabled)
-        self.CROSS_VALIDATION_FOLDS = 4
+        self.params['CROSS_VALIDATION_FOLDS'] = 4
 
         # weight of the overall features stats over the word spamminess
-        self.OVERALL_FEATS_SPAM_W = 0.6
+        self.params['OVERALL_FEATS_SPAM_W'] = 0.6
 
         # length of a token to be defined "a short word"
-        self.SHORT_THR = 1
+        self.params['SHORT_THR'] = 1
 
         # size of training sets
-        self.SIZE_OF_BAGS = 50
+        self.params['SIZE_OF_BAGS'] = 50
 
         # size of validation sets
         # (1 v.s. for ham, 1 for spam)
         # MUST BE <= SIZE_OF_BAGS
-        self.SIZE_OF_VAL_BAGS = 50
+        self.params['SIZE_OF_VAL_BAGS'] = 50
 
         # size of test set
-        self.SIZE_OF_TEST_BAG = 30
+        self.params['SIZE_OF_TEST_BAG'] = 30
 
         # smooth value
-        self.SMOOTH_VALUE = 1
+        self.params['SMOOTH_VALUE'] = 1
 
         # spam probability threshold for classification and validation
-        self.SPAM_THR = 0.5
+        self.params['SPAM_THR'] = 0.5
 
         # should I print lots of infos?
-        self.VERBOSE = False
+        self.params['VERBOSE'] = False
 
         # length of a token to be defined "a very long word"
-        self.VERYLONG_THR = 20
+        self.params['VERYLONG_THR'] = 20
+
+
+        # Reading values from config.cfg
+
+        config = ConfigParser.RawConfigParser()
+
+        config.read('config.cfg')
+
+        for (param,value) in self.params.items():
+            try:
+                x = config.get('Main', param)
+                self.params[param] = x
+            except ConfigParser.NoOptionError:
+                #print "Missing",param,"parameter, keeping default"
+
+    def cprint(self):
+        """ Cprint. Print all the parameters and their assigned value """
+
+        param_list=self.params.keys()
+        for param in param_list:
+		print param,"set to",self.params[param]
+

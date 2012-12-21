@@ -7,7 +7,7 @@ prova = Word(spam_count,ham_count)
 
 with open('prova.csv', 'wb') as csvfile:
 	spamwriter = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-	for count in range(1,spam_count)
+	for i=0 to spam_count do
 		spamwriter.writerow(['Spam', 'Spam', 'Spam'])
 	spamwriter.writerow([prova])
 	spamwriter.writerow(['Spam', 'Lovely Spam', 'Wonderful Spam'])
