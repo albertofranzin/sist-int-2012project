@@ -12,6 +12,7 @@ from __future__ import division
 import locale
 import math
 import os
+import random
 import sys
 
 from classifier import Classifier
@@ -297,9 +298,9 @@ class Bayes():
         ham_val_list = []
         ham_test_list = []
         for item in ham_val_list_tmp:
-            ham_val_list.append(item)  # ([item, False])
+            ham_val_list.append([item, False])
         for item in ham_test_list_tmp:
-            ham_test_list.append(item)  # ([item, False])
+            ham_test_list.append([item, False])
 
         del total_ham_list, ham_val_list_tmp, ham_test_list_tmp
 
@@ -321,9 +322,9 @@ class Bayes():
         spam_val_list = []
         spam_test_list = []
         for item in spam_val_list_tmp:
-            spam_val_list.append(item)  # ([item, True])
+            spam_val_list.append([item, True])
         for item in spam_test_list_tmp:
-            spam_test_list.append(item)  # ([item, True])
+            spam_test_list.append([item, True])
 
         del total_spam_list, spam_val_list_tmp, spam_test_list_tmp
 
@@ -359,7 +360,7 @@ class Bayes():
     # validation
     #
 
-    def validate(self, ham_val_list, spam_val_list, words, general_stats):
+    def validate(self, ham_list, spam_list, words, general_stats):
         """
         Validation function.
 
@@ -379,7 +380,9 @@ class Bayes():
 
         """
 
-        print len(ham_val_list), len(spam_val_list)
+        print len(ham_list), len(spam_list)
+        total_list = ham_list + spam_list
+        random.shuffle(total_list)
         # raw_input("ready for validating?")
 
         count = 0
@@ -387,43 +390,70 @@ class Bayes():
         false_positives = 0
         false_negatives = 0
 
-        for mail in ham_val_list:
-            h_ws = {}
-            h_gs = Utils.create_test_stats()
-            lexer.lexer_words(mail, False, False, h_ws, h_gs, self.params)
-            #res = self.classify(ws, gs, words, general_stats)
-            res = Classifier.classify(h_ws, h_gs, words,
-                        general_stats, self.params)
-
+        # for mail_couple in total_list:
+        for [mail, status] in total_list:
+            # mail = mail_couple()[0]
+            # status = mail_couple()[1]
+            print status, " :: ",
+            ws = {}
+            gs = Utils.create_test_stats()
+            lexer.lexer_words(mail, False, False, ws, gs, self.params)
+            res = Classifier.classify(ws, gs, words, general_stats, self.params)
             # has the mail been classified correctly?
-            if res == False:
+            if res == status:
                 # yes
                 count += 1
+                print " :: correct!"
+                # self.update_stats(ws, gs, status)
             else:
                 # no
-                false_positives += 1
+                if res == True:
+                    false_positives += 1
+                    print " :: wrong! so far we have", false_positives,\
+                            "false positives"
+                else:
+                    false_negatives += 1
+                    print " :: wrong! so far we have", false_negatives,\
+                            "false negatives"
+            self.update_stats(ws, gs, res)  # status
 
-        # raw_input("ok, now try with spam mails")
-        print "---------------"
+        # for mail in ham_list:
+        #     h_ws = {}
+        #     h_gs = Utils.create_test_stats()
+        #     lexer.lexer_words(mail, False, False, h_ws, h_gs, self.params)
+        #     #res = self.classify(ws, gs, words, general_stats)
+        #     res = Classifier.classify(h_ws, h_gs, words,
+        #                 general_stats, self.params)
 
-        for mail in spam_val_list:
-            s_ws = {}
-            s_gs = Utils.create_test_stats()
-            lexer.lexer_words(mail, False, False, s_ws, s_gs, self.params)
-            # res = self.classify(ws, gs, words, general_stats)
-            res = Classifier.classify(s_ws, s_gs, words,
-                        general_stats, self.params)
-            # has the mail been classified correctly?
-            if res == True:
-                # yes
-                count += 1
-            else:
-                # no
-                false_negatives += 1
+        #     # has the mail been classified correctly?
+        #     if res == False:
+        #         # yes
+        #         count += 1
+        #     else:
+        #         # no
+        #         false_positives += 1
+
+        # # raw_input("ok, now try with spam mails")
+        # print "---------------"
+
+        # for mail in spam_list:
+        #     s_ws = {}
+        #     s_gs = Utils.create_test_stats()
+        #     lexer.lexer_words(mail, False, False, s_ws, s_gs, self.params)
+        #     # res = self.classify(ws, gs, words, general_stats)
+        #     res = Classifier.classify(s_ws, s_gs, words,
+        #                 general_stats, self.params)
+        #     # has the mail been classified correctly?
+        #     if res == True:
+        #         # yes
+        #         count += 1
+        #     else:
+        #         # no
+        #         false_negatives += 1
 
         print "false pos:", false_positives, "false neg:", false_negatives
 
-        return count / (len(ham_val_list) + len(spam_val_list))
+        return count / (len(ham_list) + len(spam_list))
 
     #
     # test

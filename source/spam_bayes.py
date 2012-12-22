@@ -8,19 +8,14 @@
 
 """
 
-from config import Config
-#from naive_bayes import Bayes
+# from config import Config
+from naive_bayes import Bayes
 
 if __name__ == '__main__':
     """Main."""
 
-    config=Config()
-
-    # print Config
-    config.cprint()
-
     # print "main :: tryin' to create the Bayes object"
-    # bayes = Bayes()
+    bayes = Bayes()
     # print "main :: Bayes object created"
 
     # print "main :: tryin' to train bayes"
@@ -35,6 +30,6 @@ if __name__ == '__main__':
     # print "..."
 
     # print "main :: test training"
-    # bayes.train()
+    bayes.train()
     # print "main :: test classifier"
     # bayes.test_bayes()
