@@ -138,7 +138,7 @@ class Classifier:
             print "Mail is more likely to be ham",
             ret_val = False
 
-        print (final_prob_spam / (final_prob_spam + final_prob_ham)) * 100.0
+        print (final_prob_spam / (final_prob_spam + final_prob_ham)) * 100.0,
 
         # raw_input("insert coin to continue...")
 
