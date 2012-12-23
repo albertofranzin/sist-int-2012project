@@ -217,3 +217,8 @@ class Utils:
         gs['WASTE']      = Test_stat("# of non-valid words", 0)
         gs['NUMBER']     = Test_stat("# of numbers", 0)
         return gs
+
+    @staticmethod
+    def create_file(file_name):
+        """Creates an empty file."""
+        open(file_name, "w").close()

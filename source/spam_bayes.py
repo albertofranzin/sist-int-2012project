@@ -14,22 +14,14 @@ from naive_bayes import Bayes
 if __name__ == '__main__':
     """Main."""
 
-    # print "main :: tryin' to create the Bayes object"
     bayes = Bayes()
-    # print "main :: Bayes object created"
 
-    # print "main :: tryin' to train bayes"
-    # # bayes train
-    # print "main :: bayes trained"
+    if bayes.params['READ_FROM_FILE']:
+        bayes.read_bayes()
+    else:
+        bayes.train()
 
-    # print "main :: training: done (... magari...)"
+    bayes.check()
 
-    # # bayes.bayes_print(True, True)
-
-    # print "tryin' to classify"
-    # print "..."
-
-    # print "main :: test training"
-    bayes.train()
-    # print "main :: test classifier"
-    # bayes.test_bayes()
+    if bayes.params['WRITE_ON_FILE']:
+        bayes.write_bayes()

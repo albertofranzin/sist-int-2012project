@@ -13,7 +13,7 @@
 
 
 \title{SpamBayes Documentation}
-\date{December 21, 2012}
+\date{December 23, 2012}
 \release{0.1}
 \author{Alberto Franzin, Fabio Palese}
 \newcommand{\sphinxlogo}{}
@@ -198,7 +198,6 @@ bayes\_print
 train
 validate
 test\_bayes
-classify
 \index{\_\_init\_\_() (naive\_bayes.Bayes method)}
 
 \begin{fulllineitems}
@@ -260,6 +259,41 @@ Each row must have the same number of columns.
 
 \end{fulllineitems}
 
+\index{check() (naive\_bayes.Bayes method)}
+
+\begin{fulllineitems}
+\phantomsection\label{index:naive_bayes.Bayes.check}\pysiglinewithargsret{\bfcode{check}}{}{}
+Compute accuracies for validation and testing.
+
+\end{fulllineitems}
+
+\index{read\_bayes() (naive\_bayes.Bayes method)}
+
+\begin{fulllineitems}
+\phantomsection\label{index:naive_bayes.Bayes.read_bayes}\pysiglinewithargsret{\bfcode{read\_bayes}}{}{}
+Read the overall stats computed in a previous run from files, and then
+load validation and test set.
+
+Three files wil be created:
+\begin{enumerate}
+\item {} 
+\emph{ID\_words.csv}, containing the stats of the words;
+
+\item {} 
+\emph{ID\_feats.csv}, containing the stats of the features;
+
+\item {} 
+\emph{ID\_params.csv}, containing the configuration used,
+
+\end{enumerate}
+
+where \emph{ID} is the value contained in \emph{params{[}'OUTPUT\_ID'{]}}.
+
+Validation and test sets are loaded from the same place they are
+expected to be when training ``normally''.
+
+\end{fulllineitems}
+
 \index{test\_bayes() (naive\_bayes.Bayes method)}
 
 \begin{fulllineitems}
@@ -272,7 +306,7 @@ Performs some test - needed to try some functions.
 
 \begin{fulllineitems}
 \phantomsection\label{index:naive_bayes.Bayes.train}\pysiglinewithargsret{\bfcode{train}}{}{}
-Train the net. TODO: COMPLETE CROSS-VALIDATION
+Train the net.
 
 Read the mails given as training and validation set for spam and ham,
 then executes the proper training. Two methods are available: the direct
@@ -295,22 +329,29 @@ present. The location of the mails is (for now?) hardcoded here.
 
 \begin{fulllineitems}
 \phantomsection\label{index:naive_bayes.Bayes.update_stats}\pysiglinewithargsret{\bfcode{update\_stats}}{\emph{ws}, \emph{gs}, \emph{is\_spam}}{}
-update
+Update the overall stats, using the stats computed for a single mail
+and its status.
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\textbf{ws} (array of {\hyperref[index:test_stat.Test_word]{\code{test\_stat.Test\_word}}}) -- the list of words found in the mail;
 
-\end{fulllineitems}
+\item {} 
+\textbf{gs} (array of {\hyperref[index:test_stat.Test_stat]{\code{test\_stat.Test\_stat}}}) -- the list of features found in the mail;
 
-\index{update\_training\_stats() (naive\_bayes.Bayes method)}
+\item {} 
+\textbf{is\_spam} (\emph{bool}) -- \emph{True} if the mail is spam, \emph{False} otherwise.
 
-\begin{fulllineitems}
-\phantomsection\label{index:naive_bayes.Bayes.update_training_stats}\pysiglinewithargsret{\bfcode{update\_training\_stats}}{\emph{ws}, \emph{gs}}{}
-update
+\end{itemize}
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
 \index{validate() (naive\_bayes.Bayes method)}
 
 \begin{fulllineitems}
-\phantomsection\label{index:naive_bayes.Bayes.validate}\pysiglinewithargsret{\bfcode{validate}}{\emph{ham\_val\_list}, \emph{spam\_val\_list}, \emph{words}, \emph{general\_stats}}{}
+\phantomsection\label{index:naive_bayes.Bayes.validate}\pysiglinewithargsret{\bfcode{validate}}{\emph{ham\_list}, \emph{spam\_list}, \emph{words}, \emph{general\_stats}}{}
 Validation function.
 
 Get the validation sets and the results of the training, and
@@ -336,6 +377,20 @@ in the validation set.
 accuracy of the validation.
 
 \end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{write\_bayes() (naive\_bayes.Bayes method)}
+
+\begin{fulllineitems}
+\phantomsection\label{index:naive_bayes.Bayes.write_bayes}\pysiglinewithargsret{\bfcode{write\_bayes}}{}{}
+Write the overall stats computed to file.
+
+Three files wil be created:
+1. \emph{ID\_words.csv}, containing the stats of the words;
+2. \emph{ID\_feats.csv}, containing the stats of the features;
+3. \emph{ID\_params.csv}, containing the configuration used,
+where \emph{ID} is the value contained in \emph{params{[}'OUTPUT\_ID'{]}}.
 
 \end{fulllineitems}
 
@@ -839,6 +894,14 @@ From \href{http://stackoverflow.com/questions/312443}{http://stackoverflow.com/q
 \end{itemize}
 
 \end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{create\_file() (utils.Utils static method)}
+
+\begin{fulllineitems}
+\phantomsection\label{index:utils.Utils.create_file}\pysiglinewithargsret{\strong{static }\bfcode{create\_file}}{\emph{file\_name}}{}
+Creates an empty file.
 
 \end{fulllineitems}
 

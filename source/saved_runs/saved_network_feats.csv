@@ -1,0 +1,11 @@
+ALLCAPSW,# of all-caps words,4167,1735
+USERHOST,# of string in user/hosts form,75,69
+LOONGWORDS,"# of non-address ""very long words""",5,44
+NUMBER,# of numbers,715,691
+SHORTWORDS,"# of ""short words""",14220,2584
+ALPHANUM,# of alphanumerical words,310,1190
+TITLEW,# of words with only the first letter capital,3447,2589
+MAILADDR,# of mail addresses,124,101
+LINKADDR,# of links,23,26
+WASTE,# of non-valid words,21065,18999
+LOWERCASEW,# of all lowercase words,19298,8613
