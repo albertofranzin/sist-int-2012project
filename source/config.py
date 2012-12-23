@@ -40,6 +40,17 @@ class Config():
         # weight of the overall features stats over the word spamminess [0.0001]
         self.params['OVERALL_FEATS_SPAM_W'] = 0.0001
 
+        # do I have to read stats already computed? [False]
+        self.params['READ_FROM_FILE'] = False
+
+        # if yes, which file? [saved_network]
+        # NOTE: ONLY THE FIRST PART OF THE FILE NAMES, TO IDENTIFY THE SESSION
+        self.params['INPUT_ID'] = "saved_runs/saved_network"
+
+        # should I use the params read from a file? [True]
+        # only to be used if READ_FROM_FILE = True
+        self.params['PARAMS_FROM_FILE'] = True
+
         # threshold of deviance of a statistic from the average mean
         self.params['RELEVANCE_THR'] = 0.15
 
@@ -53,10 +64,18 @@ class Config():
         self.params['SIZE_OF_VAL_BAGS'] = 50
 
         # size of test set [1000]
-        self.params['SIZE_OF_TEST_BAGS'] = 50
+        self.params['SIZE_OF_TEST_BAGS'] = 1000
 
         # smooth value [0]
         self.params['SMOOTH_VALUE'] = 0.001
+
+        # location of the spam folder ["./spam/spam/"]
+        # (relative path from the project folder)
+        self.params['SPAM_DIR'] = "./spam/spam/"
+
+        # location of the ham folder ["./spam/ham/"]
+        # (relative path from the project folder)
+        self.params['HAM_DIR'] = "./spam/ham/"
 
         # spam probability threshold for classification and validation [0.2]
         self.params['SPAM_THR'] = 0.2
@@ -66,6 +85,13 @@ class Config():
 
         # length of a token to be defined "a very long word" [20]
         self.params['VERYLONG_THR'] = 18
+
+        # do I have to write on hard drive the stats computed? [True]
+        self.params['WRITE_ON_FILE'] = True
+
+        # if yes, which file? [saved_runs/saved_network]
+        # NOTE: ONLY THE FIRST PART OF THE FILE NAMES, TO IDENTIFY THE SESSION
+        self.params['OUTPUT_ID'] = "saved_runs/saved_network"
 
         # Read values from file spam_bayes.conf, and
         # overwrite the default values

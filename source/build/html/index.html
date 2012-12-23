@@ -109,8 +109,7 @@ bayes_print
 _k_fold_cross_validation
 train
 validate
-test_bayes
-classify</p>
+test_bayes</p>
 <dl class="method">
 <dt id="naive_bayes.Bayes.__init__">
 <tt class="descname">__init__</tt><big>(</big><big>)</big><a class="headerlink" href="#naive_bayes.Bayes.__init__" title="Permalink to this definition">¶</a></dt>
@@ -165,6 +164,28 @@ then calls the <a class="reference internal" href="#trainer.Trainer.train" title
 </dd></dl>
 
 <dl class="method">
+<dt id="naive_bayes.Bayes.check">
+<tt class="descname">check</tt><big>(</big><big>)</big><a class="headerlink" href="#naive_bayes.Bayes.check" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute accuracies for validation and testing.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="naive_bayes.Bayes.read_bayes">
+<tt class="descname">read_bayes</tt><big>(</big><big>)</big><a class="headerlink" href="#naive_bayes.Bayes.read_bayes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read the overall stats computed in a previous run from files, and then
+load validation and test set.</p>
+<p>Three files wil be created:</p>
+<ol class="arabic simple">
+<li><cite>ID_words.csv</cite>, containing the stats of the words;</li>
+<li><cite>ID_feats.csv</cite>, containing the stats of the features;</li>
+<li><cite>ID_params.csv</cite>, containing the configuration used,</li>
+</ol>
+<p>where <cite>ID</cite> is the value contained in <cite>params[&#8216;OUTPUT_ID&#8217;]</cite>.</p>
+<p>Validation and test sets are loaded from the same place they are
+expected to be when training &#8220;normally&#8221;.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="naive_bayes.Bayes.test_bayes">
 <tt class="descname">test_bayes</tt><big>(</big><big>)</big><a class="headerlink" href="#naive_bayes.Bayes.test_bayes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs some test - needed to try some functions.</p>
@@ -173,7 +194,7 @@ then calls the <a class="reference internal" href="#trainer.Trainer.train" title
 <dl class="method">
 <dt id="naive_bayes.Bayes.train">
 <tt class="descname">train</tt><big>(</big><big>)</big><a class="headerlink" href="#naive_bayes.Bayes.train" title="Permalink to this definition">¶</a></dt>
-<dd><p>Train the net. TODO: COMPLETE CROSS-VALIDATION</p>
+<dd><p>Train the net.</p>
 <p>Read the mails given as training and validation set for spam and ham,
 then executes the proper training. Two methods are available: the direct
 training, and the k-fold cross-validation.</p>
@@ -191,18 +212,26 @@ present. The location of the mails is (for now?) hardcoded here.</p>
 <dl class="method">
 <dt id="naive_bayes.Bayes.update_stats">
 <tt class="descname">update_stats</tt><big>(</big><em>ws</em>, <em>gs</em>, <em>is_spam</em><big>)</big><a class="headerlink" href="#naive_bayes.Bayes.update_stats" title="Permalink to this definition">¶</a></dt>
-<dd><p>update</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="naive_bayes.Bayes.update_training_stats">
-<tt class="descname">update_training_stats</tt><big>(</big><em>ws</em>, <em>gs</em><big>)</big><a class="headerlink" href="#naive_bayes.Bayes.update_training_stats" title="Permalink to this definition">¶</a></dt>
-<dd><p>update</p>
+<dd><p>Update the overall stats, using the stats computed for a single mail
+and its status.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>ws</strong> (array of <a class="reference internal" href="#test_stat.Test_word" title="test_stat.Test_word"><tt class="xref py py-class docutils literal"><span class="pre">test_stat.Test_word</span></tt></a>) &#8211; the list of words found in the mail;</li>
+<li><strong>gs</strong> (array of <a class="reference internal" href="#test_stat.Test_stat" title="test_stat.Test_stat"><tt class="xref py py-class docutils literal"><span class="pre">test_stat.Test_stat</span></tt></a>) &#8211; the list of features found in the mail;</li>
+<li><strong>is_spam</strong> (<em>bool</em>) &#8211; <cite>True</cite> if the mail is spam, <cite>False</cite> otherwise.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="naive_bayes.Bayes.validate">
-<tt class="descname">validate</tt><big>(</big><em>ham_val_list</em>, <em>spam_val_list</em>, <em>words</em>, <em>general_stats</em><big>)</big><a class="headerlink" href="#naive_bayes.Bayes.validate" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">validate</tt><big>(</big><em>ham_list</em>, <em>spam_list</em>, <em>words</em>, <em>general_stats</em><big>)</big><a class="headerlink" href="#naive_bayes.Bayes.validate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Validation function.</p>
 <p>Get the validation sets and the results of the training, and
 compute the accuracy of the classification of the mails
@@ -224,6 +253,17 @@ in the validation set.</p>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="method">
+<dt id="naive_bayes.Bayes.write_bayes">
+<tt class="descname">write_bayes</tt><big>(</big><big>)</big><a class="headerlink" href="#naive_bayes.Bayes.write_bayes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the overall stats computed to file.</p>
+<p>Three files wil be created:
+1. <cite>ID_words.csv</cite>, containing the stats of the words;
+2. <cite>ID_feats.csv</cite>, containing the stats of the features;
+3. <cite>ID_params.csv</cite>, containing the configuration used,
+where <cite>ID</cite> is the value contained in <cite>params[&#8216;OUTPUT_ID&#8217;]</cite>.</p>
 </dd></dl>
 
 </dd></dl>
@@ -591,6 +631,12 @@ from the mails. Does nothing on the content of plain text files.</p>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="utils.Utils.create_file">
+<em class="property">static </em><tt class="descname">create_file</tt><big>(</big><em>file_name</em><big>)</big><a class="headerlink" href="#utils.Utils.create_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an empty file.</p>
 </dd></dl>
 
 <dl class="staticmethod">

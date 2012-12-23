@@ -21,13 +21,15 @@
 
   \indexspace
   \bigletter C
+  \item check() (naive\_bayes.Bayes method), \hyperpage{6}
   \item chunks() (utils.Utils static method), \hyperpage{12}
-  \item Classifier (class in classifier), \hyperpage{7}
-  \item classifier (module), \hyperpage{7}
+  \item Classifier (class in classifier), \hyperpage{8}
+  \item classifier (module), \hyperpage{8}
   \item classify() (classifier.Classifier static method), \hyperpage{8}
-  \item Config (class in config), \hyperpage{6}
-  \item config (module), \hyperpage{6}
+  \item Config (class in config), \hyperpage{7}
+  \item config (module), \hyperpage{7}
   \item cprint() (config.Config method), \hyperpage{7}
+  \item create\_file() (utils.Utils static method), \hyperpage{13}
   \item create\_stats() (utils.Utils static method), \hyperpage{13}
   \item create\_test\_stats() (utils.Utils static method), \hyperpage{13}
 
@@ -52,6 +54,7 @@
 
   \indexspace
   \bigletter R
+  \item read\_bayes() (naive\_bayes.Bayes method), \hyperpage{6}
   \item read\_mails() (utils.Utils static method), \hyperpage{13}
   \item read\_text() (utils.Utils static method), \hyperpage{13}
 
@@ -70,12 +73,11 @@
   \item train() (trainer.Trainer method), \hyperpage{7}
   \item Trainer (class in trainer), \hyperpage{7}
   \item trainer (module), \hyperpage{7}
-  \item trainer\_print() (trainer.Trainer method), \hyperpage{7}
+  \item trainer\_print() (trainer.Trainer method), \hyperpage{8}
 
   \indexspace
   \bigletter U
   \item update\_stats() (naive\_bayes.Bayes method), \hyperpage{6}
-  \item update\_training\_stats() (naive\_bayes.Bayes method), \hyperpage{6}
   \item Utils (class in utils), \hyperpage{12}
   \item utils (module), \hyperpage{12}
 
@@ -86,5 +88,6 @@
   \indexspace
   \bigletter W
   \item Word (class in gen\_stat), \hyperpage{9}
+  \item write\_bayes() (naive\_bayes.Bayes method), \hyperpage{7}
 
 \end{theindex}
