@@ -30,31 +30,28 @@ The whole code of the project is available at google code (see below).
 Download and installation
 +++++++++++++++++++++++++
 
-To download the code, go to `http://code.google.com/etc` and download the source packet.
+The code can be found at http://code.google.com/p/sist-int-2012project.
 
 We suggest to use the svn repository available. To download the project, open a terminal, go to the chosen directory and type
-`comando svn`.
+`svn checkout http://sist-int-2012project.googlecode.com/svn/ sist-int-2012project`.
 
 Python 2.7 is required. We have not performed any test with older versions, as well as newer ones, e.g. Python 3.0, so we cannot guarantee the correct working under these versions.
 
 To successfully launch the program, you need to fullfill the following dependencies:
 
-1. BeautifulSoup (from the bs4 module) (link) to extract the useful informations from the mail structure,
-2. Ply (link) to extract and identify the tokens.
+1. BeautifulSoup (from the bs4 module) (http://www.crummy.com/software/BeautifulSoup/) to extract the useful informations from the mail structure,
+2. Ply (http://www.dabeaz.com/ply/) to extract and identify the tokens.
 
 The documentation for these two modules is available on the respective sites.
 
-The classifier expects to find the mail sets in the directory `/path/of/the/project/spam/`, and, precisely:
+The user can configure many aspects of the behaviour of the classifier. This can be done by filling in the `spam_bayes.conf` file, either partially or entirely. If a parameter is unset, the default value will be used.
 
-* spam mails in `/path/of/the/project/spam/spam/`
-* ham mails in `/path/of/the/project/spam/ham/`
-
-SCRIVI DOVE TROVARE I TEST SET. FORSE È ANCHE IL CASO DI PERMETTERE DI CONFIGURARE DOVE TROVARE LA ROBA...
-
-.. warning:: No checks are performed to verify the correctness of the settings. If the environment is inconsistent with respect to the specifications given here, the software may die at any moment during the execution.
+.. warning:: No checks are performed to verify the correctness of the settings. If the environment is inconsistent with respect to the specifications given here, the software may die at any time during the execution.
 
 Usage
 +++++
+
+To manage the settings of the program, open the file `spam_bayes.conf` with your favourite editor and set the parameters to the values you like.
 
 To launch the program, from a terminal type
 `python /path/of/the/project/spam_bayes.py`.
@@ -67,6 +64,8 @@ Main module
     :members:
     :private-members:
     :special-members:
+
+The :mod:`spam_bayes` module launches the classifier, by creating the bayesian network and using it to classify the mails.
 
 The Bayes network definition
 ----------------------------
@@ -97,6 +96,7 @@ This is the module providing the basic configurations which allow the user to cu
 
 The training class
 ++++++++++++++++++
+In this module 
 
 .. automodule:: trainer
     :members:

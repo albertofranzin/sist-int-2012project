@@ -52,24 +52,21 @@ class Bayes():
         # associative array for general stats of some interesting features of the mails
         self.general_stats = Utils.create_stats()
 
-        # lexer
-        # print "Bayes :: tryin' to create the Lexer"
-        # self.lexer = Lexer()
-        # print "Bayes :: Lexer created"
-
         # config
         self.config = Config()
         self.params = self.config.get_params()
         print "Bayes :: Config created"
 
-        print "Bayes :: tryin' to create the Trainer"
         self.trainer = Trainer()
         print "Bayes :: Trainer created"
 
         # set initial position of the project dir
         self.initial_path = os.getcwd()
 
-        # other variables
+        # false positives and negatives.
+        # Here here to better normalize the spamicity threshold through
+        # validation and testing. Are floating point values to avoid
+        # any possible inconvenient when dividing using them as divisors.
         self.false_positives = 0.0
         self.false_negatives = 0.0
 
@@ -81,7 +78,7 @@ class Bayes():
         self.spam_val_list  = []
         self.spam_test_list = []
 
-        print "Bayes :: done"
+        print "Bayes :: ready"
 
     #
     # code for pretty-printing the results
@@ -178,7 +175,7 @@ class Bayes():
     #
 
     def _k_fold_cross_validation(self, spam_list, ham_list):
-        """Internal method, execute the k-fold cross-validation TODO: FINISH
+        """Internal method, execute the k-fold cross-validation.
 
         Splits the lists in the desidered number of parts
         (see :class:`config.Config` object),
@@ -192,6 +189,7 @@ class Bayes():
 
         """
 
+        # split the mail sets in the desidered chunks.
         folds     = self.params['CROSS_VALIDATION_FOLDS']
         fold_size = int(math.ceil(self.params['SIZE_OF_BAGS'] / folds))
         acc_array = []
@@ -199,14 +197,10 @@ class Bayes():
         spam_chunks = Utils.chunks(spam_list, fold_size)
         ham_chunks  = Utils.chunks(ham_list, fold_size)
 
-        # print spam_list
-
-        # raw_input("got it?")
-
         for iteration in range(0, folds):
             # for every iteration, join up the training set chunks, leaving out
             # each time only one chunk.
-            # The chunk left out will be the validation set.
+            # The chunk left out will be the validation set for this round.
             spam_kfold_train = []
             spam_kfold_valid = []
             ham_kfold_train  = []
@@ -220,6 +214,7 @@ class Bayes():
                     spam_kfold_valid.append(spam_chunks[it])
                     ham_kfold_valid.append(ham_chunks[it])
 
+            # create the stats for this round
             wos = {}
             gos = Utils.create_stats()
 
@@ -227,34 +222,29 @@ class Bayes():
             spam_kfold_valid = Utils.merge_lists(spam_kfold_valid)
             ham_kfold_train  = Utils.merge_lists(ham_kfold_train)
             ham_kfold_valid  = Utils.merge_lists(ham_kfold_valid)
-            print len(spam_kfold_train), len(spam_kfold_valid),
-            print len(ham_kfold_train), len(ham_kfold_valid)
-            # raw_input("mah na mah na")
 
+            if self.params['VERBOSE']:
+                print "Bayes :: cross-validation :: size of sets : ",
+                print len(spam_kfold_train), len(spam_kfold_valid),
+                print len(ham_kfold_train), len(ham_kfold_valid)
+
+            # train the dummy bayesian network.
             self.trainer.train(spam_kfold_train, True, wos, gos, self.params)
             self.trainer.train(ham_kfold_train, False, wos, gos, self.params)
-            # self.bayes_print(wos, gos)
-            # raw_input("mah na mah na")
-
-            # if self.params['VERBOSE']:
-            #     self.trainer.trainer_print(gos)
-            #     self.bayes_print(wos, gos)
 
             acc_array.append(self.validate(ham_kfold_valid, spam_kfold_valid,
                 wos, gos))
 
-            # update the stats of the Naive Bayes network
-            # self.update_training_stats()
+        # end of rounds
 
-            # raw_input("ok, ok")
+        if self.params['VERBOSE']:
+            print "Bayes :: cross-validation :: accuracies : ", acc_array
 
         # compute the median of the accuracies, which will be the final accuracy
         # obtained with the k-fold cross validation
-        print "KFOLD-CROSS-VALIDATION :: ", acc_array,
         acc_array = sorted(acc_array)
         alen = len(acc_array)
         accuracy = 0.5 * (acc_array[(alen - 1) // 2] + acc_array[alen // 2])
-        print accuracy
 
         return accuracy
 
@@ -267,19 +257,16 @@ class Bayes():
         Train the net.
 
         Read the mails given as training and validation set for spam and ham,
-        then executes the proper training. Two methods are available: the direct
-        training, and the k-fold cross-validation.
+        then executes the proper training. The k-fold cross-validation is
+        available, to check the accuracy with the training set.
 
         First of all, read the training set and validation set mails.
         If the k-fold cross-validation is chosen (see :class:`config.Config`
-        documentation), then call the apposite method, otherwise calls the
+        documentation), then call the apposite method. The call the
         :class:`trainer.Trainer` object to extract from the training set
-        the feature stats, then compute the accuracy by calling the
-        :func:`naive_bayes.Bayes.validate` object, to find out the goodness of
-        the classification.
+        the feature stats.
 
-        Mails are expected to be found in the directories given when filling in
-        the `spam_bayes.conf` file.
+        Mails are read using the :func:`load_mails` method.
 
         """
 
@@ -288,20 +275,22 @@ class Bayes():
 
         self.load_mails()
 
-        # is cross-validation the chosen option?
+        # is the cross-validation option chosen?
         if self.params['CROSS_VALIDATION']:
-            self._k_fold_cross_validation(self.spam_list, self.ham_list)
+            acc = self._k_fold_cross_validation(self.spam_list, self.ham_list)
+            print "Bayes :: train :: accuracy obtained with the cross-validation : ",
+            print acc
 
-        # raw_input("training HAM")
+        # train with the ham set
         self.trainer.train(self.ham_list, False,
                 self.words, self.general_stats, self.params)
-        # raw_input("training SPAM")
+
+        # now train with the spam set
         self.trainer.train(self.spam_list, True,
                 self.words, self.general_stats, self.params)
 
-        #if self.params['VERBOSE']:
-        self.trainer.trainer_print(self.general_stats)
-        # self.bayes_print(self.words, self.general_stats)
+        if self.params['VERBOSE']:
+            self.trainer.trainer_print(self.general_stats)
 
     #
     # check (validation & testing)
@@ -309,7 +298,8 @@ class Bayes():
 
     def check(self):
         """
-        Compute accuracies for validation and testing.
+        Compute accuracies for validation and testing. Call the appropriate
+        method with validation set and training set.
 
         """
 
@@ -329,78 +319,100 @@ class Bayes():
     # validation
     #
 
-    def validate(self, ham_list, spam_list, words, general_stats):
+    def validate(self, ham_list, spam_list):
         """
         Validation function.
 
-        Get the validation sets and the results of the training, and
-        compute the accuracy of the classification of the mails
-        in the validation set.
+        Get the overall statistics of the mail corpus and the spam and ham
+        mails of the validation set (this method is also used during testing,
+        since the only thing that changes is the list of mails), and tries to
+        classify them invoking the :func:`classifier.Classifier.classify` method
+        for each single mail, and check the output. If it is correct, well done,
+        otherwise take some action (update the `SPAM_THR` parameter, trying to
+        balance the count of false positives and false negatives). Then update
+        the overall stats with the computed status, so the network can learn
+        from itself. Finally, return the accuracy computed over the set.
 
         :param ham_val_list: the good mails of the validation set;
         :type ham_val_list: array of mails
         :param spam_val_list: the spam mails of the validation set;
         :type spam_val_list: array of mails
-        :param words: the list of words read so far, and their stats;
-        :type words: array of :class:`gen_stat.Word` objects
-        :param general_stats: the overall stats of the features;
-        :type general_stats: associative array {str, :class:`gen_stat.Stat`}
         :return: accuracy of the validation.
 
         """
 
         # Mails are shuffled, so updating the stats can bring some result...
-        print len(ham_list), len(spam_list)
+        if self.params['VERBOSE']:
+            print len(ham_list), len(spam_list)
         total_list = ham_list + spam_list
         random.shuffle(total_list)
 
         count = 0
         lexer = Lexer()
-        # false_positives = 0
-        # false_negatives = 0
 
-        # for mail_couple in total_list:
         for [mail, status] in total_list:
             print status, " :: ",
+
+            # new stats must be generated, then classify the mail
             ws = {}
             gs = Utils.create_test_stats()
             lexer.lexer_words(mail, False, False, ws, gs, self.params)
-            res = Classifier.classify(ws, gs, words, general_stats, self.params)
+            res = Classifier.classify(ws, gs,
+                    self.words, self.general_stats, self.params)
+
             # has the mail been classified correctly?
             if res == status:
-                # yes
+                # yes: good
                 count += 1
                 print " :: correct!"
-                # self.update_stats(ws, gs, status)
             else:
-                # no
+                # no: detect the kind of error (false pos, false neg), then
+                # try to correct the spamicity threshold.
+                # To correct, look at the OTHER error, for trying to balance
+                # the threshold: if we have more false negatives than false
+                # positives, then it means that the threshold is too high, and
+                # we need to lower it somewhat quickly (= using as denominator
+                # the smallest value). Conversely, if there are more false pos,
+                # then we need to raise the threshold.
+                # If we have a lot of false negs, and we a false positive, then
+                # we still try to raise the threshold, but at a slower pace.
                 if res == True:
                     self.false_positives += 1
                     print " :: wrong! so far we have", self.false_positives,\
                             "false positives",
                     self.params['SPAM_THR'] = math.fabs(self.params['SPAM_THR'] +
                             0.1 / (self.false_negatives + 1))
-                    print self.params['SPAM_THR']
                 else:
                     self.false_negatives += 1
                     print " :: wrong! so far we have", self.false_negatives,\
                             "false negatives",
                     self.params['SPAM_THR'] = math.fabs(self.params['SPAM_THR'] -
                             0.1 / (self.false_positives + 1))
+
+                # the threshold has been updated only if the classification
+                # has gone wrong.
+                if self.params['VERBOSE']:
                     print self.params['SPAM_THR']
-            self.update_stats(ws, gs, res)  # status
+                else:
+                    # there was a comma before, so we need to go to a new line
+                    print ""
+
+            # Now update the overall statistics, using the guessed value,
+            # without caring if it is correct or wrong.
+            # This way, the stats can be updated also when have to compute
+            # the status of a mail we haven't seen before, and so we cannot
+            # control the correctness of our deduction.
+            # Plus, this works better that using the real value
+            # (because of overfitting).
+            self.update_stats(ws, gs, res)
+
+        # end of loop
 
         print "false pos:", self.false_positives, "false neg:", self.false_negatives
 
+        # return the accuracy : number of correct guessed divided by total
+        # number of tries.
         return count / (len(ham_list) + len(spam_list))
-
-    #
-    # test
-    #
-
-    def test_bayes(self):
-        """Performs some test - needed to try some functions."""
-        pass
 
     #
     # update the stats
@@ -420,6 +432,9 @@ class Bayes():
 
         """
 
+        # Looking at the guessed status, update the statistics incrementing
+        # the corresponding fields for each word. If the word was never met
+        # before, then create it.
         if is_spam:
             for word in ws.keys():
                 count = ws[word].occurrences
@@ -435,6 +450,7 @@ class Bayes():
                 else:
                     self.words[word] = Word(0, count)
 
+        # Now do the same for the features statistics.
         if is_spam:
             for stat_id in gs.keys():
                 self.general_stats[stat_id].spam += gs[stat_id].count
@@ -460,6 +476,8 @@ class Bayes():
 
         """
 
+        # the three amigos: name them, and then create them
+        # (Python os.open does not create a file if it doesn't exist, dammit!)
         w_file = self.params['OUTPUT_ID'] + '_words.csv'
         f_file = self.params['OUTPUT_ID'] + '_feats.csv'
         p_file = self.params['OUTPUT_ID'] + '_params.csv'
@@ -475,7 +493,7 @@ class Bayes():
         # can't put all of this in Utils since I don't know how to save
         # an entire object... don't know Python so well, sorry
 
-        # print the stats of the words
+        # save the stats of the words
         if self.params['VERBOSE']:
             print "Bayes :: write_bayes :: writing file", w_file, "...",
 
@@ -488,7 +506,7 @@ class Bayes():
         if self.params['VERBOSE']:
             print "done"
 
-        # print the stats of the features
+        # save the stats of the features
         if self.params['VERBOSE']:
             print "Bayes :: write_bayes :: writing file", f_file, "..."
 
@@ -501,7 +519,7 @@ class Bayes():
         if self.params['VERBOSE']:
             print "done"
 
-        # print the params
+        # save the parameters
         if self.params['VERBOSE']:
             print "Bayes :: write_bayes :: writing file", p_file, "..."
 
@@ -539,6 +557,9 @@ class Bayes():
         # can't put all of this in Utils since I don't know how to read
         # an entire object... don't know Python so well, sorry
 
+        # The three amigos are supposed to exist.
+        # Else, the exception will cause the program to abort.
+        # Putting a try/catch here might be a solution...
         w_file = self.params['INPUT_ID'] + '_words.csv'
         f_file = self.params['INPUT_ID'] + '_feats.csv'
         p_file = self.params['INPUT_ID'] + '_params.csv'
@@ -570,14 +591,18 @@ class Bayes():
         if self.params['VERBOSE']:
             print "done"
 
+        # read the params, if the user want to keep the settings of the
+        # previous run
         if self.params['PARAMS_FROM_FILE']:
-            # read the params
             if self.params['VERBOSE']:
                 print "Bayes :: read_bayes :: reading file", p_file, "..."
 
             with open(p_file, 'r') as csvfile:
                 reader = csv.reader(csvfile, delimiter=',')
                 for [param, value] in reader:
+
+                    # Here we need to do all the checks performed when reading
+                    # the `spam_bayes.conf` file the first time. Ugly.
 
                     # check it param is an integer
                     try:
@@ -597,7 +622,6 @@ class Bayes():
                     # quick 'n' dirty, don't know if there is
                     # a more straightforward way
                     try:
-                        # self.params[param] = bool(user_value)
                         if value == "True":
                             self.params[param] = True
                             continue
@@ -613,7 +637,9 @@ class Bayes():
             if self.params['VERBOSE']:
                 print "done"
                 self.config.cprint()
+        # end of param part
 
+        # finally, load the mails
         self.load_mails()
 
     #
@@ -622,7 +648,10 @@ class Bayes():
 
     def load_mails(self):
         """
-        Read the desidered number of mails and group them in the three sets.
+        Read the desidered number of mails and group them in the six sets
+        (training, validation and testing, three for ham and three for spam).
+
+        The number is determined by the user settings.
 
         """
 
@@ -692,3 +721,11 @@ class Bayes():
 
         # finally, reset path once again
         os.chdir(self.initial_path)
+
+    #
+    # test
+    #
+
+    # def test_bayes(self):
+    #     """Performs some test - needed to try some functions."""
+    #     pass

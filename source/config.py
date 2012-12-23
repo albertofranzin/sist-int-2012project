@@ -3,7 +3,7 @@ import ConfigParser
 
 class Config():
     """
-    Contains some general configurations.
+    Contains some general configurations. FINIRE DI COMPILARE!!!
 
     The available parameters are (with `[default]` values):
 
