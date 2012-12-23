@@ -411,10 +411,14 @@ class Bayes():
                     false_positives += 1
                     print " :: wrong! so far we have", false_positives,\
                             "false positives"
+                    # self.params['SPAM_THR'] += 0.1 / (false_negatives + 1.0)
+                    # print self.params['SPAM_THR']
                 else:
                     false_negatives += 1
                     print " :: wrong! so far we have", false_negatives,\
                             "false negatives"
+                    # self.params['SPAM_THR'] -= 0.1 / (false_positives + 1.0)
+                    # print self.params['SPAM_THR']
             self.update_stats(ws, gs, res)  # status
 
         # for mail in ham_list:
@@ -487,19 +491,3 @@ class Bayes():
         else:
             for stat_id in gs.keys():
                 self.general_stats[stat_id].ham += gs[stat_id].count
-
-    def update_training_stats(self, ws, gs):
-        """update"""
-
-        for word in ws.keys():
-            s_occ = ws[word].spam_occurrences
-            h_occ = ws[word].ham_occurrences
-            if word in self.words:
-                self.words[word].spam_occurrences += s_occ
-                self.words[word].ham_occurrences += h_occ
-            else:
-                self.words[word] = Word(s_occ, h_occ)
-
-            for stat_id in gs.keys():
-                self.general_stats[stat_id].spam += gs[stat_id].spam
-                self.general_stats[stat_id].ham += gs[stat_id].ham
