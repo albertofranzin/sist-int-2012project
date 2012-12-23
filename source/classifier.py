@@ -14,8 +14,8 @@ class Classifier:
     @staticmethod
     def classify(ws, gs, ovrl_ws, ovrl_gs, params):
         """
-        Classification function which guesses the class of a mail. The Bayesian theory\
-        is applied here.
+        Classification function which guesses the class of a mail. Much of the
+        Bayesian theory is applied here.
 
         The method iterates through all the words identified in the mail,
         and for each one computes how much likely it is for the word to belong
@@ -89,7 +89,7 @@ class Classifier:
                     ovrl_pham *= pwh
             else:
                 # never met before
-                # ovrl_pspam *= 0.9
+                # 'do nothing' seem to be the best action
                 pass
 
         # compute the prob for the general stats
@@ -129,7 +129,7 @@ class Classifier:
         final_prob_ham = 1.0 * prob_gen_ham * params['OVERALL_FEATS_SPAM_W'] + ovrl_pham * 1.0 * (1 - params['OVERALL_FEATS_SPAM_W'])
         if params['VERBOSE']:
             print "** **", final_prob_spam, final_prob_ham, "** **"
-        #if final_prob_spam > final_prob_ham and
+
         if (final_prob_spam / (final_prob_spam + final_prob_ham)) >= params['SPAM_THR']:
         # if final_prob_spam >= final_prob_ham:
             print "Mail is more likely to be spam",

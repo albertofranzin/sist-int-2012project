@@ -9,7 +9,7 @@
   \item \_\_init\_\_() (naive\_bayes.Bayes method), \hyperpage{5}
   \item \_\_init\_\_() (test\_stat.Test\_stat method), \hyperpage{10}
   \item \_\_init\_\_() (test\_stat.Test\_word method), \hyperpage{10}
-  \item \_\_init\_\_() (trainer.Trainer method), \hyperpage{7}
+  \item \_\_init\_\_() (trainer.Trainer method), \hyperpage{8}
   \item \_k\_fold\_cross\_validation() (naive\_bayes.Bayes method), \hyperpage{5}
   \item \_process\_tokens() (lexer.Lexer method), \hyperpage{11}
   \item \_read\_files() (utils.Utils static method), \hyperpage{12}
@@ -43,6 +43,7 @@
   \item Lexer (class in lexer), \hyperpage{11}
   \item lexer (module), \hyperpage{11}
   \item lexer\_words() (lexer.Lexer method), \hyperpage{11}
+  \item load\_mails() (naive\_bayes.Bayes method), \hyperpage{6}
 
   \indexspace
   \bigletter M
@@ -65,12 +66,11 @@
 
   \indexspace
   \bigletter T
-  \item test\_bayes() (naive\_bayes.Bayes method), \hyperpage{6}
   \item Test\_stat (class in test\_stat), \hyperpage{10}
   \item test\_stat (module), \hyperpage{10}
   \item Test\_word (class in test\_stat), \hyperpage{10}
   \item train() (naive\_bayes.Bayes method), \hyperpage{6}
-  \item train() (trainer.Trainer method), \hyperpage{7}
+  \item train() (trainer.Trainer method), \hyperpage{8}
   \item Trainer (class in trainer), \hyperpage{7}
   \item trainer (module), \hyperpage{7}
   \item trainer\_print() (trainer.Trainer method), \hyperpage{8}

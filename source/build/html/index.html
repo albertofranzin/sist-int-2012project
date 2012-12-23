@@ -60,35 +60,32 @@
 <p>The whole code of the project is available at google code (see below).</p>
 <div class="section" id="download-and-installation">
 <h3>Download and installation<a class="headerlink" href="#download-and-installation" title="Permalink to this headline">¶</a></h3>
-<p>To download the code, go to <cite>http://code.google.com/etc</cite> and download the source packet.</p>
+<p>The code can be found at <a class="reference external" href="http://code.google.com/p/sist-int-2012project">http://code.google.com/p/sist-int-2012project</a>.</p>
 <p>We suggest to use the svn repository available. To download the project, open a terminal, go to the chosen directory and type
-<cite>comando svn</cite>.</p>
+<cite>svn checkout http://sist-int-2012project.googlecode.com/svn/ sist-int-2012project</cite>.</p>
 <p>Python 2.7 is required. We have not performed any test with older versions, as well as newer ones, e.g. Python 3.0, so we cannot guarantee the correct working under these versions.</p>
 <p>To successfully launch the program, you need to fullfill the following dependencies:</p>
 <ol class="arabic simple">
-<li>BeautifulSoup (from the bs4 module) (link) to extract the useful informations from the mail structure,</li>
-<li>Ply (link) to extract and identify the tokens.</li>
+<li>BeautifulSoup (from the bs4 module) (<a class="reference external" href="http://www.crummy.com/software/BeautifulSoup/">http://www.crummy.com/software/BeautifulSoup/</a>) to extract the useful informations from the mail structure,</li>
+<li>Ply (<a class="reference external" href="http://www.dabeaz.com/ply/">http://www.dabeaz.com/ply/</a>) to extract and identify the tokens.</li>
 </ol>
 <p>The documentation for these two modules is available on the respective sites.</p>
-<p>The classifier expects to find the mail sets in the directory <cite>/path/of/the/project/spam/</cite>, and, precisely:</p>
-<ul class="simple">
-<li>spam mails in <cite>/path/of/the/project/spam/spam/</cite></li>
-<li>ham mails in <cite>/path/of/the/project/spam/ham/</cite></li>
-</ul>
-<p>SCRIVI DOVE TROVARE I TEST SET. FORSE È ANCHE IL CASO DI PERMETTERE DI CONFIGURARE DOVE TROVARE LA ROBA...</p>
+<p>The user can configure many aspects of the behaviour of the classifier. This can be done by filling in the <cite>spam_bayes.conf</cite> file, either partially or entirely. If a parameter is unset, the default value will be used.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">No checks are performed to verify the correctness of the settings. If the environment is inconsistent with respect to the specifications given here, the software may die at any moment during the execution.</p>
+<p class="last">No checks are performed to verify the correctness of the settings. If the environment is inconsistent with respect to the specifications given here, the software may die at any time during the execution.</p>
 </div>
 </div>
 <div class="section" id="usage">
 <h3>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h3>
+<p>To manage the settings of the program, open the file <cite>spam_bayes.conf</cite> with your favourite editor and set the parameters to the values you like.</p>
 <p>To launch the program, from a terminal type
 <cite>python /path/of/the/project/spam_bayes.py</cite>.</p>
 </div>
 </div>
 <div class="section" id="module-spam_bayes">
 <span id="main-module"></span><h2>Main module<a class="headerlink" href="#module-spam_bayes" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="#module-spam_bayes" title="spam_bayes"><tt class="xref py py-mod docutils literal"><span class="pre">spam_bayes</span></tt></a> module launches the classifier, by creating the bayesian network and using it to classify the mails.</p>
 </div>
 <div class="section" id="the-bayes-network-definition">
 <h2>The Bayes network definition<a class="headerlink" href="#the-bayes-network-definition" title="Permalink to this headline">¶</a></h2>
@@ -103,13 +100,6 @@
 <dd><p>Contains the Bayes network and some possible operations: training,
 validation, k-fold cross-validation, formatted print of the data.
 For the other operations, instantiate the apposite classes.</p>
-<p>Methods contained:
-__init__
-bayes_print
-_k_fold_cross_validation
-train
-validate
-test_bayes</p>
 <dl class="method">
 <dt id="naive_bayes.Bayes.__init__">
 <tt class="descname">__init__</tt><big>(</big><big>)</big><a class="headerlink" href="#naive_bayes.Bayes.__init__" title="Permalink to this definition">¶</a></dt>
@@ -122,7 +112,7 @@ Saves the path of the project.</p>
 <dl class="method">
 <dt id="naive_bayes.Bayes._k_fold_cross_validation">
 <tt class="descname">_k_fold_cross_validation</tt><big>(</big><em>spam_list</em>, <em>ham_list</em><big>)</big><a class="headerlink" href="#naive_bayes.Bayes._k_fold_cross_validation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Internal method, execute the k-fold cross-validation TODO: FINISH</p>
+<dd><p>Internal method, execute the k-fold cross-validation.</p>
 <p>Splits the lists in the desidered number of parts
 (see <a class="reference internal" href="#config.Config" title="config.Config"><tt class="xref py py-class docutils literal"><span class="pre">config.Config</span></tt></a> object),
 then calls the <a class="reference internal" href="#trainer.Trainer.train" title="trainer.Trainer.train"><tt class="xref py py-func docutils literal"><span class="pre">trainer.Trainer.train()</span></tt></a> function.</p>
@@ -166,29 +156,32 @@ then calls the <a class="reference internal" href="#trainer.Trainer.train" title
 <dl class="method">
 <dt id="naive_bayes.Bayes.check">
 <tt class="descname">check</tt><big>(</big><big>)</big><a class="headerlink" href="#naive_bayes.Bayes.check" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute accuracies for validation and testing.</p>
+<dd><p>Compute accuracies for validation and testing. Call the appropriate
+method with validation set and training set.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="naive_bayes.Bayes.load_mails">
+<tt class="descname">load_mails</tt><big>(</big><big>)</big><a class="headerlink" href="#naive_bayes.Bayes.load_mails" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read the desidered number of mails and group them in the six sets
+(training, validation and testing, three for ham and three for spam).</p>
+<p>The number is determined by the user settings.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="naive_bayes.Bayes.read_bayes">
 <tt class="descname">read_bayes</tt><big>(</big><big>)</big><a class="headerlink" href="#naive_bayes.Bayes.read_bayes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read the overall stats computed in a previous run from files, and then
-load validation and test set.</p>
-<p>Three files wil be created:</p>
+load validation and test set, since the training step won&#8217;t be launched.</p>
+<p>Three files are expected to be found:</p>
 <ol class="arabic simple">
 <li><cite>ID_words.csv</cite>, containing the stats of the words;</li>
 <li><cite>ID_feats.csv</cite>, containing the stats of the features;</li>
 <li><cite>ID_params.csv</cite>, containing the configuration used,</li>
 </ol>
-<p>where <cite>ID</cite> is the value contained in <cite>params[&#8216;OUTPUT_ID&#8217;]</cite>.</p>
+<p>where <cite>ID</cite> is the value contained in <cite>params[&#8216;INPUT_ID&#8217;]</cite>.</p>
 <p>Validation and test sets are loaded from the same place they are
 expected to be when training &#8220;normally&#8221;.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="naive_bayes.Bayes.test_bayes">
-<tt class="descname">test_bayes</tt><big>(</big><big>)</big><a class="headerlink" href="#naive_bayes.Bayes.test_bayes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Performs some test - needed to try some functions.</p>
 </dd></dl>
 
 <dl class="method">
@@ -196,17 +189,14 @@ expected to be when training &#8220;normally&#8221;.</p>
 <tt class="descname">train</tt><big>(</big><big>)</big><a class="headerlink" href="#naive_bayes.Bayes.train" title="Permalink to this definition">¶</a></dt>
 <dd><p>Train the net.</p>
 <p>Read the mails given as training and validation set for spam and ham,
-then executes the proper training. Two methods are available: the direct
-training, and the k-fold cross-validation.</p>
+then executes the proper training. The k-fold cross-validation is
+available, to check the accuracy with the training set.</p>
 <p>First of all, read the training set and validation set mails.
 If the k-fold cross-validation is chosen (see <a class="reference internal" href="#config.Config" title="config.Config"><tt class="xref py py-class docutils literal"><span class="pre">config.Config</span></tt></a>
-documentation), then call the apposite method, otherwise calls the
+documentation), then call the apposite method. The call the
 <a class="reference internal" href="#trainer.Trainer" title="trainer.Trainer"><tt class="xref py py-class docutils literal"><span class="pre">trainer.Trainer</span></tt></a> object to extract from the training set
-the feature stats, then compute the accuracy by calling the
-<a class="reference internal" href="#naive_bayes.Bayes.validate" title="naive_bayes.Bayes.validate"><tt class="xref py py-func docutils literal"><span class="pre">naive_bayes.Bayes.validate()</span></tt></a> object, to find out the goodness of
-the classification.</p>
-<p>No parameters are needed, since everything the network needs is already
-present. The location of the mails is (for now?) hardcoded here.</p>
+the feature stats.</p>
+<p>Mails are read using the <a class="reference internal" href="#naive_bayes.Bayes.load_mails" title="naive_bayes.Bayes.load_mails"><tt class="xref py py-func docutils literal"><span class="pre">load_mails()</span></tt></a> method.</p>
 </dd></dl>
 
 <dl class="method">
@@ -231,11 +221,17 @@ and its status.</p>
 
 <dl class="method">
 <dt id="naive_bayes.Bayes.validate">
-<tt class="descname">validate</tt><big>(</big><em>ham_list</em>, <em>spam_list</em>, <em>words</em>, <em>general_stats</em><big>)</big><a class="headerlink" href="#naive_bayes.Bayes.validate" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">validate</tt><big>(</big><em>ham_list</em>, <em>spam_list</em><big>)</big><a class="headerlink" href="#naive_bayes.Bayes.validate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Validation function.</p>
-<p>Get the validation sets and the results of the training, and
-compute the accuracy of the classification of the mails
-in the validation set.</p>
+<p>Get the overall statistics of the mail corpus and the spam and ham
+mails of the validation set (this method is also used during testing,
+since the only thing that changes is the list of mails), and tries to
+classify them invoking the <a class="reference internal" href="#classifier.Classifier.classify" title="classifier.Classifier.classify"><tt class="xref py py-func docutils literal"><span class="pre">classifier.Classifier.classify()</span></tt></a> method
+for each single mail, and check the output. If it is correct, well done,
+otherwise take some action (update the <cite>SPAM_THR</cite> parameter, trying to
+balance the count of false positives and false negatives). Then update
+the overall stats with the computed status, so the network can learn
+from itself. Finally, return the accuracy computed over the set.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -243,8 +239,6 @@ in the validation set.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>ham_val_list</strong> (<em>array of mails</em>) &#8211; the good mails of the validation set;</li>
 <li><strong>spam_val_list</strong> (<em>array of mails</em>) &#8211; the spam mails of the validation set;</li>
-<li><strong>words</strong> (array of <a class="reference internal" href="#gen_stat.Word" title="gen_stat.Word"><tt class="xref py py-class docutils literal"><span class="pre">gen_stat.Word</span></tt></a> objects) &#8211; the list of words read so far, and their stats;</li>
-<li><strong>general_stats</strong> (associative array {str, <a class="reference internal" href="#gen_stat.Stat" title="gen_stat.Stat"><tt class="xref py py-class docutils literal"><span class="pre">gen_stat.Stat</span></tt></a>}) &#8211; the overall stats of the features;</li>
 </ul>
 </td>
 </tr>
@@ -259,11 +253,13 @@ in the validation set.</p>
 <dt id="naive_bayes.Bayes.write_bayes">
 <tt class="descname">write_bayes</tt><big>(</big><big>)</big><a class="headerlink" href="#naive_bayes.Bayes.write_bayes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write the overall stats computed to file.</p>
-<p>Three files wil be created:
-1. <cite>ID_words.csv</cite>, containing the stats of the words;
-2. <cite>ID_feats.csv</cite>, containing the stats of the features;
-3. <cite>ID_params.csv</cite>, containing the configuration used,
-where <cite>ID</cite> is the value contained in <cite>params[&#8216;OUTPUT_ID&#8217;]</cite>.</p>
+<p>Three files will be created:</p>
+<ol class="arabic simple">
+<li><cite>ID_words.csv</cite>, containing the stats of the words;</li>
+<li><cite>ID_feats.csv</cite>, containing the stats of the features;</li>
+<li><cite>ID_params.csv</cite>, containing the configuration used,</li>
+</ol>
+<p>where <cite>ID</cite> is the value contained in <cite>params[&#8216;OUTPUT_ID&#8217;]</cite>.</p>
 </dd></dl>
 
 </dd></dl>
@@ -275,7 +271,7 @@ where <cite>ID</cite> is the value contained in <cite>params[&#8216;OUTPUT_ID&#8
 <span class="target" id="module-config"></span><dl class="class">
 <dt id="config.Config">
 <em class="property">class </em><tt class="descclassname">config.</tt><tt class="descname">Config</tt><a class="headerlink" href="#config.Config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Contains some general configurations.</p>
+<dd><p>Contains some general configurations. FINIRE DI COMPILARE!!!</p>
 <p>The available parameters are (with <cite>[default]</cite> values):</p>
 <ul class="simple">
 <li>CROSS_VALIDATION (bool): True if k-fold cross-validation is chosen.        False otherwise [True];</li>
@@ -311,9 +307,10 @@ where <cite>ID</cite> is the value contained in <cite>params[&#8216;OUTPUT_ID&#8
 </dd></dl>
 
 </div>
-<div class="section" id="module-trainer">
-<span id="the-training-class"></span><h3>The training class<a class="headerlink" href="#module-trainer" title="Permalink to this headline">¶</a></h3>
-<dl class="class">
+<div class="section" id="the-training-class">
+<h3>The training class<a class="headerlink" href="#the-training-class" title="Permalink to this headline">¶</a></h3>
+<p>In this module</p>
+<span class="target" id="module-trainer"></span><dl class="class">
 <dt id="trainer.Trainer">
 <em class="property">class </em><tt class="descclassname">trainer.</tt><tt class="descname">Trainer</tt><a class="headerlink" href="#trainer.Trainer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Trains the network, computing the stats for the main features
@@ -377,7 +374,8 @@ for the processed mail, and the statistics of the training set.</p>
 <dl class="staticmethod">
 <dt id="classifier.Classifier.classify">
 <em class="property">static </em><tt class="descname">classify</tt><big>(</big><em>ws</em>, <em>gs</em>, <em>ovrl_ws</em>, <em>ovrl_gs</em>, <em>params</em><big>)</big><a class="headerlink" href="#classifier.Classifier.classify" title="Permalink to this definition">¶</a></dt>
-<dd><p>Classification function which guesses the class of a mail. The Bayesian theory        is applied here.</p>
+<dd><p>Classification function which guesses the class of a mail. Much of the
+Bayesian theory is applied here.</p>
 <p>The method iterates through all the words identified in the mail,
 and for each one computes how much likely it is for the word to belong
 to a spam mail or to a ham mail. Then it does the same for each general
@@ -637,6 +635,14 @@ from the mails. Does nothing on the content of plain text files.</p>
 <dt id="utils.Utils.create_file">
 <em class="property">static </em><tt class="descname">create_file</tt><big>(</big><em>file_name</em><big>)</big><a class="headerlink" href="#utils.Utils.create_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates an empty file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_name</strong> (<em>str</em>) &#8211; the name of the file to create.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="staticmethod">
@@ -762,7 +768,7 @@ with <cite>read_mails</cite> flag set to False.</p>
 <li><a class="reference internal" href="#the-bayes-network-definition">The Bayes network definition</a><ul>
 <li><a class="reference internal" href="#the-naive-bayes-class">The Naive Bayes class</a></li>
 <li><a class="reference internal" href="#the-configuration-options-manager">The configuration options manager</a></li>
-<li><a class="reference internal" href="#module-trainer">The training class</a></li>
+<li><a class="reference internal" href="#the-training-class">The training class</a></li>
 <li><a class="reference internal" href="#module-classifier">The classifier class</a></li>
 </ul>
 </li>

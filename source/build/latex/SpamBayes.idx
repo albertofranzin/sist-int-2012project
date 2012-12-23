@@ -5,8 +5,8 @@
 \indexentry{\_k\_fold\_cross\_validation() (naive\_bayes.Bayes method)|hyperpage}{5}
 \indexentry{bayes\_print() (naive\_bayes.Bayes method)|hyperpage}{5}
 \indexentry{check() (naive\_bayes.Bayes method)|hyperpage}{6}
+\indexentry{load\_mails() (naive\_bayes.Bayes method)|hyperpage}{6}
 \indexentry{read\_bayes() (naive\_bayes.Bayes method)|hyperpage}{6}
-\indexentry{test\_bayes() (naive\_bayes.Bayes method)|hyperpage}{6}
 \indexentry{train() (naive\_bayes.Bayes method)|hyperpage}{6}
 \indexentry{update\_stats() (naive\_bayes.Bayes method)|hyperpage}{6}
 \indexentry{validate() (naive\_bayes.Bayes method)|hyperpage}{6}
@@ -18,8 +18,8 @@
 \indexentry{get\_params() (config.Config method)|hyperpage}{7}
 \indexentry{trainer (module)|hyperpage}{7}
 \indexentry{Trainer (class in trainer)|hyperpage}{7}
-\indexentry{\_\_init\_\_() (trainer.Trainer method)|hyperpage}{7}
-\indexentry{train() (trainer.Trainer method)|hyperpage}{7}
+\indexentry{\_\_init\_\_() (trainer.Trainer method)|hyperpage}{8}
+\indexentry{train() (trainer.Trainer method)|hyperpage}{8}
 \indexentry{trainer\_print() (trainer.Trainer method)|hyperpage}{8}
 \indexentry{classifier (module)|hyperpage}{8}
 \indexentry{Classifier (class in classifier)|hyperpage}{8}

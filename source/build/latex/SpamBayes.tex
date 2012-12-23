@@ -128,50 +128,44 @@ The whole code of the project is available at google code (see below).
 
 \section{Download and installation}
 \label{index:download-and-installation}
-To download the code, go to \emph{http://code.google.com/etc} and download the source packet.
+The code can be found at \href{http://code.google.com/p/sist-int-2012project}{http://code.google.com/p/sist-int-2012project}.
 
 We suggest to use the svn repository available. To download the project, open a terminal, go to the chosen directory and type
-\emph{comando svn}.
+\emph{svn checkout http://sist-int-2012project.googlecode.com/svn/ sist-int-2012project}.
 
 Python 2.7 is required. We have not performed any test with older versions, as well as newer ones, e.g. Python 3.0, so we cannot guarantee the correct working under these versions.
 
 To successfully launch the program, you need to fullfill the following dependencies:
 \begin{enumerate}
 \item {} 
-BeautifulSoup (from the bs4 module) (link) to extract the useful informations from the mail structure,
+BeautifulSoup (from the bs4 module) (\href{http://www.crummy.com/software/BeautifulSoup/}{http://www.crummy.com/software/BeautifulSoup/}) to extract the useful informations from the mail structure,
 
 \item {} 
-Ply (link) to extract and identify the tokens.
+Ply (\href{http://www.dabeaz.com/ply/}{http://www.dabeaz.com/ply/}) to extract and identify the tokens.
 
 \end{enumerate}
 
 The documentation for these two modules is available on the respective sites.
 
-The classifier expects to find the mail sets in the directory \emph{/path/of/the/project/spam/}, and, precisely:
-\begin{itemize}
-\item {} 
-spam mails in \emph{/path/of/the/project/spam/spam/}
-
-\item {} 
-ham mails in \emph{/path/of/the/project/spam/ham/}
-
-\end{itemize}
-
-SCRIVI DOVE TROVARE I TEST SET. FORSE È ANCHE IL CASO DI PERMETTERE DI CONFIGURARE DOVE TROVARE LA ROBA...
+The user can configure many aspects of the behaviour of the classifier. This can be done by filling in the \emph{spam\_bayes.conf} file, either partially or entirely. If a parameter is unset, the default value will be used.
 
 \begin{notice}{warning}{Warning:}
-No checks are performed to verify the correctness of the settings. If the environment is inconsistent with respect to the specifications given here, the software may die at any moment during the execution.
+No checks are performed to verify the correctness of the settings. If the environment is inconsistent with respect to the specifications given here, the software may die at any time during the execution.
 \end{notice}
 
 
 \section{Usage}
 \label{index:usage}
+To manage the settings of the program, open the file \emph{spam\_bayes.conf} with your favourite editor and set the parameters to the values you like.
+
 To launch the program, from a terminal type
 \emph{python /path/of/the/project/spam\_bayes.py}.
 
 
 \chapter{Main module}
 \label{index:module-spam_bayes}\label{index:main-module}\index{spam\_bayes (module)}
+The {\hyperref[index:module-spam_bayes]{\code{spam\_bayes}}} module launches the classifier, by creating the bayesian network and using it to classify the mails.
+
 
 \chapter{The Bayes network definition}
 \label{index:the-bayes-network-definition}
@@ -190,14 +184,6 @@ Its main variables are the arrays of stats of the words and the features filled 
 Contains the Bayes network and some possible operations: training,
 validation, k-fold cross-validation, formatted print of the data.
 For the other operations, instantiate the apposite classes.
-
-Methods contained:
-\_\_init\_\_
-bayes\_print
-\_k\_fold\_cross\_validation
-train
-validate
-test\_bayes
 \index{\_\_init\_\_() (naive\_bayes.Bayes method)}
 
 \begin{fulllineitems}
@@ -214,7 +200,7 @@ Saves the path of the project.
 
 \begin{fulllineitems}
 \phantomsection\label{index:naive_bayes.Bayes._k_fold_cross_validation}\pysiglinewithargsret{\bfcode{\_k\_fold\_cross\_validation}}{\emph{spam\_list}, \emph{ham\_list}}{}
-Internal method, execute the k-fold cross-validation TODO: FINISH
+Internal method, execute the k-fold cross-validation.
 
 Splits the lists in the desidered number of parts
 (see {\hyperref[index:config.Config]{\code{config.Config}}} object),
@@ -263,7 +249,19 @@ Each row must have the same number of columns.
 
 \begin{fulllineitems}
 \phantomsection\label{index:naive_bayes.Bayes.check}\pysiglinewithargsret{\bfcode{check}}{}{}
-Compute accuracies for validation and testing.
+Compute accuracies for validation and testing. Call the appropriate
+method with validation set and training set.
+
+\end{fulllineitems}
+
+\index{load\_mails() (naive\_bayes.Bayes method)}
+
+\begin{fulllineitems}
+\phantomsection\label{index:naive_bayes.Bayes.load_mails}\pysiglinewithargsret{\bfcode{load\_mails}}{}{}
+Read the desidered number of mails and group them in the six sets
+(training, validation and testing, three for ham and three for spam).
+
+The number is determined by the user settings.
 
 \end{fulllineitems}
 
@@ -272,9 +270,9 @@ Compute accuracies for validation and testing.
 \begin{fulllineitems}
 \phantomsection\label{index:naive_bayes.Bayes.read_bayes}\pysiglinewithargsret{\bfcode{read\_bayes}}{}{}
 Read the overall stats computed in a previous run from files, and then
-load validation and test set.
+load validation and test set, since the training step won't be launched.
 
-Three files wil be created:
+Three files are expected to be found:
 \begin{enumerate}
 \item {} 
 \emph{ID\_words.csv}, containing the stats of the words;
@@ -287,18 +285,10 @@ Three files wil be created:
 
 \end{enumerate}
 
-where \emph{ID} is the value contained in \emph{params{[}'OUTPUT\_ID'{]}}.
+where \emph{ID} is the value contained in \emph{params{[}'INPUT\_ID'{]}}.
 
 Validation and test sets are loaded from the same place they are
 expected to be when training ``normally''.
-
-\end{fulllineitems}
-
-\index{test\_bayes() (naive\_bayes.Bayes method)}
-
-\begin{fulllineitems}
-\phantomsection\label{index:naive_bayes.Bayes.test_bayes}\pysiglinewithargsret{\bfcode{test\_bayes}}{}{}
-Performs some test - needed to try some functions.
 
 \end{fulllineitems}
 
@@ -309,19 +299,16 @@ Performs some test - needed to try some functions.
 Train the net.
 
 Read the mails given as training and validation set for spam and ham,
-then executes the proper training. Two methods are available: the direct
-training, and the k-fold cross-validation.
+then executes the proper training. The k-fold cross-validation is
+available, to check the accuracy with the training set.
 
 First of all, read the training set and validation set mails.
 If the k-fold cross-validation is chosen (see {\hyperref[index:config.Config]{\code{config.Config}}}
-documentation), then call the apposite method, otherwise calls the
+documentation), then call the apposite method. The call the
 {\hyperref[index:trainer.Trainer]{\code{trainer.Trainer}}} object to extract from the training set
-the feature stats, then compute the accuracy by calling the
-{\hyperref[index:naive_bayes.Bayes.validate]{\code{naive\_bayes.Bayes.validate()}}} object, to find out the goodness of
-the classification.
+the feature stats.
 
-No parameters are needed, since everything the network needs is already
-present. The location of the mails is (for now?) hardcoded here.
+Mails are read using the {\hyperref[index:naive_bayes.Bayes.load_mails]{\code{load\_mails()}}} method.
 
 \end{fulllineitems}
 
@@ -351,12 +338,18 @@ and its status.
 \index{validate() (naive\_bayes.Bayes method)}
 
 \begin{fulllineitems}
-\phantomsection\label{index:naive_bayes.Bayes.validate}\pysiglinewithargsret{\bfcode{validate}}{\emph{ham\_list}, \emph{spam\_list}, \emph{words}, \emph{general\_stats}}{}
+\phantomsection\label{index:naive_bayes.Bayes.validate}\pysiglinewithargsret{\bfcode{validate}}{\emph{ham\_list}, \emph{spam\_list}}{}
 Validation function.
 
-Get the validation sets and the results of the training, and
-compute the accuracy of the classification of the mails
-in the validation set.
+Get the overall statistics of the mail corpus and the spam and ham
+mails of the validation set (this method is also used during testing,
+since the only thing that changes is the list of mails), and tries to
+classify them invoking the {\hyperref[index:classifier.Classifier.classify]{\code{classifier.Classifier.classify()}}} method
+for each single mail, and check the output. If it is correct, well done,
+otherwise take some action (update the \emph{SPAM\_THR} parameter, trying to
+balance the count of false positives and false negatives). Then update
+the overall stats with the computed status, so the network can learn
+from itself. Finally, return the accuracy computed over the set.
 \begin{quote}\begin{description}
 \item[{Parameters}] \leavevmode\begin{itemize}
 \item {} 
@@ -364,12 +357,6 @@ in the validation set.
 
 \item {} 
 \textbf{spam\_val\_list} (\emph{array of mails}) -- the spam mails of the validation set;
-
-\item {} 
-\textbf{words} (array of {\hyperref[index:gen_stat.Word]{\code{gen\_stat.Word}}} objects) -- the list of words read so far, and their stats;
-
-\item {} 
-\textbf{general\_stats} (associative array \{str, {\hyperref[index:gen_stat.Stat]{\code{gen\_stat.Stat}}}\}) -- the overall stats of the features;
 
 \end{itemize}
 
@@ -386,10 +373,19 @@ accuracy of the validation.
 \phantomsection\label{index:naive_bayes.Bayes.write_bayes}\pysiglinewithargsret{\bfcode{write\_bayes}}{}{}
 Write the overall stats computed to file.
 
-Three files wil be created:
-1. \emph{ID\_words.csv}, containing the stats of the words;
-2. \emph{ID\_feats.csv}, containing the stats of the features;
-3. \emph{ID\_params.csv}, containing the configuration used,
+Three files will be created:
+\begin{enumerate}
+\item {} 
+\emph{ID\_words.csv}, containing the stats of the words;
+
+\item {} 
+\emph{ID\_feats.csv}, containing the stats of the features;
+
+\item {} 
+\emph{ID\_params.csv}, containing the configuration used,
+
+\end{enumerate}
+
 where \emph{ID} is the value contained in \emph{params{[}'OUTPUT\_ID'{]}}.
 
 \end{fulllineitems}
@@ -406,7 +402,7 @@ This is the module providing the basic configurations which allow the user to cu
 
 \begin{fulllineitems}
 \phantomsection\label{index:config.Config}\pysigline{\strong{class }\code{config.}\bfcode{Config}}
-Contains some general configurations.
+Contains some general configurations. FINIRE DI COMPILARE!!!
 
 The available parameters are (with \emph{{[}default{]}} values):
 \begin{itemize}
@@ -474,7 +470,9 @@ Return the parameter list.
 
 
 \section{The training class}
-\label{index:the-training-class}\label{index:module-trainer}\index{trainer (module)}\index{Trainer (class in trainer)}
+\label{index:the-training-class}
+In this module
+\phantomsection\label{index:module-trainer}\index{trainer (module)}\index{Trainer (class in trainer)}
 
 \begin{fulllineitems}
 \phantomsection\label{index:trainer.Trainer}\pysigline{\strong{class }\code{trainer.}\bfcode{Trainer}}
@@ -552,7 +550,8 @@ for the processed mail, and the statistics of the training set.
 
 \begin{fulllineitems}
 \phantomsection\label{index:classifier.Classifier.classify}\pysiglinewithargsret{\strong{static }\bfcode{classify}}{\emph{ws}, \emph{gs}, \emph{ovrl\_ws}, \emph{ovrl\_gs}, \emph{params}}{}
-Classification function which guesses the class of a mail. The Bayesian theory        is applied here.
+Classification function which guesses the class of a mail. Much of the
+Bayesian theory is applied here.
 
 The method iterates through all the words identified in the mail,
 and for each one computes how much likely it is for the word to belong
@@ -902,6 +901,11 @@ From \href{http://stackoverflow.com/questions/312443}{http://stackoverflow.com/q
 \begin{fulllineitems}
 \phantomsection\label{index:utils.Utils.create_file}\pysiglinewithargsret{\strong{static }\bfcode{create\_file}}{\emph{file\_name}}{}
 Creates an empty file.
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode
+\textbf{file\_name} (\emph{str}) -- the name of the file to create.
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 

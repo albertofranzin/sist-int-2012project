@@ -37,15 +37,6 @@ class Utils:
 
         """
 
-        # if we don't want to use the entire mail archive for train the system,
-        # then we have to keep track of how many mails we have opened
-        # if how_many > 0:
-        #     processed_mails = 0
-
-        # # if we went to read mails, then we create the lexer to extract tokens
-        # if read_mails:
-        #     lexer = Lexer()
-
         file_list = []
         print "path : ", os.getcwd()
         print "Utils :: _read_files :: ", path
@@ -53,8 +44,8 @@ class Utils:
         os.chdir(path)
         # runs through all the files
         list_of_files = os.listdir(".")
+        # shuffle and choose some
         random.shuffle(list_of_files)
-
         if how_many > 0:
             del list_of_files[how_many:]
 
@@ -72,19 +63,11 @@ class Utils:
             if read_mails:
                 soup = BeautifulSoup(''.join(file_text))
                 file_list.append([soup.get_text()])
-                # lexer.lexer_words(soup.get_text(), True,
-                #     words, gen_stats, config)
             else:
                 file_list.append([file_text])
+
             # close file
             in_file.close()
-
-            # # keep the count of read mails if needed, and stop when done
-            # if how_many > 0:
-            #     processed_mails += 1
-            #     if processed_mails >= how_many:
-            #         processed_mails = 0
-            #         break
 
         return file_list
 
@@ -147,9 +130,6 @@ class Utils:
         :type n: int
 
         """
-
-        # for i in xrange(0, len(l), n):
-        #     yield l[i: i + n]
 
         return [l[i: i + n] for i in range(0, len(l), n)]
 
@@ -220,5 +200,11 @@ class Utils:
 
     @staticmethod
     def create_file(file_name):
-        """Creates an empty file."""
+        """
+        Creates an empty file.
+
+        :param file_name: the name of the file to create.
+        :type file_name: str
+
+        """
         open(file_name, "w").close()
