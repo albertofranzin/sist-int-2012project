@@ -367,7 +367,7 @@ class Bayes():
                 print " :: correct!"
             else:
                 # no: detect the kind of error (false pos, false neg), then
-                # try to correct the spamicity threshold.
+                # try to correct the spamicity threshold (if desidered).
                 # To correct, look at the OTHER error, for trying to balance
                 # the threshold: if we have more false negatives than false
                 # positives, then it means that the threshold is too high, and
@@ -380,18 +380,20 @@ class Bayes():
                     self.false_positives += 1
                     print " :: wrong! so far we have", self.false_positives,\
                             "false positives",
-                    self.params['SPAM_THR'] = math.fabs(self.params['SPAM_THR'] +
+                    if self.params['ADAPTIVE_SPAM_THR']:
+                        self.params['SPAM_THR'] = math.fabs(self.params['SPAM_THR'] +
                             0.1 / (self.false_negatives + 1))
                 else:
                     self.false_negatives += 1
                     print " :: wrong! so far we have", self.false_negatives,\
                             "false negatives",
-                    self.params['SPAM_THR'] = math.fabs(self.params['SPAM_THR'] -
+                    if self.params['ADAPTIVE_SPAM_THR']:
+                        self.params['SPAM_THR'] = math.fabs(self.params['SPAM_THR'] -
                             0.1 / (self.false_positives + 1))
 
                 # the threshold has been updated only if the classification
                 # has gone wrong.
-                if self.params['VERBOSE']:
+                if self.params['VERBOSE'] and self.params['ADAPTIVE_SPAM_THR']:
                     print self.params['SPAM_THR']
                 else:
                     # there was a comma before, so we need to go to a new line

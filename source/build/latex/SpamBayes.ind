@@ -2,17 +2,17 @@
 \def\bigletter#1{{\Large\sffamily#1}\nopagebreak\vspace{1mm}}
 
   \bigletter {Symbols}
-  \item \_\_init\_\_() (config.Config method), \hyperpage{7}
-  \item \_\_init\_\_() (gen\_stat.Stat method), \hyperpage{9}
-  \item \_\_init\_\_() (gen\_stat.Word method), \hyperpage{9}
-  \item \_\_init\_\_() (lexer.Lexer method), \hyperpage{11}
+  \item \_\_init\_\_() (config.Config method), \hyperpage{8}
+  \item \_\_init\_\_() (gen\_stat.Stat method), \hyperpage{11}
+  \item \_\_init\_\_() (gen\_stat.Word method), \hyperpage{11}
+  \item \_\_init\_\_() (lexer.Lexer method), \hyperpage{13}
   \item \_\_init\_\_() (naive\_bayes.Bayes method), \hyperpage{5}
-  \item \_\_init\_\_() (test\_stat.Test\_stat method), \hyperpage{10}
-  \item \_\_init\_\_() (test\_stat.Test\_word method), \hyperpage{10}
+  \item \_\_init\_\_() (test\_stat.Test\_stat method), \hyperpage{12}
+  \item \_\_init\_\_() (test\_stat.Test\_word method), \hyperpage{12}
   \item \_\_init\_\_() (trainer.Trainer method), \hyperpage{8}
   \item \_k\_fold\_cross\_validation() (naive\_bayes.Bayes method), \hyperpage{5}
-  \item \_process\_tokens() (lexer.Lexer method), \hyperpage{11}
-  \item \_read\_files() (utils.Utils static method), \hyperpage{12}
+  \item \_process\_tokens() (lexer.Lexer method), \hyperpage{13}
+  \item \_read\_files() (utils.Utils static method), \hyperpage{14}
 
   \indexspace
   \bigletter B
@@ -22,32 +22,32 @@
   \indexspace
   \bigletter C
   \item check() (naive\_bayes.Bayes method), \hyperpage{6}
-  \item chunks() (utils.Utils static method), \hyperpage{12}
-  \item Classifier (class in classifier), \hyperpage{8}
-  \item classifier (module), \hyperpage{8}
-  \item classify() (classifier.Classifier static method), \hyperpage{8}
+  \item chunks() (utils.Utils static method), \hyperpage{14}
+  \item Classifier (class in classifier), \hyperpage{9}
+  \item classifier (module), \hyperpage{9}
+  \item classify() (classifier.Classifier static method), \hyperpage{9}
   \item Config (class in config), \hyperpage{7}
   \item config (module), \hyperpage{7}
-  \item cprint() (config.Config method), \hyperpage{7}
-  \item create\_file() (utils.Utils static method), \hyperpage{13}
-  \item create\_stats() (utils.Utils static method), \hyperpage{13}
-  \item create\_test\_stats() (utils.Utils static method), \hyperpage{13}
+  \item cprint() (config.Config method), \hyperpage{8}
+  \item create\_file() (utils.Utils static method), \hyperpage{15}
+  \item create\_stats() (utils.Utils static method), \hyperpage{15}
+  \item create\_test\_stats() (utils.Utils static method), \hyperpage{15}
 
   \indexspace
   \bigletter G
-  \item gen\_stat (module), \hyperpage{9}
-  \item get\_params() (config.Config method), \hyperpage{7}
+  \item gen\_stat (module), \hyperpage{11}
+  \item get\_params() (config.Config method), \hyperpage{8}
 
   \indexspace
   \bigletter L
-  \item Lexer (class in lexer), \hyperpage{11}
-  \item lexer (module), \hyperpage{11}
-  \item lexer\_words() (lexer.Lexer method), \hyperpage{11}
+  \item Lexer (class in lexer), \hyperpage{13}
+  \item lexer (module), \hyperpage{13}
+  \item lexer\_words() (lexer.Lexer method), \hyperpage{13}
   \item load\_mails() (naive\_bayes.Bayes method), \hyperpage{6}
 
   \indexspace
   \bigletter M
-  \item merge\_lists() (utils.Utils static method), \hyperpage{13}
+  \item merge\_lists() (utils.Utils static method), \hyperpage{15}
 
   \indexspace
   \bigletter N
@@ -56,30 +56,30 @@
   \indexspace
   \bigletter R
   \item read\_bayes() (naive\_bayes.Bayes method), \hyperpage{6}
-  \item read\_mails() (utils.Utils static method), \hyperpage{13}
-  \item read\_text() (utils.Utils static method), \hyperpage{13}
+  \item read\_mails() (utils.Utils static method), \hyperpage{15}
+  \item read\_text() (utils.Utils static method), \hyperpage{15}
 
   \indexspace
   \bigletter S
   \item spam\_bayes (module), \hyperpage{3}
-  \item Stat (class in gen\_stat), \hyperpage{9}
+  \item Stat (class in gen\_stat), \hyperpage{11}
 
   \indexspace
   \bigletter T
-  \item Test\_stat (class in test\_stat), \hyperpage{10}
-  \item test\_stat (module), \hyperpage{10}
-  \item Test\_word (class in test\_stat), \hyperpage{10}
+  \item Test\_stat (class in test\_stat), \hyperpage{12}
+  \item test\_stat (module), \hyperpage{12}
+  \item Test\_word (class in test\_stat), \hyperpage{12}
   \item train() (naive\_bayes.Bayes method), \hyperpage{6}
   \item train() (trainer.Trainer method), \hyperpage{8}
-  \item Trainer (class in trainer), \hyperpage{7}
-  \item trainer (module), \hyperpage{7}
+  \item Trainer (class in trainer), \hyperpage{8}
+  \item trainer (module), \hyperpage{8}
   \item trainer\_print() (trainer.Trainer method), \hyperpage{8}
 
   \indexspace
   \bigletter U
   \item update\_stats() (naive\_bayes.Bayes method), \hyperpage{6}
-  \item Utils (class in utils), \hyperpage{12}
-  \item utils (module), \hyperpage{12}
+  \item Utils (class in utils), \hyperpage{14}
+  \item utils (module), \hyperpage{14}
 
   \indexspace
   \bigletter V
@@ -87,7 +87,7 @@
 
   \indexspace
   \bigletter W
-  \item Word (class in gen\_stat), \hyperpage{9}
+  \item Word (class in gen\_stat), \hyperpage{11}
   \item write\_bayes() (naive\_bayes.Bayes method), \hyperpage{7}
 
 \end{theindex}

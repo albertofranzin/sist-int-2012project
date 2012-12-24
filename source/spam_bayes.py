@@ -28,5 +28,5 @@ if __name__ == '__main__':
     bayes.check()
 
     # if desidered, then save the results for a future run.
-    if bayes.params['WRITE_ON_FILE']:
+    if bayes.params['WRITE_TO_FILE']:
         bayes.write_bayes()

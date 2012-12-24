@@ -96,7 +96,8 @@ This is the module providing the basic configurations which allow the user to cu
 
 The training class
 ++++++++++++++++++
-In this module 
+
+This module performs the proper training of a bayesian network.
 
 .. automodule:: trainer
     :members:
@@ -105,6 +106,9 @@ In this module
 
 The classifier class
 ++++++++++++++++++++
+
+In this module, there is only the :class:`classifier.Classifier` class, used to
+identify the status of a mail.
 
 .. automodule:: classifier
     :members:

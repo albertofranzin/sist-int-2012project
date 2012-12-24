@@ -3,30 +3,67 @@ import ConfigParser
 
 class Config():
     """
-    Contains some general configurations. FINIRE DI COMPILARE!!!
+    Contains some general configurations. After the parameter array is created,
+    read the config file (`spam_bayes.conf`) to overwrite the settings
+    desidered by the user.
 
     The available parameters are (with `[default]` values):
 
     - CROSS_VALIDATION (bool): True if k-fold cross-validation is chosen.\
-        False otherwise [True];
+        False otherwise [False];
     - CROSS_VALIDATION_FOLDS (int): the number of folds for\
         cross-validation, if enabled [4];
-    - OVERALL_FEATS_SPAM_W (float, \in [0,1]): the weight of the overall stats\
+    - OVERALL_FEATS_SPAM_W (float, in [0,1]): the weight of the overall stats\
         when computing the spamicity of a mail. The remaining part is given by\
-        the word stats [0.7];
+        the word stats [0.0001];
+
+    - READ_FROM_FILE (bool): True if the network has to load some previous\
+        result, False if training has to be done from scratch [False];
+    - INPUT_ID (str): relative path to the files that have to be read, with the\
+        prefix of the file names (see :func:`naive_bayes.Bayes.read_bayes()`)\
+        [saved_runs/saved_network];
+    - PARAMS_FROM_FILE (bool): True if also the parameters have to be loaded from file,\
+        False if the current parameters are preferres. Better to be specified,\
+        since different parameters lead to different results [True] ;
+
+    - RELEVANCE_THR (float, in [0,0.5]): specifies how much relevant a word or\
+        a feature has to be to be considered in the spamicity computation; that is,\
+        how much it differs from 1/2, to spam or ham. Useful to exclude negligible\
+        words or features (the ones that appear in spam mails as much as they do in\
+            ham ones) [0.25];
     - SHORT_THR (int): length of a word to be identified as `very short` [1];
-    - SIZE_OF_BAGS (int): number of ham and spam mails for training [50];
-    - SIZE_OF_VAL_BAGS (int): number of ham and spam mails for validation [10];
-    - SIZE_OF_TEST_BAG (int): number of mails in the test set [30]
-    - SMOOTH_VALUE (int): smoothing value to be used in classification [1];
-    - SPAM_THR (float, \in [0,1]): probability threshold to mark a mail as spam [0.95];
-    - VERBOSE (bool): if True, displays more messages [True];
-    - VERYLONG_THR (int): length of a word to be identified as `very long` [20].
+    - SIZE_OF_BAGS (int): number of ham and spam mails for training [800];
+    - SIZE_OF_VAL_BAGS (int): number of ham and spam mails for validation [200];
+    - SIZE_OF_TEST_BAG (int): number of mails in the test set [1000]
+    - SMOOTH_VALUE (float): smoothing value to be used in classification [0.001];
+    - SPAM_THR (float, \in [0,1]): probability threshold to mark a mail as spam [0.2];
+    - ADAPTIVE_SPAM_THR (bool): True if the `SPAM_THR` value has to be tuned according\
+        to the results of the classification of the mails, False if the threshold\
+        must be the same from the beginning to the end [True];
+    - VERBOSE (bool): if True, displays more messages, if False, display only some\
+        necessary messages [False];
+    - VERYLONG_THR (int): length of a word to be identified as `very long` [18];
+
+    - SPAM_DIR (str): the relative path from the project dir to the directory\
+        containing the spam mails [spam/spam/];
+    - HAM_DIR (str): the relative path from the project dir to the directory\
+        containing the ham mails [spam/ham/];
+
+    - WRITE_TO_FILE (bool): True if the network has to writethe computed\
+        result, False if not [True];
+    - OUTPUT_ID (str): relative path to the files that have to be written, with the\
+        prefix of the file names (see :func:`naive_bayes.Bayes.write_bayes()`)\
+        [saved_runs/saved_network].
 
     """
 
     def __init__(self):
-        """Constructor. Initialize all the parameters to their default value."""
+        """
+        Constructor. Initialize all the parameters to their default value,
+        then check for different choices by the user, reading the file
+        `spam_bayes.conf`.
+
+        """
 
         # define the constants
         self.params = {}
@@ -35,7 +72,7 @@ class Config():
         self.params['CROSS_VALIDATION'] = False
 
         # # of cross-validation folds (if enabled) [4]
-        self.params['CROSS_VALIDATION_FOLDS'] = 8
+        self.params['CROSS_VALIDATION_FOLDS'] = 4
 
         # weight of the overall features stats over the word spamminess [0.0001]
         self.params['OVERALL_FEATS_SPAM_W'] = 0.0001
@@ -51,17 +88,17 @@ class Config():
         # only to be used if READ_FROM_FILE = True
         self.params['PARAMS_FROM_FILE'] = True
 
-        # threshold of deviance of a statistic from the average mean
-        self.params['RELEVANCE_THR'] = 0.15
+        # threshold of deviance of a statistic from the average mean [0.25]
+        self.params['RELEVANCE_THR'] = 0.25
 
         # length of a token to be defined "a short word" [1]
         self.params['SHORT_THR'] = 1
 
-        # size of training sets [50]
-        self.params['SIZE_OF_BAGS'] = 50
+        # size of training sets [800]
+        self.params['SIZE_OF_BAGS'] = 800
 
-        # size of validation sets (1 v.s. for ham, 1 for spam) [50]
-        self.params['SIZE_OF_VAL_BAGS'] = 50
+        # size of validation sets (1 v.s. for ham, 1 for spam) [200]
+        self.params['SIZE_OF_VAL_BAGS'] = 200
 
         # size of test set [1000]
         self.params['SIZE_OF_TEST_BAGS'] = 1000
@@ -80,14 +117,17 @@ class Config():
         # spam probability threshold for classification and validation [0.2]
         self.params['SPAM_THR'] = 0.2
 
+        # should the SPAM_THR threshold be adapted looking at the results? [True]
+        self.params['ADAPTIVE_SPAM_THR'] = True
+
         # should I print lots of infos? [False]
         self.params['VERBOSE'] = False
 
-        # length of a token to be defined "a very long word" [20]
+        # length of a token to be defined "a very long word" [18]
         self.params['VERYLONG_THR'] = 18
 
         # do I have to write on hard drive the stats computed? [True]
-        self.params['WRITE_ON_FILE'] = True
+        self.params['WRITE_TO_FILE'] = True
 
         # if yes, which file? [saved_runs/saved_network]
         # NOTE: ONLY THE FIRST PART OF THE FILE NAMES, TO IDENTIFY THE SESSION
@@ -155,6 +195,8 @@ class Config():
     def get_params(self):
         """
         Return the parameter list.
+
+        :return: the parameter list.
 
         """
 

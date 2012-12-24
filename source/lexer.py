@@ -126,11 +126,6 @@ class Lexer:
                     general_stats['LOONGWORDS'].count += 1
                 general_stats[type].count += 1
 
-        # just a check
-        # if config.VERBOSE:
-        #     print general_stats['LINKADDR'].ham
-        #     print general_stats['LINKADDR'].spam
-
         # looks like that the return is not needed...
         # return (words, general_stats)
 
@@ -139,7 +134,9 @@ class Lexer:
         """
         Apply lexical analysis to the text of mails.
 
-        May
+        Split the text into the tokens, classify them, and then insert the pair
+        into the resul array, which will be used when invoking the
+        :func:`lexer.Lexer._process_tokens()` method.
 
         :param text: the text of the mail to be parsed;
         :type text: str

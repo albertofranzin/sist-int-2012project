@@ -29,15 +29,15 @@ class Trainer:
         calculating the overall stats for some interesting features to be
         evaluated, and for the single words.
 
-        :param mails: the list of mails.
+        :param mails: the list of mails;
         :type mails: array of str
-        :param is_spam: are the given mails spam?
+        :param is_spam: True if the given mails are spam, False otherwise;
         :type is_spam: bool
-        :param words: the array of stats for the single words detected.
+        :param words: the array of stats for the single words detected;
         :type words: array of Word objects
-        :param general_stats: the overall stats of the set.
+        :param general_stats: the overall stats of the set;
         :type general_stats: array of {str, :class:`gen_stat.Stat`}
-        :param params: contains some general parameters and configurations;
+        :param params: contains some general parameters and configurations.
         :type params: associative array
 
         """
@@ -61,7 +61,4 @@ class Trainer:
         """
 
         for feature in general_stats.itervalues():
-            # print general_stats[feature].description, "\t\t",
-            # print general_stats[feature].spam, "\t\t",
-            # print general_stats[feature].ham
             print feature.description, "\t", feature.spam, "\t", feature.ham

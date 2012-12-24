@@ -13,7 +13,7 @@
 
 
 \title{SpamBayes Documentation}
-\date{December 23, 2012}
+\date{December 24, 2012}
 \release{0.1}
 \author{Alberto Franzin, Fabio Palese}
 \newcommand{\sphinxlogo}{}
@@ -402,49 +402,80 @@ This is the module providing the basic configurations which allow the user to cu
 
 \begin{fulllineitems}
 \phantomsection\label{index:config.Config}\pysigline{\strong{class }\code{config.}\bfcode{Config}}
-Contains some general configurations. FINIRE DI COMPILARE!!!
+Contains some general configurations. After the parameter array is created,
+read the config file (\emph{spam\_bayes.conf}) to overwrite the settings
+desidered by the user.
 
 The available parameters are (with \emph{{[}default{]}} values):
 \begin{itemize}
 \item {} 
-CROSS\_VALIDATION (bool): True if k-fold cross-validation is chosen.        False otherwise {[}True{]};
+CROSS\_VALIDATION (bool): True if k-fold cross-validation is chosen.        False otherwise {[}False{]};
 
 \item {} 
 CROSS\_VALIDATION\_FOLDS (int): the number of folds for        cross-validation, if enabled {[}4{]};
 
 \item {} 
-OVERALL\_FEATS\_SPAM\_W (float, in {[}0,1{]}): the weight of the overall stats        when computing the spamicity of a mail. The remaining part is given by        the word stats {[}0.7{]};
+OVERALL\_FEATS\_SPAM\_W (float, in {[}0,1{]}): the weight of the overall stats        when computing the spamicity of a mail. The remaining part is given by        the word stats {[}0.0001{]};
+
+\item {} 
+READ\_FROM\_FILE (bool): True if the network has to load some previous        result, False if training has to be done from scratch {[}False{]};
+
+\item {} 
+INPUT\_ID (str): relative path to the files that have to be read, with the        prefix of the file names (see {\hyperref[index:naive_bayes.Bayes.read_bayes]{\code{naive\_bayes.Bayes.read\_bayes()}}})        {[}saved\_runs/saved\_network{]};
+
+\item {} 
+PARAMS\_FROM\_FILE (bool): True if also the parameters have to be loaded from file,        False if the current parameters are preferres. Better to be specified,        since different parameters lead to different results {[}True{]} ;
+
+\item {} 
+RELEVANCE\_THR (float, in {[}0,0.5{]}): specifies how much relevant a word or        a feature has to be to be considered in the spamicity computation; that is,        how much it differs from 1/2, to spam or ham. Useful to exclude negligible        words or features (the ones that appear in spam mails as much as they do in            ham ones) {[}0.25{]};
 
 \item {} 
 SHORT\_THR (int): length of a word to be identified as \emph{very short} {[}1{]};
 
 \item {} 
-SIZE\_OF\_BAGS (int): number of ham and spam mails for training {[}50{]};
+SIZE\_OF\_BAGS (int): number of ham and spam mails for training {[}800{]};
 
 \item {} 
-SIZE\_OF\_VAL\_BAGS (int): number of ham and spam mails for validation {[}10{]};
+SIZE\_OF\_VAL\_BAGS (int): number of ham and spam mails for validation {[}200{]};
 
 \item {} 
-SIZE\_OF\_TEST\_BAG (int): number of mails in the test set {[}30{]}
+SIZE\_OF\_TEST\_BAG (int): number of mails in the test set {[}1000{]}
 
 \item {} 
-SMOOTH\_VALUE (int): smoothing value to be used in classification {[}1{]};
+SMOOTH\_VALUE (float): smoothing value to be used in classification {[}0.001{]};
 
 \item {} 
-SPAM\_THR (float, in {[}0,1{]}): probability threshold to mark a mail as spam {[}0.95{]};
+SPAM\_THR (float, in {[}0,1{]}): probability threshold to mark a mail as spam {[}0.2{]};
 
 \item {} 
-VERBOSE (bool): if True, displays more messages {[}True{]};
+ADAPTIVE\_SPAM\_THR (bool): True if the \emph{SPAM\_THR} value has to be tuned according        to the results of the classification of the mails, False if the threshold        must be the same from the beginning to the end {[}True{]};
 
 \item {} 
-VERYLONG\_THR (int): length of a word to be identified as \emph{very long} {[}20{]}.
+VERBOSE (bool): if True, displays more messages, if False, display only some        necessary messages {[}False{]};
+
+\item {} 
+VERYLONG\_THR (int): length of a word to be identified as \emph{very long} {[}18{]};
+
+\item {} 
+SPAM\_DIR (str): the relative path from the project dir to the directory        containing the spam mails {[}spam/spam/{]};
+
+\item {} 
+HAM\_DIR (str): the relative path from the project dir to the directory        containing the ham mails {[}spam/ham/{]};
+
+\item {} 
+WRITE\_TO\_FILE (bool): True if the network has to writethe computed        result, False if not {[}True{]};
+
+\item {} 
+OUTPUT\_ID (str): relative path to the files that have to be written, with the        prefix of the file names (see {\hyperref[index:naive_bayes.Bayes.write_bayes]{\code{naive\_bayes.Bayes.write\_bayes()}}})        {[}saved\_runs/saved\_network{]}.
 
 \end{itemize}
 \index{\_\_init\_\_() (config.Config method)}
 
 \begin{fulllineitems}
 \phantomsection\label{index:config.Config.__init__}\pysiglinewithargsret{\bfcode{\_\_init\_\_}}{}{}
-Constructor. Initialize all the parameters to their default value.
+Constructor. Initialize all the parameters to their default value,
+then check for different choices by the user, reading the file
+\emph{spam\_bayes.conf}.
 
 \end{fulllineitems}
 
@@ -461,6 +492,11 @@ Print all the parameters and their assigned value.
 \begin{fulllineitems}
 \phantomsection\label{index:config.Config.get_params}\pysiglinewithargsret{\bfcode{get\_params}}{}{}
 Return the parameter list.
+\begin{quote}\begin{description}
+\item[{Returns}] \leavevmode
+the parameter list.
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -471,7 +507,7 @@ Return the parameter list.
 
 \section{The training class}
 \label{index:the-training-class}
-In this module
+This module performs the proper training of a bayesian network.
 \phantomsection\label{index:module-trainer}\index{trainer (module)}\index{Trainer (class in trainer)}
 
 \begin{fulllineitems}
@@ -498,19 +534,19 @@ evaluated, and for the single words.
 \begin{quote}\begin{description}
 \item[{Parameters}] \leavevmode\begin{itemize}
 \item {} 
-\textbf{mails} (\emph{array of str}) -- the list of mails.
+\textbf{mails} (\emph{array of str}) -- the list of mails;
 
 \item {} 
-\textbf{is\_spam} (\emph{bool}) -- are the given mails spam?
+\textbf{is\_spam} (\emph{bool}) -- True if the given mails are spam, False otherwise;
 
 \item {} 
-\textbf{words} (\emph{array of Word objects}) -- the array of stats for the single words detected.
+\textbf{words} (\emph{array of Word objects}) -- the array of stats for the single words detected;
 
 \item {} 
-\textbf{general\_stats} (array of \{str, {\hyperref[index:gen_stat.Stat]{\code{gen\_stat.Stat}}}\}) -- the overall stats of the set.
+\textbf{general\_stats} (array of \{str, {\hyperref[index:gen_stat.Stat]{\code{gen\_stat.Stat}}}\}) -- the overall stats of the set;
 
 \item {} 
-\textbf{params} (\emph{associative array}) -- contains some general parameters and configurations;
+\textbf{params} (\emph{associative array}) -- contains some general parameters and configurations.
 
 \end{itemize}
 
@@ -537,13 +573,16 @@ Print out the overall stats given. For test purposes.
 
 
 \section{The classifier class}
-\label{index:the-classifier-class}\label{index:module-classifier}\index{classifier (module)}\index{Classifier (class in classifier)}
+\label{index:the-classifier-class}
+In this module, there is only the {\hyperref[index:classifier.Classifier]{\code{classifier.Classifier}}} class, used to
+identify the status of a mail.
+\phantomsection\label{index:module-classifier}\index{classifier (module)}\index{Classifier (class in classifier)}
 
 \begin{fulllineitems}
 \phantomsection\label{index:classifier.Classifier}\pysigline{\strong{class }\code{classifier.}\bfcode{Classifier}}
 Classify an item.
 
-This class contains the {\color{red}\bfseries{}:method:{}`classifier.Classifier.classify{}`} used to
+This class contains the {\hyperref[index:classifier.Classifier.classify]{\code{classifier.Classifier.classify()}}} used to
 assign a class (spam/ham) to a mail, using the statistics computed
 for the processed mail, and the statistics of the training set.
 \index{classify() (classifier.Classifier static method)}
@@ -778,7 +817,9 @@ so we can fill appropriately the \emph{general\_stats} array of
 \phantomsection\label{index:lexer.Lexer.lexer_words}\pysiglinewithargsret{\bfcode{lexer\_words}}{\emph{text}, \emph{in\_training}, \emph{is\_spam}, \emph{words}, \emph{general\_stats}, \emph{params}}{}
 Apply lexical analysis to the text of mails.
 
-May
+Split the text into the tokens, classify them, and then insert the pair
+into the resul array, which will be used when invoking the
+{\hyperref[index:lexer.Lexer._process_tokens]{\code{lexer.Lexer.\_process\_tokens()}}} method.
 \begin{quote}\begin{description}
 \item[{Parameters}] \leavevmode\begin{itemize}
 \item {} 
@@ -928,7 +969,7 @@ the newly created array.
 
 \begin{fulllineitems}
 \phantomsection\label{index:utils.Utils.create_test_stats}\pysiglinewithargsret{\strong{static }\bfcode{create\_test\_stats}}{}{}
-Defines a new associative array of (str, \code{test\_stat.Stat}),
+Defines a new associative array of (str, {\hyperref[index:test_stat.Test_stat]{\code{test\_stat.Test\_stat}}}),
 containing all the overall stats to be evaluated by the Bayes network
 in the validation and testing steps.
 \begin{quote}\begin{description}
