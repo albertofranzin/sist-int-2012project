@@ -13,39 +13,39 @@
 \indexentry{write\_bayes() (naive\_bayes.Bayes method)|hyperpage}{7}
 \indexentry{config (module)|hyperpage}{7}
 \indexentry{Config (class in config)|hyperpage}{7}
-\indexentry{\_\_init\_\_() (config.Config method)|hyperpage}{7}
-\indexentry{cprint() (config.Config method)|hyperpage}{7}
-\indexentry{get\_params() (config.Config method)|hyperpage}{7}
-\indexentry{trainer (module)|hyperpage}{7}
-\indexentry{Trainer (class in trainer)|hyperpage}{7}
+\indexentry{\_\_init\_\_() (config.Config method)|hyperpage}{8}
+\indexentry{cprint() (config.Config method)|hyperpage}{8}
+\indexentry{get\_params() (config.Config method)|hyperpage}{8}
+\indexentry{trainer (module)|hyperpage}{8}
+\indexentry{Trainer (class in trainer)|hyperpage}{8}
 \indexentry{\_\_init\_\_() (trainer.Trainer method)|hyperpage}{8}
 \indexentry{train() (trainer.Trainer method)|hyperpage}{8}
 \indexentry{trainer\_print() (trainer.Trainer method)|hyperpage}{8}
-\indexentry{classifier (module)|hyperpage}{8}
-\indexentry{Classifier (class in classifier)|hyperpage}{8}
-\indexentry{classify() (classifier.Classifier static method)|hyperpage}{8}
-\indexentry{gen\_stat (module)|hyperpage}{9}
-\indexentry{Stat (class in gen\_stat)|hyperpage}{9}
-\indexentry{\_\_init\_\_() (gen\_stat.Stat method)|hyperpage}{9}
-\indexentry{Word (class in gen\_stat)|hyperpage}{9}
-\indexentry{\_\_init\_\_() (gen\_stat.Word method)|hyperpage}{9}
-\indexentry{test\_stat (module)|hyperpage}{10}
-\indexentry{Test\_stat (class in test\_stat)|hyperpage}{10}
-\indexentry{\_\_init\_\_() (test\_stat.Test\_stat method)|hyperpage}{10}
-\indexentry{Test\_word (class in test\_stat)|hyperpage}{10}
-\indexentry{\_\_init\_\_() (test\_stat.Test\_word method)|hyperpage}{10}
-\indexentry{lexer (module)|hyperpage}{11}
-\indexentry{Lexer (class in lexer)|hyperpage}{11}
-\indexentry{\_\_init\_\_() (lexer.Lexer method)|hyperpage}{11}
-\indexentry{\_process\_tokens() (lexer.Lexer method)|hyperpage}{11}
-\indexentry{lexer\_words() (lexer.Lexer method)|hyperpage}{11}
-\indexentry{utils (module)|hyperpage}{12}
-\indexentry{Utils (class in utils)|hyperpage}{12}
-\indexentry{\_read\_files() (utils.Utils static method)|hyperpage}{12}
-\indexentry{chunks() (utils.Utils static method)|hyperpage}{12}
-\indexentry{create\_file() (utils.Utils static method)|hyperpage}{13}
-\indexentry{create\_stats() (utils.Utils static method)|hyperpage}{13}
-\indexentry{create\_test\_stats() (utils.Utils static method)|hyperpage}{13}
-\indexentry{merge\_lists() (utils.Utils static method)|hyperpage}{13}
-\indexentry{read\_mails() (utils.Utils static method)|hyperpage}{13}
-\indexentry{read\_text() (utils.Utils static method)|hyperpage}{13}
+\indexentry{classifier (module)|hyperpage}{9}
+\indexentry{Classifier (class in classifier)|hyperpage}{9}
+\indexentry{classify() (classifier.Classifier static method)|hyperpage}{9}
+\indexentry{gen\_stat (module)|hyperpage}{11}
+\indexentry{Stat (class in gen\_stat)|hyperpage}{11}
+\indexentry{\_\_init\_\_() (gen\_stat.Stat method)|hyperpage}{11}
+\indexentry{Word (class in gen\_stat)|hyperpage}{11}
+\indexentry{\_\_init\_\_() (gen\_stat.Word method)|hyperpage}{11}
+\indexentry{test\_stat (module)|hyperpage}{12}
+\indexentry{Test\_stat (class in test\_stat)|hyperpage}{12}
+\indexentry{\_\_init\_\_() (test\_stat.Test\_stat method)|hyperpage}{12}
+\indexentry{Test\_word (class in test\_stat)|hyperpage}{12}
+\indexentry{\_\_init\_\_() (test\_stat.Test\_word method)|hyperpage}{12}
+\indexentry{lexer (module)|hyperpage}{13}
+\indexentry{Lexer (class in lexer)|hyperpage}{13}
+\indexentry{\_\_init\_\_() (lexer.Lexer method)|hyperpage}{13}
+\indexentry{\_process\_tokens() (lexer.Lexer method)|hyperpage}{13}
+\indexentry{lexer\_words() (lexer.Lexer method)|hyperpage}{13}
+\indexentry{utils (module)|hyperpage}{14}
+\indexentry{Utils (class in utils)|hyperpage}{14}
+\indexentry{\_read\_files() (utils.Utils static method)|hyperpage}{14}
+\indexentry{chunks() (utils.Utils static method)|hyperpage}{14}
+\indexentry{create\_file() (utils.Utils static method)|hyperpage}{15}
+\indexentry{create\_stats() (utils.Utils static method)|hyperpage}{15}
+\indexentry{create\_test\_stats() (utils.Utils static method)|hyperpage}{15}
+\indexentry{merge\_lists() (utils.Utils static method)|hyperpage}{15}
+\indexentry{read\_mails() (utils.Utils static method)|hyperpage}{15}
+\indexentry{read\_text() (utils.Utils static method)|hyperpage}{15}

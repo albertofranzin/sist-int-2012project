@@ -5,7 +5,7 @@ import math
 class Classifier:
     """Classify an item.
 
-    This class contains the :method:`classifier.Classifier.classify` used to
+    This class contains the :func:`classifier.Classifier.classify` used to
     assign a class (spam/ham) to a mail, using the statistics computed
     for the processed mail, and the statistics of the training set.
 

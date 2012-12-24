@@ -1,0 +1,38 @@
+University of Padova, Dept. of Information Engineering, Computer Engineering, a.y. 2012/13, Sistemi intelligenti.
+
+SpamBayes
+=========
+
+Authors: Alberto Franzin, Fabio Palese
+
+This is the software that we have written as part of the examination of Sistemi intelligenti. The software is a spam classifier that uses the Naive Bayes network to accomplish its purpose.
+
+The software contains the following files:
+- spam_bayes.py
+- naive_bayes.py
+- config.py
+- trainer.py
+- classifier.py
+- lexer.py
+- utils.py
+- gen_stat.py
+- test_stat.py
+- spam_bayes.conf
+and the associated documentation:
+- build/latex/SpamBayes.pdf
+- build/html/index.html
+
+Settings
+--------
+There are numerous settings available. For the complete list and the explanation, see the documentation.
+
+To tune the desidered parameters, open the spam_bayes.conf file with your favourite editor and set the values you like better.
+
+Place the mails you want to use in the desidered folder and set the SPAM_DIR AND HAM_DIR parameters accordingly.
+
+Beware that no checks are performed, so if the settings are incorrect, the software may crash at any time.
+
+Usage
+-----
+After all the configurations has been set, launch the program from a terminal using:
+$ python /path/of/the/project/spam_bayes.py

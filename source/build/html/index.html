@@ -271,25 +271,38 @@ from itself. Finally, return the accuracy computed over the set.</p>
 <span class="target" id="module-config"></span><dl class="class">
 <dt id="config.Config">
 <em class="property">class </em><tt class="descclassname">config.</tt><tt class="descname">Config</tt><a class="headerlink" href="#config.Config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Contains some general configurations. FINIRE DI COMPILARE!!!</p>
+<dd><p>Contains some general configurations. After the parameter array is created,
+read the config file (<cite>spam_bayes.conf</cite>) to overwrite the settings
+desidered by the user.</p>
 <p>The available parameters are (with <cite>[default]</cite> values):</p>
 <ul class="simple">
-<li>CROSS_VALIDATION (bool): True if k-fold cross-validation is chosen.        False otherwise [True];</li>
+<li>CROSS_VALIDATION (bool): True if k-fold cross-validation is chosen.        False otherwise [False];</li>
 <li>CROSS_VALIDATION_FOLDS (int): the number of folds for        cross-validation, if enabled [4];</li>
-<li>OVERALL_FEATS_SPAM_W (float, in [0,1]): the weight of the overall stats        when computing the spamicity of a mail. The remaining part is given by        the word stats [0.7];</li>
+<li>OVERALL_FEATS_SPAM_W (float, in [0,1]): the weight of the overall stats        when computing the spamicity of a mail. The remaining part is given by        the word stats [0.0001];</li>
+<li>READ_FROM_FILE (bool): True if the network has to load some previous        result, False if training has to be done from scratch [False];</li>
+<li>INPUT_ID (str): relative path to the files that have to be read, with the        prefix of the file names (see <a class="reference internal" href="#naive_bayes.Bayes.read_bayes" title="naive_bayes.Bayes.read_bayes"><tt class="xref py py-func docutils literal"><span class="pre">naive_bayes.Bayes.read_bayes()</span></tt></a>)        [saved_runs/saved_network];</li>
+<li>PARAMS_FROM_FILE (bool): True if also the parameters have to be loaded from file,        False if the current parameters are preferres. Better to be specified,        since different parameters lead to different results [True] ;</li>
+<li>RELEVANCE_THR (float, in [0,0.5]): specifies how much relevant a word or        a feature has to be to be considered in the spamicity computation; that is,        how much it differs from 1/2, to spam or ham. Useful to exclude negligible        words or features (the ones that appear in spam mails as much as they do in            ham ones) [0.25];</li>
 <li>SHORT_THR (int): length of a word to be identified as <cite>very short</cite> [1];</li>
-<li>SIZE_OF_BAGS (int): number of ham and spam mails for training [50];</li>
-<li>SIZE_OF_VAL_BAGS (int): number of ham and spam mails for validation [10];</li>
-<li>SIZE_OF_TEST_BAG (int): number of mails in the test set [30]</li>
-<li>SMOOTH_VALUE (int): smoothing value to be used in classification [1];</li>
-<li>SPAM_THR (float, in [0,1]): probability threshold to mark a mail as spam [0.95];</li>
-<li>VERBOSE (bool): if True, displays more messages [True];</li>
-<li>VERYLONG_THR (int): length of a word to be identified as <cite>very long</cite> [20].</li>
+<li>SIZE_OF_BAGS (int): number of ham and spam mails for training [800];</li>
+<li>SIZE_OF_VAL_BAGS (int): number of ham and spam mails for validation [200];</li>
+<li>SIZE_OF_TEST_BAG (int): number of mails in the test set [1000]</li>
+<li>SMOOTH_VALUE (float): smoothing value to be used in classification [0.001];</li>
+<li>SPAM_THR (float, in [0,1]): probability threshold to mark a mail as spam [0.2];</li>
+<li>ADAPTIVE_SPAM_THR (bool): True if the <cite>SPAM_THR</cite> value has to be tuned according        to the results of the classification of the mails, False if the threshold        must be the same from the beginning to the end [True];</li>
+<li>VERBOSE (bool): if True, displays more messages, if False, display only some        necessary messages [False];</li>
+<li>VERYLONG_THR (int): length of a word to be identified as <cite>very long</cite> [18];</li>
+<li>SPAM_DIR (str): the relative path from the project dir to the directory        containing the spam mails [spam/spam/];</li>
+<li>HAM_DIR (str): the relative path from the project dir to the directory        containing the ham mails [spam/ham/];</li>
+<li>WRITE_TO_FILE (bool): True if the network has to writethe computed        result, False if not [True];</li>
+<li>OUTPUT_ID (str): relative path to the files that have to be written, with the        prefix of the file names (see <a class="reference internal" href="#naive_bayes.Bayes.write_bayes" title="naive_bayes.Bayes.write_bayes"><tt class="xref py py-func docutils literal"><span class="pre">naive_bayes.Bayes.write_bayes()</span></tt></a>)        [saved_runs/saved_network].</li>
 </ul>
 <dl class="method">
 <dt id="config.Config.__init__">
 <tt class="descname">__init__</tt><big>(</big><big>)</big><a class="headerlink" href="#config.Config.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Constructor. Initialize all the parameters to their default value.</p>
+<dd><p>Constructor. Initialize all the parameters to their default value,
+then check for different choices by the user, reading the file
+<cite>spam_bayes.conf</cite>.</p>
 </dd></dl>
 
 <dl class="method">
@@ -302,6 +315,14 @@ from itself. Finally, return the accuracy computed over the set.</p>
 <dt id="config.Config.get_params">
 <tt class="descname">get_params</tt><big>(</big><big>)</big><a class="headerlink" href="#config.Config.get_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the parameter list.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the parameter list.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -309,7 +330,7 @@ from itself. Finally, return the accuracy computed over the set.</p>
 </div>
 <div class="section" id="the-training-class">
 <h3>The training class<a class="headerlink" href="#the-training-class" title="Permalink to this headline">¶</a></h3>
-<p>In this module</p>
+<p>This module performs the proper training of a bayesian network.</p>
 <span class="target" id="module-trainer"></span><dl class="class">
 <dt id="trainer.Trainer">
 <em class="property">class </em><tt class="descclassname">trainer.</tt><tt class="descname">Trainer</tt><a class="headerlink" href="#trainer.Trainer" title="Permalink to this definition">¶</a></dt>
@@ -333,11 +354,11 @@ evaluated, and for the single words.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>mails</strong> (<em>array of str</em>) &#8211; the list of mails.</li>
-<li><strong>is_spam</strong> (<em>bool</em>) &#8211; are the given mails spam?</li>
-<li><strong>words</strong> (<em>array of Word objects</em>) &#8211; the array of stats for the single words detected.</li>
-<li><strong>general_stats</strong> (array of {str, <a class="reference internal" href="#gen_stat.Stat" title="gen_stat.Stat"><tt class="xref py py-class docutils literal"><span class="pre">gen_stat.Stat</span></tt></a>}) &#8211; the overall stats of the set.</li>
-<li><strong>params</strong> (<em>associative array</em>) &#8211; contains some general parameters and configurations;</li>
+<li><strong>mails</strong> (<em>array of str</em>) &#8211; the list of mails;</li>
+<li><strong>is_spam</strong> (<em>bool</em>) &#8211; True if the given mails are spam, False otherwise;</li>
+<li><strong>words</strong> (<em>array of Word objects</em>) &#8211; the array of stats for the single words detected;</li>
+<li><strong>general_stats</strong> (array of {str, <a class="reference internal" href="#gen_stat.Stat" title="gen_stat.Stat"><tt class="xref py py-class docutils literal"><span class="pre">gen_stat.Stat</span></tt></a>}) &#8211; the overall stats of the set;</li>
+<li><strong>params</strong> (<em>associative array</em>) &#8211; contains some general parameters and configurations.</li>
 </ul>
 </td>
 </tr>
@@ -362,13 +383,15 @@ evaluated, and for the single words.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-classifier">
-<span id="the-classifier-class"></span><h3>The classifier class<a class="headerlink" href="#module-classifier" title="Permalink to this headline">¶</a></h3>
-<dl class="class">
+<div class="section" id="the-classifier-class">
+<h3>The classifier class<a class="headerlink" href="#the-classifier-class" title="Permalink to this headline">¶</a></h3>
+<p>In this module, there is only the <a class="reference internal" href="#classifier.Classifier" title="classifier.Classifier"><tt class="xref py py-class docutils literal"><span class="pre">classifier.Classifier</span></tt></a> class, used to
+identify the status of a mail.</p>
+<span class="target" id="module-classifier"></span><dl class="class">
 <dt id="classifier.Classifier">
 <em class="property">class </em><tt class="descclassname">classifier.</tt><tt class="descname">Classifier</tt><a class="headerlink" href="#classifier.Classifier" title="Permalink to this definition">¶</a></dt>
 <dd><p>Classify an item.</p>
-<p>This class contains the <a href="#id1"><span class="problematic" id="id2">:method:`classifier.Classifier.classify`</span></a> used to
+<p>This class contains the <a class="reference internal" href="#classifier.Classifier.classify" title="classifier.Classifier.classify"><tt class="xref py py-func docutils literal"><span class="pre">classifier.Classifier.classify()</span></tt></a> used to
 assign a class (spam/ham) to a mail, using the statistics computed
 for the processed mail, and the statistics of the training set.</p>
 <dl class="staticmethod">
@@ -545,7 +568,9 @@ so we can fill appropriately the <cite>general_stats</cite> array of
 <dt id="lexer.Lexer.lexer_words">
 <tt class="descname">lexer_words</tt><big>(</big><em>text</em>, <em>in_training</em>, <em>is_spam</em>, <em>words</em>, <em>general_stats</em>, <em>params</em><big>)</big><a class="headerlink" href="#lexer.Lexer.lexer_words" title="Permalink to this definition">¶</a></dt>
 <dd><p>Apply lexical analysis to the text of mails.</p>
-<p>May</p>
+<p>Split the text into the tokens, classify them, and then insert the pair
+into the resul array, which will be used when invoking the
+<a class="reference internal" href="#lexer.Lexer._process_tokens" title="lexer.Lexer._process_tokens"><tt class="xref py py-func docutils literal"><span class="pre">lexer.Lexer._process_tokens()</span></tt></a> method.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -664,7 +689,7 @@ in the training step.</p>
 <dl class="staticmethod">
 <dt id="utils.Utils.create_test_stats">
 <em class="property">static </em><tt class="descname">create_test_stats</tt><big>(</big><big>)</big><a class="headerlink" href="#utils.Utils.create_test_stats" title="Permalink to this definition">¶</a></dt>
-<dd><p>Defines a new associative array of (str, <tt class="xref py py-class docutils literal"><span class="pre">test_stat.Stat</span></tt>),
+<dd><p>Defines a new associative array of (str, <a class="reference internal" href="#test_stat.Test_stat" title="test_stat.Test_stat"><tt class="xref py py-class docutils literal"><span class="pre">test_stat.Test_stat</span></tt></a>),
 containing all the overall stats to be evaluated by the Bayes network
 in the validation and testing steps.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -769,7 +794,7 @@ with <cite>read_mails</cite> flag set to False.</p>
 <li><a class="reference internal" href="#the-naive-bayes-class">The Naive Bayes class</a></li>
 <li><a class="reference internal" href="#the-configuration-options-manager">The configuration options manager</a></li>
 <li><a class="reference internal" href="#the-training-class">The training class</a></li>
-<li><a class="reference internal" href="#module-classifier">The classifier class</a></li>
+<li><a class="reference internal" href="#the-classifier-class">The classifier class</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#feature-statistics-modules">Feature statistics modules</a><ul>

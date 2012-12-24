@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.10.15)  23 DEC 2012 23:53
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.10.15)  24 DEC 2012 16:22
 entering extended mode
  %&-line parsing enabled.
 **SpamBayes.tex
@@ -906,32 +906,33 @@ LaTeX Font Info:    Try loading font information for TS1+ptm on input line 210.
 
 (/usr/share/texmf-texlive/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-) [5] [6] [7] [8]
+) [5] [6] [7] [8] [9]
+[10
+
+]
 Chapter 4.
-[9
-
-] [10]
+[11] [12]
 Chapter 5.
-[11
+[13
 
-] [12] [13] [14] [15
-
-
-
-] (./SpamBayes.ind [16
+] [14] [15] [16] [17
 
 
-] [17
+
+] (./SpamBayes.ind [18
+
+
+] [19
 
 ]) (./SpamBayes.aux) ) 
 Here is how much of TeX's memory you used:
- 8062 strings out of 493848
- 109443 string characters out of 1152822
- 197029 words of memory out of 3000000
+ 8065 strings out of 493848
+ 109468 string characters out of 1152822
+ 197037 words of memory out of 3000000
  11042 multiletter control sequences out of 15000+50000
  50100 words of font info for 58 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
- 45i,12n,45p,380b,609s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 45i,12n,45p,392b,609s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</u
 sr/share/texmf-texlive/fonts/type1/urw/courier/ucrb8a.pfb></usr/share/texmf-tex
 live/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texmf-texlive/fonts/type1/u
@@ -940,9 +941,9 @@ rw/helvetic/uhvb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/helvetic/uhvbo
 e/texmf-texlive/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-texlive/font
 s/type1/urw/times/utmr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/ut
 mri8a.pfb>
-Output written on SpamBayes.pdf (21 pages, 172149 bytes).
+Output written on SpamBayes.pdf (23 pages, 176634 bytes).
 PDF statistics:
- 399 PDF objects out of 1000 (max. 8388607)
- 102 named destinations out of 1000 (max. 500000)
+ 415 PDF objects out of 1000 (max. 8388607)
+ 105 named destinations out of 1000 (max. 500000)
  137 words of extra memory for PDF output out of 10000 (max. 10000000)
 

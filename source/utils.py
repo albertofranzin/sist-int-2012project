@@ -176,7 +176,7 @@ class Utils:
     @staticmethod
     def create_test_stats():
         """
-        Defines a new associative array of (str, :class:`test_stat.Stat`),
+        Defines a new associative array of (str, :class:`test_stat.Test_stat`),
         containing all the overall stats to be evaluated by the Bayes network
         in the validation and testing steps.
 
