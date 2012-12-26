@@ -1,0 +1,4 @@
+\section{Conclusions}
+We have seen that the Naive Bayes approach requires a surprisingly small size for the training set, with about a hundred of mails giving the highest accuracy, a tiny fraction of the corpus available with the data set. When the size of the training set grows, the accuracy degrades rather quickly.
+
+Note that a more complex system, better if integrated into a mail server or client, can surely achieve higher accuracy. We have already named a few features that can be added to the classifier to improve its performance. Anyway, we have shown that a very simple and ``naive'' Bayesian classifier can work pretty well with little data and a handful of key features.

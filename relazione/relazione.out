@@ -1,0 +1,21 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}
+\BOOKMARK [1][-]{section.2}{Bayesian networks}{}
+\BOOKMARK [2][-]{subsection.2.1}{The Bayes' theorem}{section.2}
+\BOOKMARK [2][-]{subsection.2.2}{Bayesian networks}{section.2}
+\BOOKMARK [3][-]{subsubsection.2.2.1}{Conditional independence}{subsection.2.2}
+\BOOKMARK [2][-]{subsection.2.3}{The naive approach}{section.2}
+\BOOKMARK [2][-]{subsection.2.4}{Naive Bayes for spam classification}{section.2}
+\BOOKMARK [3][-]{subsubsection.2.4.1}{Algorithm}{subsection.2.4}
+\BOOKMARK [3][-]{subsubsection.2.4.2}{Computing the probability}{subsection.2.4}
+\BOOKMARK [3][-]{subsubsection.2.4.3}{Updating the knowledge}{subsection.2.4}
+\BOOKMARK [1][-]{section.3}{Implementation}{}
+\BOOKMARK [2][-]{subsection.3.1}{Structure}{section.3}
+\BOOKMARK [3][-]{subsubsection.3.1.1}{Notes on implementation}{subsection.3.1}
+\BOOKMARK [1][-]{section.4}{Tests and results}{}
+\BOOKMARK [2][-]{subsection.4.1}{Dataset}{section.4}
+\BOOKMARK [2][-]{subsection.4.2}{Modalities}{section.4}
+\BOOKMARK [2][-]{subsection.4.3}{Features of spam and ham mails}{section.4}
+\BOOKMARK [2][-]{subsection.4.4}{The design parameters}{section.4}
+\BOOKMARK [2][-]{subsection.4.5}{Analysis of results}{section.4}
+\BOOKMARK [1][-]{section.5}{Conclusions}{}
+\BOOKMARK [1][-]{section*.11}{References}{}

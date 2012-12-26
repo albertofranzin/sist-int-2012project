@@ -1,0 +1,30 @@
+@book{pearl1985bayesian,
+  title={Bayesian Networks: A Model of Self-Activated: Memory for Evidential Reasoning},
+  author={Pearl, Judea},
+  series={Report},
+  url={http://ftp.cs.ucla.edu/tech-report/198_-reports/850017.pdf},
+  year={1985},
+  publisher={Computer Science Department, University of California}
+}
+
+@misc{mitchell2005draft,
+  title={Machine learning (draft of chapter 1)},
+  author={Mitchell, Tom},
+  chapter={1},
+  year={2005},
+  url={http://www.cs.cmu.edu/%7Etom/mlbook/NBayesLogReg.pdf}
+}
+
+﻿@article {STUL:STUL109,
+author = {Sigurd, Bengt and Eeg-Olofsson, Mats and Van Weijer, Joost},
+title = {Word length, sentence length and frequency – Zipf revisited},
+journal = {Studia Linguistica},
+volume = {58},
+number = {1},
+publisher = {Blackwell Publishing Ltd},
+issn = {1467-9582},
+url = {http://person2.sol.lu.se/JoostVanDeWeijer/Texts/studling.pdf},
+doi = {10.1111/j.0039-3193.2004.00109.x},
+pages = {37--52},
+year = {2004},
+}

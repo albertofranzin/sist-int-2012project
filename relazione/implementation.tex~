@@ -1,0 +1,22 @@
+\section{Implementation}
+Here we describe our implementation of a Naive Bayes spam classifier. Further documentation is available with the package.
+
+The project has been written in Python. It requires two external modules, \verb!bs4! (\verb!BeautifulSoup!) to parse a text and \verb!Ply! to perform the lexical analysis of a text.
+
+\subsection{Structure}
+The package is composed as follows:
+\begin{description}[noitemsep]
+  \item[spam\_bayes] the module contianing the \verb!__main__! class;
+  \item[naive\_bayes] the module defining the Bayesian network;
+  \item[config] contains some general configurations, manages the settings defined by the user;
+  \item[trainer] contains the trainer;
+  \item[classifier] applies the Bayesian logic to classify a mail;
+  \item[lexer] implementing the lexical analyzer to compute the statistics;
+  \item[utils] with some methods used in more classes.
+  \item[gen\_stat] defines the objects to describe the statistics for words and features of the global network;
+  \item[test\_stat] defines the objects to describe the statistics for words and features of a single mail of unknown status.
+\end{description}
+The file \verb!spam_bayes.conf! allows the user to configure the parameters.
+
+\subsubsection{Notes on implementation}
+eh?
