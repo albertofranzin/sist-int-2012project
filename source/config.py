@@ -49,6 +49,11 @@ class Config():
     - HAM_DIR (str): the relative path from the project dir to the directory\
         containing the ham mails [spam/ham/];
 
+    - USE_BAYES (bool): True if, at the end of the training/validation/testing,\
+        there are mails the user wants to classify [True];
+    - TEST_DIR (bool): the relative path from the project dir to the directory\
+        containing the mails we want to classify [test_mails/];
+
     - WRITE_TO_FILE (bool): True if the network has to writethe computed\
         result, False if not [True];
     - OUTPUT_ID (str): relative path to the files that have to be written, with the\
@@ -119,6 +124,15 @@ class Config():
 
         # should the SPAM_THR threshold be adapted looking at the results? [True]
         self.params['ADAPTIVE_SPAM_THR'] = True
+
+        # should I test other mails after training/validation/testing? [True]
+        self.params['USE_BAYES'] = True
+
+        # location of the unknown mails to classify at the end of
+        # training and validation. Brings in all the mails in this dir.
+        # (if USE_BAYES = True)
+        # IT'S NOT FOR THE TESTING OF THE TRAINING, DOES NOT COMPUTE ACCURACY!
+        self.params['TEST_DIR'] = "./test_mails/"
 
         # should I print lots of infos? [False]
         self.params['VERBOSE'] = False

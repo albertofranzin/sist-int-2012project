@@ -52,13 +52,11 @@ class Bayes():
         # associative array for general stats of some interesting features of the mails
         self.general_stats = Utils.create_stats()
 
-        # config
+        # classes used in Bayes
         self.config = Config()
         self.params = self.config.get_params()
-        print "Bayes :: Config created"
-
         self.trainer = Trainer()
-        print "Bayes :: Trainer created"
+        self.lexer = Lexer()
 
         # set initial position of the project dir
         self.initial_path = os.getcwd()
@@ -304,14 +302,12 @@ class Bayes():
         """
 
         # call method for validation
-        accuracy = self.validate(self.ham_val_list, self.spam_val_list,
-            self.words, self.general_stats)
+        accuracy = self.validate(self.ham_val_list, self.spam_val_list)
 
         print "Bayes :: accuracy of the trained network: ", accuracy
 
         # call same method of above for testing
-        accuracy = self.validate(self.ham_test_list, self.spam_test_list,
-            self.words, self.general_stats)
+        accuracy = self.validate(self.ham_test_list, self.spam_test_list)
 
         print "Bayes :: accuracy with test set: ", accuracy
 
@@ -348,15 +344,15 @@ class Bayes():
         random.shuffle(total_list)
 
         count = 0
-        lexer = Lexer()
 
         for [mail, status] in total_list:
-            print status, " :: ",
+            if self.params['VERBOSE']:
+                print status, " :: ",
 
             # new stats must be generated, then classify the mail
             ws = {}
             gs = Utils.create_test_stats()
-            lexer.lexer_words(mail, False, False, ws, gs, self.params)
+            self.lexer.lexer_words(mail, False, False, ws, gs, self.params)
             res = Classifier.classify(ws, gs,
                     self.words, self.general_stats, self.params)
 
@@ -728,6 +724,39 @@ class Bayes():
     # test
     #
 
-    # def test_bayes(self):
-    #     """Performs some test - needed to try some functions."""
-    #     pass
+    def test(self):
+        """
+        Test a list of really unknown mails.
+
+        Uses the trained/validated/tested network to perform a classification
+        of a list of mails apart from the original dataset.
+
+        """
+
+        # it's not the testing in training-validation-testing, but I lack
+        # some fantasy in this moment...
+
+        print "Bayes :: test :: start classifying"
+
+        # read the mails
+        os.chdir(self.initial_path)
+        mails = Utils.read_mails(self.params['TEST_DIR'], 0, [], [], self.params)
+
+        # for each mail, compute the stats and classify the mail
+        # just as validation, but here we can't check the correctness
+        # of the result
+        for mail in mails:
+            ws = {}
+            gs = Utils.create_test_stats()
+            self.lexer.lexer_words(mail, False, False, ws, gs, self.params)
+            res = Classifier.classify(ws, gs, self.words, self.general_stats,
+                                    self.params)
+            if res == True:
+                print mail, "\n\n###  mail is spam  ###\n\n"
+            else:
+                print mail, "\n\n###  mail is ham  ###\n\n"
+
+            # update the stats according to the results
+            self.update_stats(ws, gs, res)
+
+            raw_input("go to the next one")
