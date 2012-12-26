@@ -1,0 +1,10 @@
+\section{Conclusions}
+We have seen that the Nave Bayes approach works quite well when classifying a dataset, despite its simplicity. The training requires some hundred of mails, but after this the performance gets better thanks to the bayesian logis, that updates the probability according to its own previous work. Thus, the more mails are processed, the higher accuracy we get (if we start from an adequate accuracy: if we start from a low quality classifier, our results would remain very bad).
+
+Since the network has to be trained on a specific dataset, clearly the results reflect the composition of the mail corpus used. Using the SpamAssassin dataset, we have found that ham mails are likely to contain more links than spam ones; we would have expected the opposite. As expected, the most common words are useless single characters, and common english words like articles, conjunctions, etc. that do not bring any contribution to the mail spamminess.
+
+We have also seen that, with this implementation and this dataset, computing the features brings very little contribution to the status of a mail, and a word-based classification is more precise.
+
+Note that a more complex system, better if integrated into a mail server or client, can surely achieve higher accuracy. We have already named a few features that can be added to the classifier to improve its performance. Anyway, we have shown that a very simple and ``naive'' Bayesian classifier can work pretty well with little data and a handful of key features.
+
+The code can also be surely optimized, with a better knowledge of Python and with some code restructuration.

@@ -1,0 +1,38 @@
+\begin{thebibliography}{4}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Kersting and De~Raedt(2005)]{bayestheorytool}
+Kristian Kersting and Luc De~Raedt.
+\newblock \emph{Bayesian Logic Programming: Theory and Tool}, chapter~5.
+\newblock MIT Press, 2005.
+\newblock URL
+  \url{http://people.csail.mit.edu/kersting/papers/srl05chapter.pdf}.
+\newblock In An Introduction to Statistical Relational Learning, L. Getoor and
+  B. Taskar, editors.
+
+\bibitem[Mitchell(2005)]{mitchell2005draft}
+Tom Mitchell.
+\newblock Machine learning (draft), 2005.
+\newblock URL \url{http://www.cs.cmu.edu/%7Etom/mlbook/NBayesLogReg.pdf}.
+
+\bibitem[Pearl(1985)]{pearl1985bayesian}
+Judea Pearl.
+\newblock \emph{Bayesian Networks: A Model of Self-Activated: Memory for
+  Evidential Reasoning}.
+\newblock Report. Computer Science Department, University of California, 1985.
+\newblock URL \url{http://ftp.cs.ucla.edu/tech-report/198_-reports/850017.pdf}.
+
+\bibitem[Sigurd et~al.(2004)Sigurd, Eeg-Olofsson, and Van~Weijer]{STUL:STUL109}
+Bengt Sigurd, Mats Eeg-Olofsson, and Joost Van~Weijer.
+\newblock Word length, sentence length and frequency – zipf revisited.
+\newblock \emph{Studia Linguistica}, 58\penalty0 (1):\penalty0 37--52, 2004.
+\newblock ISSN 1467-9582.
+\newblock \doi{10.1111/j.0039-3193.2004.00109.x}.
+\newblock URL
+  \url{http://person2.sol.lu.se/JoostVanDeWeijer/Texts/studling.pdf}.
+
+\end{thebibliography}
