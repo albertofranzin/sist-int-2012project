@@ -18,14 +18,14 @@
 \contentsline {subsubsection}{\numberline {3.1.1}Notes on implementation}{7}{subsubsection.3.1.1}
 \contentsline {section}{\numberline {4}Tests and results}{7}{section.4}
 \contentsline {subsection}{\numberline {4.1}Dataset}{7}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}Modalities}{7}{subsection.4.2}
-\contentsline {subsection}{\numberline {4.3}Features of spam and ham mails}{7}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.2}Modalities}{8}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Features of spam and ham mails}{8}{subsection.4.3}
 \contentsline {subsection}{\numberline {4.4}The design parameters}{8}{subsection.4.4}
-\contentsline {paragraph}{Size of the training set}{8}{section*.6}
-\contentsline {paragraph}{``Spamicity'' threshold}{8}{section*.7}
+\contentsline {paragraph}{Size of the training set}{9}{section*.6}
+\contentsline {paragraph}{``Spamicity'' threshold}{9}{section*.7}
 \contentsline {paragraph}{Feature/words stats proportion}{9}{section*.8}
-\contentsline {subsection}{\numberline {4.5}Analysis of results}{9}{subsection.4.5}
+\contentsline {subsection}{\numberline {4.5}Analysis of results}{10}{subsection.4.5}
 \contentsline {paragraph}{Length of words}{10}{section*.9}
 \contentsline {paragraph}{Most common words}{10}{section*.10}
 \contentsline {section}{\numberline {5}Conclusions}{10}{section.5}
-\contentsline {section}{References}{10}{section*.11}
+\contentsline {section}{References}{11}{section*.11}

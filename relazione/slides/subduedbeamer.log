@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.10.15)  14 DEC 2012 18:28
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.10.15)  26 DEC 2012 21:10
 entering extended mode
  %&-line parsing enabled.
 **subduedbeamer.tex
@@ -965,33 +965,28 @@ File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 
  (./subduedbeamer.aux) ) 
 Here is how much of TeX's memory you used:
- 17663 strings out of 493848
- 340281 string characters out of 1152822
+ 17659 strings out of 493848
+ 340236 string characters out of 1152822
  418278 words of memory out of 3000000
- 20404 multiletter control sequences out of 15000+50000
+ 20402 multiletter control sequences out of 15000+50000
  25658 words of font info for 70 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
  49i,19n,57p,402b,739s stack positions out of 5000i,500n,10000p,200000b,50000s
-pdfTeX warning (dest): name{Outline0.5.2.23} has been r
-eferenced but does not exist, replaced by a fixed one
-
-pdfTeX warning (dest): name{Outline0.5.1.22} has been referenced but does not e
-xist, replaced by a fixed one
-
-{/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-texlive
-/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-texlive/fonts/type
-1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts/type1/public/am
-sfonts/cm/cmmi9.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cm
-r10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr
-/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texm
-f-texlive/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-texlive/fo
-nts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texmf-texlive/fonts/type1/pu
-blic/amsfonts/symbols/msam10.pfb></usr/share/texmf-texlive/fonts/type1/public/a
-msfonts/symbols/msam7.pfb></usr/share/texmf-texlive/fonts/type1/urw/palatino/up
-lr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on subduedbeamer.pdf (24 pages, 383291 bytes).
+{/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}<
+/usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/
+texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texli
+ve/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texmf-texlive/fonts/typ
+e1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/public/am
+sfonts/cm/cmr9.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cms
+y10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy8.pfb></us
+r/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texm
+f-texlive/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texmf-texl
+ive/fonts/type1/public/amsfonts/symbols/msam7.pfb></usr/share/texmf-texlive/fon
+ts/type1/urw/palatino/uplr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/pala
+tino/uplri8a.pfb>
+Output written on subduedbeamer.pdf (24 pages, 377952 bytes).
 PDF statistics:
- 1138 PDF objects out of 1200 (max. 8388607)
- 65 named destinations out of 1000 (max. 500000)
- 168 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1107 PDF objects out of 1200 (max. 8388607)
+ 63 named destinations out of 1000 (max. 500000)
+ 160 words of extra memory for PDF output out of 10000 (max. 10000000)
 

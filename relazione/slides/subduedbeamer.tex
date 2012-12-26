@@ -156,14 +156,14 @@
         \begin{center}
             \pgfimage[height=5cm]{fvs1}
 
-            \tiny R. Munroe, from http://xkcd.com/1132
+            \tiny from http://xkcd.com/1132, see also\\http://en.wikipedia.org/wiki/Sunrise\_problem
         \end{center}
     }
     \only<2>{
         \begin{center}
             \pgfimage[height=4cm]{fvs2}
 
-            \tiny R. Munroe, from http://xkcd.com/1132
+            \tiny from http://xkcd.com/1132, see also\\http://en.wikipedia.org/wiki/Sunrise\_problem
 
             \normalsize The frequentist relies on the theoretical probability of the events.
         \end{center}
@@ -172,7 +172,7 @@
         \begin{center}
             \pgfimage[height=4cm]{fvs3}
 
-            \tiny R. Munroe, from http://xkcd.com/1132
+            \tiny from http://xkcd.com/1132, see also\\http://en.wikipedia.org/wiki/Sunrise\_problem
  
             \normalsize The bayesian observes the past events occurred,\\
             and adapts the probability accordingly.
@@ -229,8 +229,6 @@
 \subsection{Naive Bayes}
 \begin{frame}{Naive Bayes}
     If, in a spam mail, we read the words ``buy replica'', likely we'll also read ``watches''. This suggests to us to try all the possible subsets of words: this is $O(2^{|mail|})$\dots
-    
-    Even if we try some apriori-like approach, it would still result in some high order polynomial, since we cannot put an upper bound.
     
     Hence, we assume that every word is independent with respect to all the other ones, and each word brings its own contribute to the ``spamminess'' of the mail without being part of some longer locution. Surprisingly, this works very well in practice, and fast, since it can be done in linear time. This approach is called \textit{naive}.
 \end{frame}

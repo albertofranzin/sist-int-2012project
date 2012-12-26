@@ -30,3 +30,11 @@ if __name__ == '__main__':
     # if desidered, then save the results for a future run.
     if bayes.params['WRITE_TO_FILE']:
         bayes.write_bayes()
+
+    # if desidered, classify some unknown mails
+    # in other words, now we just USE the classifier...
+    if bayes.params['USE_BAYES']:
+        bayes.test()
+        # still update the configuration - it's Bayes, after all
+        if bayes.params['WRITE_TO_FILE']:
+            bayes.write_bayes()
