@@ -14,5 +14,5 @@
 \contentsline {chapter}{\numberline {5}Various tools and utilities}{13}{chapter.5}
 \contentsline {section}{\numberline {5.1}The lexical analyzer}{13}{section.5.1}
 \contentsline {section}{\numberline {5.2}Other utilities}{14}{section.5.2}
-\contentsline {chapter}{Python Module Index}{17}{section*.53}
-\contentsline {chapter}{Index}{19}{section*.54}
+\contentsline {chapter}{Python Module Index}{17}{section*.54}
+\contentsline {chapter}{Index}{19}{section*.55}

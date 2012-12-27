@@ -7,6 +7,7 @@
 \indexentry{check() (naive\_bayes.Bayes method)|hyperpage}{6}
 \indexentry{load\_mails() (naive\_bayes.Bayes method)|hyperpage}{6}
 \indexentry{read\_bayes() (naive\_bayes.Bayes method)|hyperpage}{6}
+\indexentry{test() (naive\_bayes.Bayes method)|hyperpage}{6}
 \indexentry{train() (naive\_bayes.Bayes method)|hyperpage}{6}
 \indexentry{update\_stats() (naive\_bayes.Bayes method)|hyperpage}{6}
 \indexentry{validate() (naive\_bayes.Bayes method)|hyperpage}{6}
@@ -20,7 +21,7 @@
 \indexentry{Trainer (class in trainer)|hyperpage}{8}
 \indexentry{\_\_init\_\_() (trainer.Trainer method)|hyperpage}{8}
 \indexentry{train() (trainer.Trainer method)|hyperpage}{8}
-\indexentry{trainer\_print() (trainer.Trainer method)|hyperpage}{8}
+\indexentry{trainer\_print() (trainer.Trainer method)|hyperpage}{9}
 \indexentry{classifier (module)|hyperpage}{9}
 \indexentry{Classifier (class in classifier)|hyperpage}{9}
 \indexentry{classify() (classifier.Classifier static method)|hyperpage}{9}
