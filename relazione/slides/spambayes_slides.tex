@@ -1,0 +1,255 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  This Beamer template was created by Cameron Bracken.
+%%  Anyone can freely use or modify it for any purpose
+%%  without attribution.
+%%
+%%  Last Modified: January 9, 2009
+%%
+
+\documentclass[xcolor=x11names,compress]{beamer}
+
+%% General document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{decorations.fractals}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%% Beamer Layout %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\useoutertheme[subsection=false,shadow]{miniframes}
+\useinnertheme{default}
+\usefonttheme{serif}
+\usepackage{palatino}
+
+\setbeamerfont{title like}{shape=\scshape}
+\setbeamerfont{frametitle}{shape=\scshape}
+
+\setbeamercolor*{lower separation line head}{bg=DeepSkyBlue4} 
+\setbeamercolor*{normal text}{fg=black,bg=white} 
+\setbeamercolor*{alerted text}{fg=red} 
+\setbeamercolor*{example text}{fg=black} 
+\setbeamercolor*{structure}{fg=black} 
+ 
+\setbeamercolor*{palette tertiary}{fg=black,bg=black!10} 
+\setbeamercolor*{palette quaternary}{fg=black,bg=black!10} 
+
+\renewcommand{\(}{\begin{columns}}
+\renewcommand{\)}{\end{columns}}
+\newcommand{\<}[1]{\begin{column}{#1}}
+\renewcommand{\>}{\end{column}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\title{A spam classifier based on Bayes network}
+\author{Alberto Franzin, Fabio Palese}
+%\date{January 123456, 2013}
+\institute[2013]{Sistemi Intelligenti}
+
+
+\begin{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{\scshape Introduction}
+% \begin{frame}
+% \title{A spam classifier based on Bayes network}
+% %\subtitle{SUBTITLE}
+% \author{
+% 	Alberto Franzin, Fabio Palese\\
+% 	{\it Humboldt State University}\\
+% }
+% \date{
+% 	\begin{tikzpicture}[decoration=Koch curve type 2] 
+% 		\draw[DeepSkyBlue4] decorate{ decorate{ decorate{ (0,0) -- (3,0) }}}; 
+% 	\end{tikzpicture}  
+% 	\\
+% 	\vspace{1cm}
+% 	\today
+% }
+% \titlepage
+% \end{frame}
+
+\frame{\titlepage}
+
+% \section[Outline]{}
+% \frame{\tableofcontents}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Introduction}
+\tableofcontents
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{\scshape Background}
+% \subsection{frame 1}
+% \begin{frame}{frame 1}
+% \begin{itemize}
+% \item Item A
+% \item Item B
+% \begin{itemize}
+% \item Subitem 1
+% \item Subtem 2
+% \end{itemize}
+% \item Item C
+% \end{itemize}
+% \end{frame}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \subsection{frame 2}
+% \begin{frame}{frame 2}
+
+% \end{frame}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \subsection{frame 3}
+% \begin{frame}{frame 3}
+
+% \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Introduction}
+
+\frame {
+    \frametitle{The Bayesian approach}
+    \begin{itemize}
+        \item<1->Bayes rule:
+        $$
+        P(A|B) = \frac{P(A \cap B)}{P(B)} = \frac{P(B|A)P(A)}{P(B)}
+        $$
+        defines the \textit{a posteriori} probability of event $A$, knowing the event $B$ has already occurred.
+
+        \item<2->In other words, we can estimate the probability of an hypothesis, given that we know the consequences.
+        \item<3->This has led to two different interpretations of the theorem.
+    \end{itemize}
+}
+
+\frame {
+    \frametitle{The Bayesian approach}
+    \begin{itemize}
+        \item<1->Bayes rule:
+          $$
+          P(A|B) = \frac{P(A \cap B)}{P(B)} = \frac{P(B|A)P(A)}{P(B)}
+          $$
+
+        \item<2->$P(A|B)$ is the \textit{a posteriori} probability
+        \item<3->$P(B|A)$ is the \textit{likelihood}
+        \item<4->$P(B|A)P(A)$ is the \textit{prior} probability
+        \item<5->$P(B) = \sum_{a \in A}P(B|A=a)P(A=a)$ is the \textit{total} probability
+    \end{itemize}
+}
+
+\frame {
+    \frametitle{The Bayesian approach}
+    Frequentists vs. Bayesians
+    \only<1>{
+        \begin{center}
+            \pgfimage[height=5cm]{fvs1}
+
+            \tiny from http://xkcd.com/1132, see also\\http://en.wikipedia.org/wiki/Sunrise\_problem
+        \end{center}
+    }
+    \only<2>{
+        \begin{center}
+            \pgfimage[height=4cm]{fvs2}
+
+            \tiny from http://xkcd.com/1132, see also\\http://en.wikipedia.org/wiki/Sunrise\_problem
+
+            \normalsize The frequentist relies on the theoretical probability of the events.
+        \end{center}
+    }
+    \only<3>{
+        \begin{center}
+            \pgfimage[height=4cm]{fvs3}
+
+            \tiny from http://xkcd.com/1132, see also\\http://en.wikipedia.org/wiki/Sunrise\_problem
+ 
+            \normalsize The bayesian observes the past events occurred,\\
+            and adapts the probability accordingly.
+        \end{center}
+    }
+}
+
+\section{Bayesian networks}
+
+\subsection{Definition}
+
+\frame {
+    \frametitle{What it is}
+    A Bayes network is a way to describe causal relationships between events.
+      \begin{itemize}
+          \item<1->Nodes = events
+          \item<1->(Directed) Edges = causal relationship
+          \item<2->Two nodes are connected by an edge: the child of an arc is influenced by its ancestor in a probabilistic way
+      \end{itemize}
+%     \only<3->{
+%         \begin{itemize}
+%             \item<3->This will only appear on the second page
+%             \item<3->This is also only for the second page
+%         \end{itemize}
+%       }
+}
+
+\frame {
+    \frametitle{An example}
+      \begin{center}
+          \pgfimage[height=6cm]{bayes_network}
+      \end{center}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection{Conditional Independence}
+\begin{frame}{Conditional independence}
+  \begin{itemize}
+    \item<1->{If
+    $$
+    P(A|B,C) = P(A|B)
+    $$
+    then we say that $B$ and $C$ are \textit{conditionally independent}.}
+    \item<2->{
+        Note that \textit{conditional independence} $\neq$ \textit{independence}
+    }
+    \item<3->Explaining away: if we know that one possible cause of the event has happened, this may \textit{explain away} the event, being all the other causes less probable once we know the one that happened.
+  \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Naive Bayes}
+\begin{frame}{Naive Bayes}
+\begin{itemize}
+    \item<1->Computing all the probabilities in a Bayesian network requires exponential time.
+      We introduce the assumption of independence among variables.
+    \item<2->It is called \textit{naive}, since it's often unrealistic, but it yields good results.
+    \item<3->In spam classification:
+      \begin{center}
+        \pgfimage[height=3cm]{bayes_network_spam}
+      \end{center}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{SpamBayes}
+\begin{frame}{SpamBayes}
+  Python, to use Ply and BeautifulSoup
+  
+  dataset: SpamAssassin archive
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\scshape Results}
+\subsection{Frame 1}
+\begin{frame}{Frame 1}
+
+\end{frame}
+
+\end{document}

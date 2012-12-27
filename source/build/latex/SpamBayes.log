@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.10.15)  24 DEC 2012 16:22
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.10.15)  27 DEC 2012 10:40
 entering extended mode
  %&-line parsing enabled.
 **SpamBayes.tex
@@ -926,10 +926,10 @@ Chapter 5.
 
 ]) (./SpamBayes.aux) ) 
 Here is how much of TeX's memory you used:
- 8065 strings out of 493848
- 109468 string characters out of 1152822
- 197037 words of memory out of 3000000
- 11042 multiletter control sequences out of 15000+50000
+ 8067 strings out of 493848
+ 109509 string characters out of 1152822
+ 197086 words of memory out of 3000000
+ 11043 multiletter control sequences out of 15000+50000
  50100 words of font info for 58 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
  45i,12n,45p,392b,609s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -941,9 +941,9 @@ rw/helvetic/uhvb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/helvetic/uhvbo
 e/texmf-texlive/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-texlive/font
 s/type1/urw/times/utmr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/ut
 mri8a.pfb>
-Output written on SpamBayes.pdf (23 pages, 176634 bytes).
+Output written on SpamBayes.pdf (23 pages, 177285 bytes).
 PDF statistics:
- 415 PDF objects out of 1000 (max. 8388607)
- 105 named destinations out of 1000 (max. 500000)
+ 417 PDF objects out of 1000 (max. 8388607)
+ 106 named destinations out of 1000 (max. 500000)
  137 words of extra memory for PDF output out of 10000 (max. 10000000)
 

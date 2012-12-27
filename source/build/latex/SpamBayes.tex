@@ -13,7 +13,7 @@
 
 
 \title{SpamBayes Documentation}
-\date{December 24, 2012}
+\date{December 27, 2012}
 \release{0.1}
 \author{Alberto Franzin, Fabio Palese}
 \newcommand{\sphinxlogo}{}
@@ -292,6 +292,17 @@ expected to be when training ``normally''.
 
 \end{fulllineitems}
 
+\index{test() (naive\_bayes.Bayes method)}
+
+\begin{fulllineitems}
+\phantomsection\label{index:naive_bayes.Bayes.test}\pysiglinewithargsret{\bfcode{test}}{}{}
+Test a list of really unknown mails.
+
+Uses the trained/validated/tested network to perform a classification
+of a list of mails apart from the original dataset.
+
+\end{fulllineitems}
+
 \index{train() (naive\_bayes.Bayes method)}
 
 \begin{fulllineitems}
@@ -461,6 +472,12 @@ SPAM\_DIR (str): the relative path from the project dir to the directory        
 
 \item {} 
 HAM\_DIR (str): the relative path from the project dir to the directory        containing the ham mails {[}spam/ham/{]};
+
+\item {} 
+USE\_BAYES (bool): True if, at the end of the training/validation/testing,        there are mails the user wants to classify {[}True{]};
+
+\item {} 
+TEST\_DIR (bool): the relative path from the project dir to the directory        containing the mails we want to classify {[}test\_mails/{]};
 
 \item {} 
 WRITE\_TO\_FILE (bool): True if the network has to writethe computed        result, False if not {[}True{]};

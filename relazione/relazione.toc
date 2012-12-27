@@ -16,8 +16,8 @@
 \contentsline {section}{\numberline {3}Implementation}{6}{section.3}
 \contentsline {subsection}{\numberline {3.1}Structure}{6}{subsection.3.1}
 \contentsline {subsubsection}{\numberline {3.1.1}Notes on implementation}{7}{subsubsection.3.1.1}
-\contentsline {section}{\numberline {4}Tests and results}{7}{section.4}
-\contentsline {subsection}{\numberline {4.1}Dataset}{7}{subsection.4.1}
+\contentsline {section}{\numberline {4}Tests and results}{8}{section.4}
+\contentsline {subsection}{\numberline {4.1}Dataset}{8}{subsection.4.1}
 \contentsline {subsection}{\numberline {4.2}Modalities}{8}{subsection.4.2}
 \contentsline {subsection}{\numberline {4.3}Features of spam and ham mails}{8}{subsection.4.3}
 \contentsline {subsection}{\numberline {4.4}The design parameters}{8}{subsection.4.4}

@@ -66,6 +66,7 @@
 
   \indexspace
   \bigletter T
+  \item test() (naive\_bayes.Bayes method), \hyperpage{6}
   \item Test\_stat (class in test\_stat), \hyperpage{12}
   \item test\_stat (module), \hyperpage{12}
   \item Test\_word (class in test\_stat), \hyperpage{12}
@@ -73,7 +74,7 @@
   \item train() (trainer.Trainer method), \hyperpage{8}
   \item Trainer (class in trainer), \hyperpage{8}
   \item trainer (module), \hyperpage{8}
-  \item trainer\_print() (trainer.Trainer method), \hyperpage{8}
+  \item trainer\_print() (trainer.Trainer method), \hyperpage{9}
 
   \indexspace
   \bigletter U
