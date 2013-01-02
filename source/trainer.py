@@ -5,7 +5,7 @@
                 and for the single words.
 
 .. moduleauthor:: Alberto Franzin <alberto.franzin@gmail.com>
-                  Fabio Palese <maildimu@gmail.com>
+                  Fabio Palese <fabio.palese@gmail.com>
 
 """
 

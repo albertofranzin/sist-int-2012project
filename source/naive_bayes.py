@@ -4,7 +4,7 @@
    :synopsis: defines a Bayes network and its operations
 
 .. moduleauthor:: Alberto Franzin <alberto.franzin@gmail.com>
-                  Fabio Palese <maildimu@gmail.com>
+                  Fabio Palese <fabio.palese@gmail.com>
 
 """
 from __future__ import division
