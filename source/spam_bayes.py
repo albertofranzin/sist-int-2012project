@@ -4,7 +4,7 @@
    :synopsis: an example of spam classifier using Naive Bayes
 
 .. moduleauthor:: Alberto Franzin <alberto.franzin@gmail.com>
-                  Fabio Palese <maildimu@gmail.com>
+                  Fabio Palese <fabio.palese@gmail.com>
 
 """
 
