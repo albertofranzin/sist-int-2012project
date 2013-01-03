@@ -233,6 +233,10 @@ class Bayes():
             acc_array.append(self.validate(ham_kfold_valid, spam_kfold_valid,
                 wos, gos))
 
+            # reset stats
+            self.false_positives = 0
+            self.false_negatives = 0
+
         # end of rounds
 
         if self.params['VERBOSE']:
@@ -279,6 +283,10 @@ class Bayes():
             print "Bayes :: train :: accuracy obtained with the cross-validation : ",
             print acc
 
+            # reset stats
+            self.false_positives = 0
+            self.false_negatives = 0
+
         # train with the ham set
         self.trainer.train(self.ham_list, False,
                 self.words, self.general_stats, self.params)
@@ -302,12 +310,14 @@ class Bayes():
         """
 
         # call method for validation
-        accuracy = self.validate(self.ham_val_list, self.spam_val_list)
+        accuracy = self.validate(self.ham_val_list, self.spam_val_list,
+                self.words, self.general_stats)
 
         print "Bayes :: accuracy of the trained network: ", accuracy
 
         # call same method of above for testing
-        accuracy = self.validate(self.ham_test_list, self.spam_test_list)
+        accuracy = self.validate(self.ham_test_list, self.spam_test_list,
+                self.words, self.general_stats)
 
         print "Bayes :: accuracy with test set: ", accuracy
 
@@ -315,7 +325,7 @@ class Bayes():
     # validation
     #
 
-    def validate(self, ham_list, spam_list):
+    def validate(self, ham_list, spam_list, words, general_stats):
         """
         Validation function.
 
@@ -333,6 +343,10 @@ class Bayes():
         :type ham_val_list: array of mails
         :param spam_val_list: the spam mails of the validation set;
         :type spam_val_list: array of mails
+        :param words:
+        :type words:
+        :param general_stats:
+        :type general_stats:
         :return: accuracy of the validation.
 
         """
@@ -344,8 +358,13 @@ class Bayes():
         random.shuffle(total_list)
 
         count = 0
+        mails_processed = 0
 
         for [mail, status] in total_list:
+
+            mails_processed += 1
+            print "#", mails_processed, " :: ",
+
             if self.params['VERBOSE']:
                 print status, " :: ",
 
@@ -354,7 +373,7 @@ class Bayes():
             gs = Utils.create_test_stats()
             self.lexer.lexer_words(mail, False, False, ws, gs, self.params)
             res = Classifier.classify(ws, gs,
-                    self.words, self.general_stats, self.params)
+                    words, general_stats, self.params)
 
             # has the mail been classified correctly?
             if res == status:
@@ -672,12 +691,14 @@ class Bayes():
         # training ham can stay like it is
         # validation and testing will be shuffled, so each mail has to be
         # paired with its status, to be able to check later
-        self.ham_list = total_ham_list[0:self.params['SIZE_OF_BAGS']]
+        ham_list_tmp = total_ham_list[0:self.params['SIZE_OF_BAGS']]
         ham_val_list_tmp = total_ham_list[self.params['SIZE_OF_BAGS']:\
                 self.params['SIZE_OF_BAGS'] + self.params['SIZE_OF_VAL_BAGS']]
         ham_test_list_tmp = total_ham_list[self.params['SIZE_OF_BAGS'] +\
                 self.params['SIZE_OF_VAL_BAGS']:]
 
+        for item in ham_list_tmp:
+            self.ham_list.append([item, False])
         for item in ham_val_list_tmp:
             self.ham_val_list.append([item, False])
         for item in ham_test_list_tmp:
@@ -704,12 +725,14 @@ class Bayes():
         # training spam can stay like it is
         # validation and testing will be shuffled, so each mail has to be
         # paired with its status, to be able to check later
-        self.spam_list = total_spam_list[0:self.params['SIZE_OF_BAGS']]
+        spam_list_tmp = total_spam_list[0:self.params['SIZE_OF_BAGS']]
         spam_val_list_tmp = total_spam_list[self.params['SIZE_OF_BAGS']:\
                 self.params['SIZE_OF_BAGS'] + self.params['SIZE_OF_VAL_BAGS']]
         spam_test_list_tmp = total_spam_list[self.params['SIZE_OF_BAGS'] +\
                 self.params['SIZE_OF_VAL_BAGS']:]
 
+        for item in spam_list_tmp:
+            self.spam_list.append([item, True])
         for item in spam_val_list_tmp:
             self.spam_val_list.append([item, True])
         for item in spam_test_list_tmp:
