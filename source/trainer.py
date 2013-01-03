@@ -43,7 +43,7 @@ class Trainer:
         """
 
         print "Trainer :: train :: loop begins"
-        for mail in mails:
+        for [mail, status] in mails:
             # print mail
             # raw_input("go to next mail")
             soup = BeautifulSoup(''.join(mail))
