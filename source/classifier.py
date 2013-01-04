@@ -33,6 +33,10 @@ class Classifier:
         :type ws: array of :class:`test_stat.Test_word` objects
         :param gs: array containing the features encontered in the mail;
         :type gs: array of :class:`test_stat.Test_stat` objects
+        :param ovrl_ws:
+        :type ovrl_ws:
+        :param ovrl_gs:
+        :type ovrl_gs:
         :param params: contains some general parameters and configurations;
         :type params: associative array
         :return: `True` if the mail is classified as spam, `False` if it is\

@@ -8,9 +8,9 @@ We call $P(H)$ the \textit{prior} probability of $H$, that is our initial, uncon
 
 While the Bayes' theorem is universally accepted, there are two possible interpretations. The first one follows the frequentist approach, that relies on the knowledge (or the possibility of discovering) of the probability of an event, given the hypotheses. Frequentists (ideally) have an infinite amount of data. The other approach is the bayesian one, which tries to infer the hypotheses of an event, given the data. It's often said that under this view, the probability measures a subjective degree of belief on an event: the probability that we assign to an hypothesis reflects how much we do believe in that hypotheses.
 
-For example, if we throw a coin a million times, we expect to see about 500 thousands heads. But if we see only 200K heads, then we may suspect that the coin is biased.
+For example, if we throw a coin one million times, we expect to see about 500 thousands heads. But if we see, say, only 200K heads, then we may suspect that the coin is biased.
 
-A typical application of Bayes' theorem is diagnostic. Given the results of a medical exam and the accuracy of the exam (percentage of false positives and false negatives), we can compute the probability of effectively having the disease.
+A typical application of Bayes' theorem is diagnostic. Given the results of a medical exam and the accuracy of the exam (percentage of false positives and false negatives), we can estimate the probability of effectively having the disease.
 
 \subsection{Bayesian networks}
 A Bayesian network is a probabilistic model that defines a probability distribution over a graph of variables. The nodes represent the events, and the (directed) arcs mean the probabilistic relationship between events. An arc going from node $X$ to node $Y$ with an associated probability $p$ means that $Y$ is conditionally dependent from $X$ with probability $p$.
@@ -101,7 +101,7 @@ In figure \ref{fig:bayesnet} we see an example of a Bayesian network, describing
 $P(B)$ and $P(E)$ are, respectively, the probability of a burglar having entered the house, and the probability of having detected an earthquake; $P(A|B,E)$ is the probability that the alarm rings, given we know the status of $B$ and $E$; $P(J|A)$ and $P(M|A)$ are the probabilities that we receive a call from John and Mary, given the status of the alarm. The only ``stand-alone'' probabilities that we can define are the ones of the \textit{evidence} variables (we do know them), namely the burglar and the earthquake. All the other events can only have a probability conditioned to the occurrence of its direct ancestors. To know the probability of one of these events alone, we have to compute the total probability of the event.
 With the numbers given in the example, if Mary hasn't called, then the alarm was off w.p. $0.99$. Knowing this, the probability that there has been a burglary is roughly $1.12 \times 10^{-6}$.
 
-We can also read the diagram backward, from bottom to top: for example, $A$ depends on both $J$ and $M$: if the alarm occurs, then it is likey that John or Mary have called.
+We can also read the diagram backward, from bottom to top: for example, $A$ depends on both $J$ and $M$: if the alarm occurs, then it is likely that John or Mary have called.
 
 \subsubsection{Conditional independence}
 Given three events $A$, $B$ and $C$, we say that $A$ and $B$ are \textit{conditionally independent} if $P(A \cap B | C) = P(A|C)P(B|C)$, or, equivalently, $P(A | B \cap C) = P(A|B)$. In a bayesian network, two variables (events) are independent if they are not linked by just unknown variables. For example, if we do not know anything about the alarm, then burglary and earthquake are independent, since we cannot infer anything about them.
@@ -125,7 +125,7 @@ The naive approach that tells us to consider each words alone, allows to represe
 \begin{figure}[h]
   \begin{center}
     \includegraphics[width=0.6\textwidth]{img/bayes_network_spam.png}
-    \caption{An image of a Naive Bayes network for spam classification.}
+    \caption{Naive Bayes network for spam classification: \textit{bag of words} representation.}
     \label{fig:nbs}
   \end{center}
 \end{figure}
@@ -156,4 +156,4 @@ From the previous sections, we know that for each word $$P_{spam|word} = \frac{P
 We need to compute these probabilities for each word we encounter when reading a mail. Finally we compute the total probability for the mail of being spam and ham, which, for the naive assumption of independence, will be respectively $$P_{spam} = \prod_{words \in mail} P_{spam|word} \quad\mbox{and}\quad P_{ham} = \prod_{words \in mail} P_{ham|word}.$$ The outcome of the classification will be the class that maximizes these two probabilities.
 
 \subsubsection{Updating the knowledge}
-When the Bayesian network classifies a mail, it uses the result to update its knowledge. This can be done just updating the counter of the statistics of the dictionary associated with the network.
+When the Bayesian network classifies a mail, it uses the result to update its knowledge. This can be done by just updating the counter of the statistics of the dictionary associated with the network.

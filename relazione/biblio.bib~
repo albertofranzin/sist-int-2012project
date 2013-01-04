@@ -8,11 +8,21 @@
 }
 
 @misc{mitchell2005draft,
-  title={Machine learning (draft of chapter 1)},
+  title={Machine learning (draft)},
   author={Mitchell, Tom},
   chapter={1},
   year={2005},
   url={http://www.cs.cmu.edu/%7Etom/mlbook/NBayesLogReg.pdf}
+}
+
+@inbook{bayestheorytool,
+  title={Bayesian Logic Programming: Theory and Tool},
+  author={Kersting, Kristian and De Raedt, Luc},
+  chapter={5},
+  year={2005},
+  url={http://people.csail.mit.edu/kersting/papers/srl05chapter.pdf},
+  note={In An Introduction to Statistical Relational Learning, L. Getoor and B. Taskar, editors},
+  publisher={MIT Press}
 }
 
 ﻿@article {STUL:STUL109,
