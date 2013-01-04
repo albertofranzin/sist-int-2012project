@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.10.15)  27 DEC 2012 14:50
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.10.15)  4 JAN 2013 11:10
 entering extended mode
  %&-line parsing enabled.
 **spambayes_slides.tex
@@ -967,7 +967,7 @@ File: umsb.fd 2009/06/22 v3.00 AMS symbols B
  (./spambayes_slides.aux) ) 
 Here is how much of TeX's memory you used:
  17585 strings out of 493848
- 338992 string characters out of 1152822
+ 338990 string characters out of 1152822
  416246 words of memory out of 3000000
  20340 multiletter control sequences out of 15000+50000
  20844 words of font info for 58 fonts, out of 3000000 for 9000
@@ -981,7 +981,7 @@ type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/publi
 c/amsfonts/cm/cmsy8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/s
 ymbols/msam10.pfb></usr/share/texmf-texlive/fonts/type1/urw/palatino/uplr8a.pfb
 ></usr/share/texmf-texlive/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on spambayes_slides.pdf (24 pages, 369854 bytes).
+Output written on spambayes_slides.pdf (24 pages, 369957 bytes).
 PDF statistics:
  938 PDF objects out of 1000 (max. 8388607)
  56 named destinations out of 1000 (max. 500000)

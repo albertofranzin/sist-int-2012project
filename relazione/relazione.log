@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.10.15)  27 DEC 2012 11:34
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.10.15)  4 JAN 2013 17:41
 entering extended mode
  %&-line parsing enabled.
 **relazione.tex
@@ -858,38 +858,56 @@ Overfull \hbox (6.22621pt too wide) in paragraph at lines 3--4
 ed by Spa-mAs-sas-sin at [][]$\OT1/cmtt/m/n/10 http : / / spamassassin .
  []
 
-[7 <./img/uml.png>] [8] [9]) (./conclusions.tex) (./relazione.bbl [10])
-[11] (./relazione.aux (./titlepage.aux)) ) 
+[7 <./img/uml.png>] [8]
+<img/tests/rel_threshold.png, id=205, 484.81125pt x 281.05pt>
+File: img/tests/rel_threshold.png Graphic file (type png)
+
+<use img/tests/rel_threshold.png>
+Overfull \hbox (2.22221pt too wide) in paragraph at lines 81--98
+[]$[]$ $[]$ 
+ []
+
+[9] <img/tests/feats_threshold_1.png, id=213, 495.8525pt x 296.10625pt>
+File: img/tests/feats_threshold_1.png Graphic file (type png)
+
+<use img/tests/feats_threshold_1.png>
+Overfull \hbox (2.22221pt too wide) in paragraph at lines 112--136
+[]$[]$ $[]$ 
+ []
+
+[10 <./img/tests/rel_threshold.png (PNG copy)> <./img/tests/feats_threshold_1.p
+ng (PNG copy)>]) (./conclusions.tex [11]) (./relazione.bbl) [12]
+(./relazione.aux (./titlepage.aux)) ) 
 Here is how much of TeX's memory you used:
- 9044 strings out of 493848
- 130860 string characters out of 1152822
- 218076 words of memory out of 3000000
- 12059 multiletter control sequences out of 15000+50000
+ 9068 strings out of 493848
+ 131365 string characters out of 1152822
+ 218638 words of memory out of 3000000
+ 12077 multiletter control sequences out of 15000+50000
  13535 words of font info for 52 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
- 38i,12n,40p,873b,419s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/share/texmf/fonts/enc/dvips/cm-
-super/cm-super-ts1.enc}</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm
-/cmbx10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb
-></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/sh
-are/texmf-texlive/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-
-texlive/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-texlive/fon
-ts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts/type1/pu
-blic/amsfonts/cm/cmmi5.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfont
-s/cm/cmmi7.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.p
-fb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/sha
-re/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-texl
-ive/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-texlive/fonts/typ
-e1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/public/ams
-fonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cm
-sy7.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti10.pfb></u
-sr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/te
-xmf-texlive/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-texlive
-/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/share/texmf/fonts/type1/public/
-cm-super/sfrm1000.pfb>
-Output written on relazione.pdf (11 pages, 473588 bytes).
+ 38i,14n,40p,1582b,396s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/share/texmf/fonts/enc/dvips/cm-super
+/cm-super-ts1.enc}</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx
+10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
+r/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/t
+exmf-texlive/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-texli
+ve/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-texlive/fonts/ty
+pe1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts/type1/public/
+amsfonts/cm/cmmi5.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/
+cmmi7.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></
+usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/te
+xmf-texlive/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-texlive/f
+onts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-texlive/fonts/type1/pu
+blic/amsfonts/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts
+/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy7.p
+fb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/sh
+are/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf-t
+exlive/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-texlive/font
+s/type1/public/amsfonts/cm/cmtt8.pfb></usr/share/texmf/fonts/type1/public/cm-su
+per/sfrm1000.pfb>
+Output written on relazione.pdf (12 pages, 492638 bytes).
 PDF statistics:
- 305 PDF objects out of 1000 (max. 8388607)
- 55 named destinations out of 1000 (max. 500000)
- 189 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 318 PDF objects out of 1000 (max. 8388607)
+ 58 named destinations out of 1000 (max. 500000)
+ 199 words of extra memory for PDF output out of 10000 (max. 10000000)
 

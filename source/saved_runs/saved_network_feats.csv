@@ -1,11 +1,11 @@
-ALLCAPSW,# of all-caps words,170417,99053
-USERHOST,# of string in user/hosts form,983,6651
-LOONGWORDS,"# of non-address ""very long words""",38299,888
-NUMBER,# of numbers,35474,49019
-SHORTWORDS,"# of ""short words""",570725,294684
-ALPHANUM,# of alphanumerical words,84217,22784
-TITLEW,# of words with only the first letter capital,192553,213388
-MAILADDR,# of mail addresses,9332,8012
-LINKADDR,# of links,1743,2612
-WASTE,# of non-valid words,1208696,1203483
-LOWERCASEW,# of all lowercase words,966243,804533
+ALLCAPSW,# of all-caps words,58151,90817
+USERHOST,# of string in user/hosts form,1416,2584
+LOONGWORDS,"# of non-address ""very long words""",9966,13740
+NUMBER,# of numbers,19294,25288
+SHORTWORDS,"# of ""short words""",222241,345281
+ALPHANUM,# of alphanumerical words,28056,38169
+TITLEW,# of words with only the first letter capital,92283,122956
+MAILADDR,# of mail addresses,4407,4712
+LINKADDR,# of links,508,1440
+WASTE,# of non-valid words,590931,824881
+LOWERCASEW,# of all lowercase words,414559,619253
