@@ -229,7 +229,7 @@ and its status.</p>
 
 <dl class="method">
 <dt id="naive_bayes.Bayes.validate">
-<tt class="descname">validate</tt><big>(</big><em>ham_list</em>, <em>spam_list</em><big>)</big><a class="headerlink" href="#naive_bayes.Bayes.validate" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">validate</tt><big>(</big><em>ham_list</em>, <em>spam_list</em>, <em>words</em>, <em>general_stats</em><big>)</big><a class="headerlink" href="#naive_bayes.Bayes.validate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Validation function.</p>
 <p>Get the overall statistics of the mail corpus and the spam and ham
 mails of the validation set (this method is also used during testing,
@@ -247,6 +247,8 @@ from itself. Finally, return the accuracy computed over the set.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>ham_val_list</strong> (<em>array of mails</em>) &#8211; the good mails of the validation set;</li>
 <li><strong>spam_val_list</strong> (<em>array of mails</em>) &#8211; the spam mails of the validation set;</li>
+<li><strong>words</strong> (array of array of <a class="reference internal" href="#gen_stat.Word" title="gen_stat.Word"><tt class="xref py py-class docutils literal"><span class="pre">gen_stat.Word</span></tt></a>) &#8211; the list of words and their stats;</li>
+<li><strong>general_stats</strong> (array of array of <a class="reference internal" href="#gen_stat.Stat" title="gen_stat.Stat"><tt class="xref py py-class docutils literal"><span class="pre">gen_stat.Stat</span></tt></a>) &#8211; the list of the general statistics for the mail corpus;</li>
 </ul>
 </td>
 </tr>
@@ -425,6 +427,8 @@ the <a class="reference internal" href="#config.Config" title="config.Config"><t
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>ws</strong> (array of <a class="reference internal" href="#test_stat.Test_word" title="test_stat.Test_word"><tt class="xref py py-class docutils literal"><span class="pre">test_stat.Test_word</span></tt></a> objects) &#8211; the list of words of the mail to be classified, and their stats;</li>
 <li><strong>gs</strong> (array of <a class="reference internal" href="#test_stat.Test_stat" title="test_stat.Test_stat"><tt class="xref py py-class docutils literal"><span class="pre">test_stat.Test_stat</span></tt></a> objects) &#8211; array containing the features encontered in the mail;</li>
+<li><strong>ovrl_ws</strong> (array of array of <a class="reference internal" href="#gen_stat.Word" title="gen_stat.Word"><tt class="xref py py-class docutils literal"><span class="pre">gen_stat.Word</span></tt></a>) &#8211; the list of words and their stats;</li>
+<li><strong>ovrl_gs</strong> (array of array of <a class="reference internal" href="#gen_stat.Stat" title="gen_stat.Stat"><tt class="xref py py-class docutils literal"><span class="pre">gen_stat.Stat</span></tt></a>) &#8211; the list of the general statistics for the mail corpus;</li>
 <li><strong>params</strong> (<em>associative array</em>) &#8211; contains some general parameters and configurations;</li>
 </ul>
 </td>

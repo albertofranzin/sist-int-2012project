@@ -343,10 +343,10 @@ class Bayes():
         :type ham_val_list: array of mails
         :param spam_val_list: the spam mails of the validation set;
         :type spam_val_list: array of mails
-        :param words:
-        :type words:
-        :param general_stats:
-        :type general_stats:
+        :param words: the list of words and their stats;
+        :type words: array of array of :class:`gen_stat.Word`
+        :param general_stats: the list of the general statistics for the mail corpus;
+        :type general_stats: array of array of :class:`gen_stat.Stat`
         :return: accuracy of the validation.
 
         """

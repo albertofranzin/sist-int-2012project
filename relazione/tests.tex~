@@ -1,18 +1,18 @@
 \section{Tests and results}
 \subsection{Dataset}
-The dataset used is the SpamAssassin Public Corpus provided by SpamAssassin at \url{http://spamassassin.apache.org/publiccorpus/}, available for development purposes. It contains about 6400 mails in english language, collected from 2002 to 2005, with approximately the 31\% of the mails being spam.
+The dataset used is the SpamAssassin Public Corpus provided by SpamAssassin at \url{http://spamassassin.apache.org/publiccorpus/}, freely available for development purposes (maintainers warn to not use the dataset for training a live system). It contains about 6400 mails in english language, collected from 2002 to 2005, with approximately the 31\% of the mails being spam.
 
 For testing, we have also used some of spam and ham mails received by us.
 
 \subsection{Modalities}
 
 \subsection{Features of spam and ham mails}
-The following features has been selected as relevant and are tracked by the network:
+\label{featuresused} The following features has been selected as relevant and are tracked by the network:
 \begin{itemize}[noitemsep]
-  \item the number of words written in uppercase characters: since it is considered the equivalent of screaming, many spammers use this gross gimmick to gain attention;
+  \item the number of words written in uppercase characters: since it is considered the equivalent of screaming, many spammers use this gross trick to gain attention;
   \item the number of urls found: we expect to find a lot of addresses of websites where to buy goods or where some criminal activity will be performed (phishing, stealing credentials, etc.);
   \item the number of email addresses: for the same reason of the previous feature. Furthermore, spammers operate on a large scale, so it is possible for a spam mail to have multiple recipients;
-  \item the number of words shorter than a given threshold (given as a parameter): a trick to fool a system based on word classification is to hide the words. One of the most common and easier way of accomplish this, is to separate each letter with spaces. Since our token separation relies on whitespaces between words, a word like \verb!s p a m!, which a human will easily understand as a single one, will be classified by the network as four different words. In a common, correct plain english text, the ratio of short words like \verb!a! or \verb!I! will be substantially lower, not to mention other random letters;
+  \item the number of words shorter than a given threshold (given as a parameter): a trick to fool a system based on word classification is to hide the words. One of the most common and easier way of accomplish this, is to separate each letter with spaces. Since our token separation relies on whitespaces between words, a word like \texttt{s\textvisiblespace p\textvisiblespace a\textvisiblespace m} (with spaces between characters), which a human will easily understand as a single one, will be classified by the network as four different words. In a common, correct plain english text, the ratio of short words like \verb!a! or \verb!I! will be substantially lower, not to mention other random letters;
   \item the number of non-address words longer than a given threshold (parameter): similarly to the previous feature, a spam mail is likely to contain a number of very long, meaningless words much higher than a ham mail. Since there aren't many very long legit words\footnote{The average length of english words is slightly higher than 5 (\url{http://www.puchu.net/doc/Average_Word_Length}), while the majority of words appearing in a text is from 2 to 5 letters long. \citep{STUL:STUL109}}, this is a reasonable feature to track;
   \item the number of words in the form \verb!username@host!: the tests have shown that the ham mails in the SpamAssassin Public Corpus contain many tokens of this type;
   \item the number of words in ``title'' format (first letter capital, remaining letter lowercase);
@@ -44,31 +44,61 @@ Spam & Ham & Accuracy \\
 100 & 100   & 0.4 \\
 \bottomrule
 \end{tabular}
+\label{tab:sizetraining}
 \end{center}
 
 As we see, only 50 spam and 50 ham mails are enough to have best accuracy. Given that we have over six thousand of mails in the archive, it is a very small size.
 
 \paragraph{``Spamicity'' threshold}
-Another very important parameter is what is sometimes called the ``spamicity'' threshold, namely the value that the normalized probability $\frac{p_{spam}}{p_{spam} + p_{ham}}$ must reach for the mail to be classified as spam. This is crucial: a low threshold will bring in many false positives (good mails will be marked as spam), while a too high threshold will classify some spam mails as ham, thus having a lot of false negatives. Anyway, the choice of the threshold to be $0.5$ may not be obvious, since we may want to be more tolerant with words we have never met before, or we way consider the chance of false positive too bad for us, and therefore lift the threshold to ensure this fact, allowing at the same time some spam to pass through the filter.
+\label{spamthrtest} Another very important parameter is what is sometimes called the ``spamicity'' threshold, namely the value that the normalized probability $\frac{p_{spam}}{p_{spam} + p_{ham}}$ must reach for the mail to be classified as spam. This is crucial: a low threshold will bring in many false positives (good mails will be marked as spam), while a too high threshold will classify some spam mails as ham, thus having a lot of false negatives. Anyway, the choice of the threshold to be $0.5$ may not be obvious, since we may want to be more tolerant with words we have never met before, or we way consider the chance of false positive too bad for us, and therefore lift the threshold to ensure this fact, allowing at the same time some spam to pass through the filter. More importantly, we desire a similar number for false positives and false negatives, since this is an index of well-balanced classification. For this reason, this value is only the starting value of the threshold, which will be tuned by the classifier according to the number of misclassified items. Furthermore, given the nature of bayesian networks, a fair threshold guarantees that the classifier remains stable, meaning that it will continue guessing with the same ham and spam ratio, while a very unbalanced number of misclassifications will make the classifier leaning towards too many guesses of a single kind (the more mails are misclassified as spam, the more words will erroneously contribute to spam in future classifications, same for ham).
 
 \begin{center}
 \begin{tabular}{cccc}
 \toprule
 Threshold & \shortstack{False\\ positives} & \shortstack{False\\ negatives} & Accuracy\\
 \midrule
+0.1  & 10 & 1 & 232 \\
 0.2  & 10 & 0 & 0.1 \\
+0.3  & 10 & 0 & 0.1 \\
 0.4  & 10 & 0 & 0.1 \\
 0.5  & 10 & 0 & 0.1 \\
 0.6  & 10 & 0 & 0.1 \\
 0.7  & 10 & 0 & 0.1 \\
 0.8  & 10 & 0 & 0.1 \\
 0.9  & 10 & 0 & 0.1 \\
-0.95 & 10 & 0 & 0.1 \\
 \bottomrule
 \end{tabular}
+\label{tab:spamicity}
 \end{center}
 
-The highest accuracy is obtaines with the ``trivial'' threshold of $0.5$. However, if we aim to minimize false positives or false negatives, we may prefer other thresholds.
+We see that the better accuracy is obtained with a starting value of $0.2$, which yields the lowest and most balanced number of misclassified mails.
+
+\paragraph{Relevance threshold}
+As we have already discussed in section \ref{notesonimpl}, we provide a customizable threshold to exclude from computation the words and the features that give little contribution to the final probabilities. In table \ref{tab:relevance} we see what is the most convenient value.
+
+\begin{center}
+\begin{table}
+\begin{minipage}{.5\linewidth}
+\begin{tabular}{cccc}
+\toprule
+Threshold & Accuracy\\
+\midrule
+0.15  & 0.717  \\
+0.2   & 0.8245 \\
+0.25  & 0.8595 \\
+0.3   & 0.753  \\
+0.35  & 0.7195 \\
+\bottomrule
+\end{tabular}
+\end{minipage}
+\begin{minipage}{.5\linewidth}
+\includegraphics[width=1\textwidth]{img/tests/rel_threshold.png}
+    \label{fig:relthreshold}
+\end{minipage}
+\caption{Accuracies obtained when varying the relevance threshold.}
+\end{table}
+\label{tab:relevance}
+\end{center}
 
 \paragraph{Feature/words stats proportion}
 Another problem is to determine how much weight should we assign to the features statistics, and how much to the word statistics.
@@ -80,36 +110,37 @@ A value close to $1$ will lead to a classification based solely on the features,
 \begin{center}
 \begin{table}[h]%[!htb]
 \begin{minipage}{.5\linewidth}
-\begin{scriptsize}
+%\begin{scriptsize}
+\begin{center}
 \begin{tabular}{ccccc}
 \toprule
-Threshold & \shortstack{Validation\\ accuracy} & \shortstack{False\\ positives} & \shortstack{False\\ negatives} & \shortstack{Final\\ accuracy} \\
+Threshold & \shortstack{Validation\\ accuracy} & \shortstack{Testing\\ accuracy} \\
 \midrule
-0.0001 & 0.7025 & 118 & 163 & 0.8595\\
-0.001  & 0.7125 & 157 & 188 & 0.8275\\
-0.01   & 0.6925 & 143 & 193 & 0.832\\
-0.1    & 0.6725 & 204 & 194 & 0.801\\
-0.2    & 0.745  & 224 & 187 & 0.7945\\
-0.4    & 0.7325 & 218 & 223 & 0.7795\\
-0.6    & 0.6925 & 265 & 257 & 0.739\\
-0.8    & 0.73   & 296 & 281 & 0.7115\\
+0.0001 & 0.7025 & 0.8595 \\
+0.001  & 0.7125 & 0.8275 \\
+0.01   & 0.6925 & 0.832  \\
+0.1    & 0.6725 & 0.801  \\
+0.2    & 0.745  & 0.7945 \\
+0.4    & 0.7325 & 0.7795 \\
+0.6    & 0.6925 & 0.739  \\
+0.8    & 0.73   & 0.7115 \\
 \bottomrule
 \end{tabular}
-\end{scriptsize}
+\end{center}
+%\end{scriptsize}
 \end{minipage}
 \begin{minipage}{.5\linewidth}
 \includegraphics[width=1\textwidth]{img/tests/feats_threshold_1.png}
-    %\caption{An example of a Bayesian network.}
     \label{fig:featuresthreshold}
 \end{minipage}
 \caption{Validation and final accuracies, with varying feature statistics thresholds.}
 \end{table}
 \end{center}
 
-We clearly see that the more the threshold approaches zero, the better results it yields. This means that, at least with the dataset we are using, a classifier based only on words works better than a classifier which accounts also the general features of the mail. It is interesting to note that the validation accuracy 
+We clearly see that the more the threshold approaches zero, the better results it yields. This means that, at least with the dataset we are using, a classifier based only on words works better than a classifier which accounts also the general features of the mail. It is interesting to note that the validation accuracy remains almost at the same level, while the real difference comes out during the testing step, when a much higher number of mails are processed, and the network can thus learn much more. 
 
 \subsection{Analysis of results}
-Here we show and analyze some interesting results observed. First of all, here are the feature statistics computed.
+Here we show and analyze some interesting results observed. Of course, these statistics apply only for the SpamAssassin dataset, and may not be generalized. First of all, here are the feature statistics computed.
 
 \begin{center}
 \begin{tabular}{lcc}
@@ -133,8 +164,28 @@ Feature & \# in spam & \# in ham \\
 \end{tabular}
 \end{center}
 
-%\paragraph{Length of words}
-Clearly, ``very short'' and ``very long'' words (out of our thresholds) are mostly common in spam mails, as we expected.
+Clearly, ``very short'' and ``very long'' words (out of our thresholds) are mostly common in spam mails, as we expected, as well as non valid words and mail addresses. Spam mails also contain an average number of words higher than ham ones.
 
 \paragraph{Most common words}
-It's interesting also to look at the statistics of the single words. We have already discussed about how the distribution of unusually long words. Now, let's take a look at the most common (and untrivial) spam and ham words.
+It's interesting also to look at the statistics of the single words. We have already discussed about how the distribution of unusually long words. In table \ref{tab:commonwords} we can take a look at the most common untrivial words that appear more in spam and ham mails.
+
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+Words in spam & Words in ham \\
+\midrule
+\# of all-caps words                            & 10 \\
+\# of alphanumerical words                      & 20 \\
+\# of string in user/hosts form                 & 50 \\
+\# of links                                     & 10 \\
+\# of mail addresses                            & 10 \\
+\# of all lowercase words                       & 20 \\
+\# of words with only the first letter capital  & 50 \\
+\# of ``short words''                           & 10 \\
+\# of non-address ``very long'' words           & 10 \\
+\# of non-valid words                           & 50 \\
+\# of numbers                                   & 10 \\
+\bottomrule
+\end{tabular}
+\label{tab:commonwords}
+\end{center}

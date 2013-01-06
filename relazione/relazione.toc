@@ -21,11 +21,11 @@
 \contentsline {subsection}{\numberline {4.2}Modalities}{8}{subsection.4.2}
 \contentsline {subsection}{\numberline {4.3}Features of spam and ham mails}{8}{subsection.4.3}
 \contentsline {subsection}{\numberline {4.4}The design parameters}{8}{subsection.4.4}
-\contentsline {paragraph}{Size of the training set}{9}{section*.6}
+\contentsline {paragraph}{Size of the training and validation sets}{9}{section*.6}
 \contentsline {paragraph}{``Spamicity'' threshold}{9}{section*.7}
 \contentsline {paragraph}{Relevance threshold}{10}{section*.8}
 \contentsline {paragraph}{Feature/words stats proportion}{10}{section*.9}
 \contentsline {subsection}{\numberline {4.5}Analysis of results}{11}{subsection.4.5}
 \contentsline {paragraph}{Most common words}{11}{section*.10}
-\contentsline {section}{\numberline {5}Conclusions}{11}{section.5}
+\contentsline {section}{\numberline {5}Conclusions}{12}{section.5}
 \contentsline {section}{References}{12}{section*.11}
