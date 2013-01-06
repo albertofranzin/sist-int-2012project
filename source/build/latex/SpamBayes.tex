@@ -13,7 +13,7 @@
 
 
 \title{SpamBayes Documentation}
-\date{December 27, 2012}
+\date{January 06, 2013}
 \release{0.1}
 \author{Alberto Franzin, Fabio Palese}
 \newcommand{\sphinxlogo}{}
@@ -349,7 +349,7 @@ and its status.
 \index{validate() (naive\_bayes.Bayes method)}
 
 \begin{fulllineitems}
-\phantomsection\label{index:naive_bayes.Bayes.validate}\pysiglinewithargsret{\bfcode{validate}}{\emph{ham\_list}, \emph{spam\_list}}{}
+\phantomsection\label{index:naive_bayes.Bayes.validate}\pysiglinewithargsret{\bfcode{validate}}{\emph{ham\_list}, \emph{spam\_list}, \emph{words}, \emph{general\_stats}}{}
 Validation function.
 
 Get the overall statistics of the mail corpus and the spam and ham
@@ -368,6 +368,12 @@ from itself. Finally, return the accuracy computed over the set.
 
 \item {} 
 \textbf{spam\_val\_list} (\emph{array of mails}) -- the spam mails of the validation set;
+
+\item {} 
+\textbf{words} (array of array of {\hyperref[index:gen_stat.Word]{\code{gen\_stat.Word}}}) -- the list of words and their stats;
+
+\item {} 
+\textbf{general\_stats} (array of array of {\hyperref[index:gen_stat.Stat]{\code{gen\_stat.Stat}}}) -- the list of the general statistics for the mail corpus;
 
 \end{itemize}
 
@@ -627,6 +633,12 @@ the {\hyperref[index:config.Config]{\code{config.Config}}} class or set by the u
 
 \item {} 
 \textbf{gs} (array of {\hyperref[index:test_stat.Test_stat]{\code{test\_stat.Test\_stat}}} objects) -- array containing the features encontered in the mail;
+
+\item {} 
+\textbf{ovrl\_ws} (array of array of {\hyperref[index:gen_stat.Word]{\code{gen\_stat.Word}}}) -- the list of words and their stats;
+
+\item {} 
+\textbf{ovrl\_gs} (array of array of {\hyperref[index:gen_stat.Stat]{\code{gen\_stat.Stat}}}) -- the list of the general statistics for the mail corpus;
 
 \item {} 
 \textbf{params} (\emph{associative array}) -- contains some general parameters and configurations;
