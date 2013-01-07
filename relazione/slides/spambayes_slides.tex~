@@ -42,7 +42,7 @@
 
 \title{A spam classifier based on Bayes network}
 \author{Alberto Franzin, Fabio Palese}
-\date{January 123, 2013}
+%\date{January 123456, 2013}
 \institute[2013]{Sistemi Intelligenti}
 
 

@@ -25,19 +25,35 @@
 \headcommand {\beamer@subsectionentry {0}{2}{2}{20}{Naive Bayes}}\headcommand {\beamer@subsectionpages {14}{19}}
 \headcommand {\slideentry {2}{2}{1}{20/22}{Naive Bayes}{0}}
 \headcommand {\beamer@framepages {20}{22}}
-\headcommand {\sectionentry {3}{SpamBayes}{23}{SpamBayes}{0}}
-\headcommand {\beamer@sectionpages {14}{22}}
-\headcommand {\beamer@subsectionpages {20}{22}}
-\headcommand {\slideentry {3}{0}{2}{23/23}{}{0}}
-\headcommand {\beamer@framepages {23}{23}}
-\headcommand {\sectionentry {4}{\scshape Results}{24}{\scshape Results}{0}}
-\headcommand {\beamer@sectionpages {23}{23}}
-\headcommand {\beamer@subsectionpages {23}{23}}
-\headcommand {\beamer@subsectionentry {0}{4}{1}{24}{Frame 1}}\headcommand {\beamer@subsectionpages {24}{23}}
-\headcommand {\slideentry {4}{1}{1}{24/24}{Frame 1}{0}}
-\headcommand {\beamer@framepages {24}{24}}
-\headcommand {\beamer@partpages {1}{24}}
-\headcommand {\beamer@subsectionpages {24}{24}}
-\headcommand {\beamer@sectionpages {24}{24}}
-\headcommand {\beamer@documentpages {24}}
-\headcommand {\def \inserttotalframenumber {11}}
+\headcommand {\beamer@subsectionentry {0}{2}{3}{23}{Naive Bayes for spam classification}}\headcommand {\beamer@subsectionpages {20}{22}}
+\headcommand {\slideentry {2}{3}{1}{23/25}{Naive Bayes for spam classification}{0}}
+\headcommand {\beamer@framepages {23}{25}}
+\headcommand {\slideentry {2}{3}{2}{26/29}{Naive Bayes for spam classification}{0}}
+\headcommand {\beamer@framepages {26}{29}}
+\headcommand {\sectionentry {3}{SpamBayes}{30}{SpamBayes}{0}}
+\headcommand {\beamer@sectionpages {14}{29}}
+\headcommand {\beamer@subsectionpages {23}{29}}
+\headcommand {\slideentry {3}{0}{3}{30/31}{}{0}}
+\headcommand {\beamer@framepages {30}{31}}
+\headcommand {\slideentry {3}{0}{4}{32/32}{}{0}}
+\headcommand {\beamer@framepages {32}{32}}
+\headcommand {\beamer@subsectionentry {0}{3}{1}{33}{Implementation}}\headcommand {\beamer@subsectionpages {30}{32}}
+\headcommand {\slideentry {3}{1}{1}{33/35}{Implementation}{0}}
+\headcommand {\beamer@framepages {33}{35}}
+\headcommand {\sectionentry {4}{Tests}{36}{Tests}{0}}
+\headcommand {\beamer@sectionpages {30}{35}}
+\headcommand {\beamer@subsectionpages {33}{35}}
+\headcommand {\slideentry {4}{0}{2}{36/39}{}{0}}
+\headcommand {\beamer@framepages {36}{39}}
+\headcommand {\sectionentry {5}{Results and Conclusions}{40}{Results and Conclusions}{0}}
+\headcommand {\beamer@sectionpages {36}{39}}
+\headcommand {\beamer@subsectionpages {36}{39}}
+\headcommand {\slideentry {5}{0}{3}{40/45}{}{0}}
+\headcommand {\beamer@framepages {40}{45}}
+\headcommand {\slideentry {5}{0}{4}{46/46}{}{0}}
+\headcommand {\beamer@framepages {46}{46}}
+\headcommand {\beamer@partpages {1}{46}}
+\headcommand {\beamer@subsectionpages {40}{46}}
+\headcommand {\beamer@sectionpages {40}{46}}
+\headcommand {\beamer@documentpages {46}}
+\headcommand {\def \inserttotalframenumber {17}}
