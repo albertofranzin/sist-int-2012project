@@ -2,8 +2,6 @@
 \subsection{Dataset}
 The dataset used is the SpamAssassin Public Corpus provided by SpamAssassin at \url{http://spamassassin.apache.org/publiccorpus/}, freely available for development purposes (maintainers warn to not use the dataset for training a live system). It contains about 6400 mails in english language, collected from 2002 to 2005, with approximately the 31\% of the mails being spam.
 
-For testing, we have also used some of spam and ham mails received by us.
-
 \subsection{Modalities}
 
 \subsection{Features of spam and ham mails}
@@ -21,63 +19,83 @@ For testing, we have also used some of spam and ham mails received by us.
 
 Many other interesting features can also be used: for example, a heavy use of images as text replacement, the consistency of the email header, the consistency of the urls with the link they claim to go, the list of people the user have mailed before, the provenance of the mail from a known spammer or IP range, the correctness of words (by ckecking a dictionary), to name a few. All of these features require a semantic analysis of the mail, which goes beyond the purpose of this project, since no one of these features is directly connected to Bayesian networks. Nonetheless, all of these features can be used by a Bayesian network, just like the previous ones, and are very likely to increase the accuracy of the classification.
 
-It should be noted that while some of these features are common for the majority of spam, some others are derived from our particular mail archive. Moreover, since many of the mails in the archive are ten years old, more recent spam mails may contain different features. The maintainers of the archive warn to use the archive only for development purposes, not in a live system.
+It should be noted that while some of these features are common for the majority of spam, some others are derived from our particular mail archive. Moreover, since many of the mails in the archive are ten years old, more recent spam mails may contain different features.% The maintainers of the archive warn to use the archive only for development purposes, not in a live system.
 
 \subsection{The design parameters}
 The Bayesian network requires some parameters to be tuned: for example, the ``spamicity'' threshold (how much the normalized probability of being spam should be to be really considered as spam), or the ``weight'' of the feature stats with respect to the word stats when computing the final probability. Different parameter configurations lead to obtain different accuracy values, so we have to choose the best one.
 
-We'll now present the results obtained. Since there are multiple degrees of freedom, we show how the accuracy varies when trying to change one single parameter at time, all the other ones being set to their optimal value.
+We'll now present the results obtained. Since there are multiple degrees of freedom, we show how the accuracy varies when trying to change one single parameter at time, all the other ones being set to their optimal value. Because of the random choice of the emails used for training, validation and testing, multiple tests have been performed, and the results in the following paragraphs are the medians of the values observed.
 
-\paragraph{Size of the training set}
-For finding the best size of the training set, we have begun with few mails, then we have tried to increase the size of the training set until the accuracy has started to decrease (the \textit{early stopping} technique).
+\paragraph{Size of the training and validation sets}
+For finding the best size of the training set, we have begun with few mails, then we have tried to increase the size of the training set until the accuracy has started to decrease (the \textit{early stopping} technique). The size of the validation set is a quarter of the size of the training set. Each value in table \ref{tab:sizebags} is intended to be doubled, being the number of mails for each class to be used.
 
 \begin{center}
-\begin{tabular}{ccc}
+\begin{table}[h]
+\begin{minipage}{.5\linewidth}
+\begin{tabular}{cccc}
 \toprule
-\multicolumn{2}{c}{Size of training set} \\
+\multicolumn{2}{c}{Size of sets} \\
 \cmidrule(r){1-2}
-Spam & Ham & Accuracy \\
+Training & Validation & \shortstack{Validation\\ accuracy} & \shortstack{Testing\\ accuracy}\\
 \midrule
-10  & 10    & 0.1 \\
-20  & 20    & 0.2 \\
-50  & 50    & 0.3 \\
-100 & 100   & 0.4 \\
+50   & 12     & 0.5416667 & 0.739\\
+100  & 25     & 0.78 & 0.7725 \\
+200  & 50     & 0.72 & 0.7935 \\
+500  & 125    & 0.788 & 0.842 \\
+800  & 200    & 0.71 & 0.8515 \\
+1000 & 250    & 0.73 & 0.849 \\
 \bottomrule
 \end{tabular}
-\label{tab:sizetraining}
+\end{minipage}
+\begin{minipage}{.5\linewidth}
+\includegraphics[width=1\textwidth]{img/tests/size_bags.png}
+    \label{fig:sizebags}
+\end{minipage}
+\caption{Accuracy with varying size for training set and validation set.}
+\end{table}
+\label{tab:sizebags}
 \end{center}
 
-As we see, only 50 spam and 50 ham mails are enough to have best accuracy. Given that we have over six thousand of mails in the archive, it is a very small size.
+As we see, the best accuracy is obtained using 800 spam mails and 800 ham mails for training, and 200+200 mails for validation. Furthermore, if we compare all the results, we observe that with fewer mails the variance of the results is higher.
 
 \paragraph{``Spamicity'' threshold}
 \label{spamthrtest} Another very important parameter is what is sometimes called the ``spamicity'' threshold, namely the value that the normalized probability $\frac{p_{spam}}{p_{spam} + p_{ham}}$ must reach for the mail to be classified as spam. This is crucial: a low threshold will bring in many false positives (good mails will be marked as spam), while a too high threshold will classify some spam mails as ham, thus having a lot of false negatives. Anyway, the choice of the threshold to be $0.5$ may not be obvious, since we may want to be more tolerant with words we have never met before, or we way consider the chance of false positive too bad for us, and therefore lift the threshold to ensure this fact, allowing at the same time some spam to pass through the filter. More importantly, we desire a similar number for false positives and false negatives, since this is an index of well-balanced classification. For this reason, this value is only the starting value of the threshold, which will be tuned by the classifier according to the number of misclassified items. Furthermore, given the nature of bayesian networks, a fair threshold guarantees that the classifier remains stable, meaning that it will continue guessing with the same ham and spam ratio, while a very unbalanced number of misclassifications will make the classifier leaning towards too many guesses of a single kind (the more mails are misclassified as spam, the more words will erroneously contribute to spam in future classifications, same for ham).
 
 \begin{center}
+\begin{table}[h]
+\begin{minipage}{.5\linewidth}
 \begin{tabular}{cccc}
 \toprule
-Threshold & \shortstack{False\\ positives} & \shortstack{False\\ negatives} & Accuracy\\
+Threshold & \shortstack{Validation\\ accuracy} & \shortstack{Testing\\ accuracy}\\
 \midrule
-0.1  & 10 & 1 & 232 \\
-0.2  & 10 & 0 & 0.1 \\
-0.3  & 10 & 0 & 0.1 \\
-0.4  & 10 & 0 & 0.1 \\
-0.5  & 10 & 0 & 0.1 \\
-0.6  & 10 & 0 & 0.1 \\
-0.7  & 10 & 0 & 0.1 \\
-0.8  & 10 & 0 & 0.1 \\
-0.9  & 10 & 0 & 0.1 \\
+0.1  & 0.725 & 0.834\\
+0.2  & 0.71 & 0.8515 \\
+0.3  & 0.77 & 0.8305 \\
+0.4  & 0.7 & 0.8595 \\
+0.5  & 0.72 & 0.8455 \\
+0.6  & 0.7125 & 0.841 \\
+0.7  & 0.74 & 0.839 \\
+0.8  & 0.7 & 0.848 \\
+0.9  & 0.705 & 0.8305 \\
 \bottomrule
 \end{tabular}
-\label{tab:spamicity}
+\end{minipage}
+\begin{minipage}{.5\linewidth}
+\includegraphics[width=1\textwidth]{img/tests/spam_thr.png}
+    \label{fig:spamthr}
+\end{minipage}
+\caption{Accuracy with varying ``spamicity'' threshold.}
+\end{table}
+\label{tab:spamthr}
 \end{center}
 
-We see that the better accuracy is obtained with a starting value of $0.2$, which yields the lowest and most balanced number of misclassified mails.
+We see that the accuracy is similar for all the starting values. Anyway, when looking at the final value that the threshold take, we see that most of the times it lies around 0.2, so this is our defult value. The other starting values get a similar accuracy because when having multiple errors in the beginning, the threshold changes rather quickly.
 
 \paragraph{Relevance threshold}
 As we have already discussed in section \ref{notesonimpl}, we provide a customizable threshold to exclude from computation the words and the features that give little contribution to the final probabilities. In table \ref{tab:relevance} we see what is the most convenient value.
 
 \begin{center}
-\begin{table}
+\begin{table}[h]
 \begin{minipage}{.5\linewidth}
 \begin{tabular}{cccc}
 \toprule
@@ -170,7 +188,7 @@ Clearly, ``very short'' and ``very long'' words (out of our thresholds) are most
 It's interesting also to look at the statistics of the single words. We have already discussed about how the distribution of unusually long words. In table \ref{tab:commonwords} we can take a look at the most common untrivial words that appear more in spam and ham mails.
 
 \begin{center}
-\begin{tabular}{lcc}
+\begin{tabular}{cc}
 \toprule
 Words in spam & Words in ham \\
 \midrule

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.10.15)  6 JAN 2013 21:41
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.10.15)  7 JAN 2013 11:59
 entering extended mode
  %&-line parsing enabled.
 **relazione.tex
@@ -867,48 +867,56 @@ Overfull \hbox (2.22221pt too wide) in paragraph at lines 34--54
 []$[]$ $[]$ 
  []
 
-<img/tests/spam_thr.png, id=205, 602.25pt x 372.39125pt>
+<img/tests/size_test.png, id=206, 557.08125pt x 295.1025pt>
+File: img/tests/size_test.png Graphic file (type png)
+
+<use img/tests/size_test.png>
+Overfull \hbox (2.22221pt too wide) in paragraph at lines 66--83
+[]$[]$ $[]$ 
+ []
+
+[9 <./img/tests/size_bags.png (PNG copy)> <./img/tests/size_test.png (PNG copy)
+>] <img/tests/spam_thr.png, id=215, 602.25pt x 372.39125pt>
 File: img/tests/spam_thr.png Graphic file (type png)
 
 <use img/tests/spam_thr.png>
-Overfull \hbox (2.22221pt too wide) in paragraph at lines 66--87
+Overfull \hbox (2.22221pt too wide) in paragraph at lines 95--116
 []$[]$ $[]$ 
  []
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[9 <./img/tests/size_bags.png (PNG copy)>]
-<img/tests/rel_threshold.png, id=216, 602.25pt x 372.39125pt>
+<img/tests/rel_threshold.png, id=218, 602.25pt x 372.39125pt>
 File: img/tests/rel_threshold.png Graphic file (type png)
 
 <use img/tests/rel_threshold.png>
-Overfull \hbox (2.22221pt too wide) in paragraph at lines 99--116
-[]$[]$ $[]$ 
- []
-
-<img/tests/feats_threshold_1.png, id=217, 602.25pt x 372.39125pt>
-File: img/tests/feats_threshold_1.png Graphic file (type png)
-
-<use img/tests/feats_threshold_1.png>
-Overfull \hbox (2.22221pt too wide) in paragraph at lines 130--154
+Overfull \hbox (2.22221pt too wide) in paragraph at lines 128--145
 []$[]$ $[]$ 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[10 <./img/tests/spam_thr.png (PNG copy)> <./img/tests/rel_threshold.png (PNG c
-opy)>]) (./conclusions.tex [11 <./img/tests/feats_threshold_1.png (PNG copy)>])
+<img/tests/feats_threshold_1.png, id=219, 602.25pt x 372.39125pt>
+File: img/tests/feats_threshold_1.png Graphic file (type png)
+
+<use img/tests/feats_threshold_1.png>
+Overfull \hbox (2.22221pt too wide) in paragraph at lines 159--183
+[]$[]$ $[]$ 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[10 <./img/tests/spam_thr.png (PNG copy)>]) (./conclusions.tex [11 <./img/tests
+/rel_threshold.png (PNG copy)> <./img/tests/feats_threshold_1.png (PNG copy)>])
 (./relazione.bbl) [12] (./relazione.aux (./titlepage.aux)) ) 
 Here is how much of TeX's memory you used:
- 9082 strings out of 493848
- 131643 string characters out of 1152822
- 218828 words of memory out of 3000000
- 12087 multiletter control sequences out of 15000+50000
- 13535 words of font info for 52 fonts, out of 3000000 for 9000
+ 9091 strings out of 493848
+ 131814 string characters out of 1152822
+ 219024 words of memory out of 3000000
+ 12094 multiletter control sequences out of 15000+50000
+ 13836 words of font info for 53 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
- 38i,14n,40p,1582b,396s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 38i,14n,40p,1583b,396s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/share/texmf/f
 onts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texmf-texlive/fonts/type1/
 public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsf
@@ -928,9 +936,9 @@ lic/amsfonts/cm/cmsy7.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts
 pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/s
 hare/texmf-texlive/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/share/texmf/f
 onts/type1/public/cm-super/sfrm1000.pfb>
-Output written on relazione.pdf (12 pages, 521846 bytes).
+Output written on relazione.pdf (12 pages, 534233 bytes).
 PDF statistics:
- 323 PDF objects out of 1000 (max. 8388607)
- 60 named destinations out of 1000 (max. 500000)
- 209 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 327 PDF objects out of 1000 (max. 8388607)
+ 61 named destinations out of 1000 (max. 500000)
+ 214 words of extra memory for PDF output out of 10000 (max. 10000000)
 
