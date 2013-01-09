@@ -416,7 +416,7 @@ class Bayes():
 
             # Now update the overall statistics, using the guessed value,
             # without caring if it is correct or wrong.
-            # This way, the stats can be updated also when have to compute
+            # This way, the stats can be updated also when we have to compute
             # the status of a mail we haven't seen before, and so we cannot
             # control the correctness of our deduction.
             # Plus, this works better that using the real value

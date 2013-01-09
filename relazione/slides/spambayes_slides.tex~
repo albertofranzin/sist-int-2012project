@@ -41,8 +41,9 @@
 
 
 \title{A spam classifier based on Bayes network}
+%\author{\shortstack{Alberto Franzin\\1012883}, \shortstack{Fabio Palese\\1033575}}
 \author{Alberto Franzin, Fabio Palese}
-%\date{January 123456, 2013}
+\date{January 15th, 2013}
 \institute[2013]{Sistemi Intelligenti}
 
 
@@ -237,19 +238,124 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Naive Bayes for spam classification}
+\begin{frame}{Naive Bayes for spam classification}
+We want to build a classifier that distinguishes good mails from undesired mails:
+\begin{itemize}
+    \item good mails: \textit{ham}
+    \item undesired mails: \textit{spam}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Algorithm}
+Algorithm:
+\begin{itemize}
+    \item<1->Training
+    \item<2->Validation
+    \item<3->Testing
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Naive Bayes for spam classification}
+Formulas:
+\begin{itemize}
+    \item<1->For each word: $$P_{word|spam} = \frac{\mbox{\# occurrences of word in spam mails}}{\mbox{\# total occurrences of word}}$$
+    \item<2->Final for spam is: $$P_{spam} = \prod_{words \in mail} P_{spam|word}$$
+    \item<3->same for ham
+    \item<4->Outcome is the class that maximizes the probabilities.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{SpamBayes}
 \begin{frame}{SpamBayes}
-  Python, to use Ply and BeautifulSoup
-  
-  dataset: SpamAssassin archive
+  \begin{itemize}
+    %\item<1->
+    \item SpamBayes: applying Naive Bayes to spam classification
+    \item Python with Ply and BeautifulSoup
+    \item dataset: SpamAssassin archive
+    \item Code and documentation available at \url{http://code.google.com/p/sist-int-2012project/}\\
+  \end{itemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{\scshape Results}
-\subsection{Frame 1}
-\begin{frame}{Frame 1}
 
+\begin{frame}{SpamBayes}
+  \begin{center}
+    \pgfimage[height=6cm]{uml}
+  \end{center}
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Implementation}
+\begin{frame}{Notes on implementation}
+\begin{itemize}
+    \item<1->Smoothing:
+      $$P_{word|spam} = \frac{\mbox{\# occurrences of word in spam mails} + k}{\mbox{\# total occurrences of the word} + |C|\times k}$$
+    \item<2->Calculations can be simplified: some words bring little contribution to the mail status
+    \item<3->Several parameters to be tuned: we describe the more relevant ones
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Tests}
+\begin{frame}{Parameters}
+%\begin{itemize}
+    \only<1>{Size of training/validation/test sets:
+        \begin{center}
+          \pgfimage[height=3cm]{size_bags}
+          \pgfimage[height=3cm]{size_test}
+        \end{center}
+    }
+    \only<2>{Relevance threshold:
+        \begin{center}
+          \pgfimage[height=4cm]{rel_threshold}
+        \end{center}
+    }
+    \only<3>{``Spamicity'' threshold:
+        \begin{center}
+          \pgfimage[height=4cm]{spam_thr}
+        \end{center}}
+    \only<4>{Feature statistic threshold:
+        \begin{center}
+          \pgfimage[height=4cm]{feats_threshold_1}
+        \end{center}}
+%\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Results and Conclusions}
+%\subsection{About the dataset}
+\begin{frame}{Results}
+  \begin{itemize}
+    \item<1->About the dataset:
+      \begin{itemize}
+        \item<2->General features
+        \item<3->Single words
+      \end{itemize}
+    \item<4->About the classification:
+      \begin{itemize}
+        \item<5->Accuracy
+        \item<6->How to improve?
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Final}
+%   \begin{center}
+%     Any questions?
+%   \end{center}
+% \end{frame}
 
 \end{document}

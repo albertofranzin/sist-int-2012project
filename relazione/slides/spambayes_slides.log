@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.10.15)  7 JAN 2013 14:13
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.10.15)  9 JAN 2013 19:53
 entering extended mode
  %&-line parsing enabled.
 **spambayes_slides.tex
@@ -964,26 +964,27 @@ File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 
 ] [29
 
+] [30
+
 ]
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 280.
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 284.
 
 
 (/usr/share/texmf-texlive/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-) [30
-
-] [31
+) [31
 
 ] [32
 
- <./uml.png>] [33
+ <./uml.png>]
+[33
 
 ] [34
 
 ] [35
 
 ]
-Overfull \hbox (13.89236pt too wide) in paragraph at lines 328--328
+Overfull \hbox (13.89236pt too wide) in paragraph at lines 332--332
  [][] 
  []
 
@@ -1007,8 +1008,6 @@ Overfull \hbox (13.89236pt too wide) in paragraph at lines 328--328
 
 ] [45
 
-] [46
-
 ]
 \tf@nav=\write6
 \openout6 = `spambayes_slides.nav'.
@@ -1021,8 +1020,8 @@ Overfull \hbox (13.89236pt too wide) in paragraph at lines 328--328
 
  (./spambayes_slides.aux) ) 
 Here is how much of TeX's memory you used:
- 17710 strings out of 493848
- 340884 string characters out of 1152822
+ 17708 strings out of 493848
+ 340865 string characters out of 1152822
  417280 words of memory out of 3000000
  20409 multiletter control sequences out of 15000+50000
  20197 words of font info for 58 fonts, out of 3000000 for 9000
@@ -1038,9 +1037,9 @@ ymbols/msam10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/symbols
 /msam7.pfb></usr/share/texmf-texlive/fonts/type1/urw/courier/ucrr8a.pfb></usr/s
 hare/texmf-texlive/fonts/type1/urw/palatino/uplr8a.pfb></usr/share/texmf-texliv
 e/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on spambayes_slides.pdf (46 pages, 664101 bytes).
+Output written on spambayes_slides.pdf (45 pages, 664466 bytes).
 PDF statistics:
- 1870 PDF objects out of 2073 (max. 8388607)
- 102 named destinations out of 1000 (max. 500000)
+ 1877 PDF objects out of 2073 (max. 8388607)
+ 100 named destinations out of 1000 (max. 500000)
  170 words of extra memory for PDF output out of 10000 (max. 10000000)
 

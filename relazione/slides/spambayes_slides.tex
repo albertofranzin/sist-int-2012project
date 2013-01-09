@@ -240,6 +240,16 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Naive Bayes for spam classification}
 \begin{frame}{Naive Bayes for spam classification}
+We want to build a classifier that distinguishes good mails from undesired mails:
+\begin{itemize}
+    \item good mails: \textit{ham}
+    \item undesired mails: \textit{spam}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Algorithm}
 Algorithm:
 \begin{itemize}
     \item<1->Training
@@ -256,7 +266,7 @@ Formulas:
     \item<1->For each word: $$P_{word|spam} = \frac{\mbox{\# occurrences of word in spam mails}}{\mbox{\# total occurrences of word}}$$
     \item<2->Final for spam is: $$P_{spam} = \prod_{words \in mail} P_{spam|word}$$
     \item<3->same for ham
-    \item<4->Outcome is the class that maximizes the probabilities.
+    \item<4->Outcome is the class that maximizes the probability of belonging to that class.
 \end{itemize}
 \end{frame}
 
@@ -265,17 +275,11 @@ Formulas:
 \section{SpamBayes}
 \begin{frame}{SpamBayes}
   \begin{itemize}
-    \item<1->SpamBayes: applying NaiveBayes to spam classification
-
-    Python with Ply and BeautifulSoup
-  
-    dataset: SpamAssassin archive
-    
-    Code and documentation at \url{http://code.google.com/p/sist-int-2012project/}
-    
-    \item<2->spam: undesidered mail
-    
-    ham: valid mail
+    %\item<1->
+    \item SpamBayes: applying Naive Bayes to spam classification
+    \item Python with Ply and BeautifulSoup
+    \item dataset: SpamAssassin archive
+    \item Code and documentation available at \url{http://code.google.com/p/sist-int-2012project/}\\
   \end{itemize}
 \end{frame}
 
@@ -296,7 +300,7 @@ Formulas:
     \item<1->Smoothing:
       $$P_{word|spam} = \frac{\mbox{\# occurrences of word in spam mails} + k}{\mbox{\# total occurrences of the word} + |C|\times k}$$
     \item<2->Calculations can be simplified: some words bring little contribution to the mail status
-    \item<3->Several parameters to tune: we describe the more relevant ones
+    \item<3->Several parameters to be tuned: we describe the more relevant ones
 \end{itemize}
 \end{frame}
 
@@ -348,10 +352,10 @@ Formulas:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Final}
-  \begin{center}
-    Any questions?
-  \end{center}
-\end{frame}
+% \begin{frame}{Final}
+%   \begin{center}
+%     Any questions?
+%   \end{center}
+% \end{frame}
 
 \end{document}
