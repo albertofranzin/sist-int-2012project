@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.10.15)  9 JAN 2013 19:53
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.10.15)  13 JAN 2013 23:32
 entering extended mode
  %&-line parsing enabled.
 **spambayes_slides.tex
@@ -922,91 +922,82 @@ File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 
 ] [9
 
-] [10
+ <./fvs1.png>] [10
 
-] [11
+ <./fvs2.png>] [11
 
- <./fvs1.png>] [12
+ <./fvs3.png (PNG copy)>] [12
 
- <./fvs2.png>] [13
+]
+[13
 
- <./fvs3.png (PNG copy)>]
-[14
+] [14
 
-] [15
+ <./bayes_network.png>] [15
 
-] [16
+ <./bayes_network_spam.png>] [16
 
- <./bayes_network.png>] [17
+ <./bayes_network_spam.png>] [17
 
-] [18
+ <./bayes_network_spam.png>] [18
 
 ] [19
 
 ] [20
 
- <./bayes_network_spam.png>] [21
+] [21
 
- <./bayes_network_spam.png>] [22
-
- <./bayes_network_spam.png>] [23
+] [22
 
 ]
-[24
+[23
+
+] [24
 
 ] [25
 
-] [26
+]
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 281.
 
-] [27
+ (/usr/share/texmf-texlive/tex/latex/psnfss/ot1pcr.fd
+File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
+) [26
 
-] [28
+]
+[27
+
+ <./uml.png>] [28
 
 ] [29
 
 ] [30
 
-]
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 284.
-
-
-(/usr/share/texmf-texlive/tex/latex/psnfss/ot1pcr.fd
-File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-) [31
-
-] [32
-
- <./uml.png>]
-[33
-
-] [34
-
-] [35
+] [31
 
 ]
-Overfull \hbox (13.89236pt too wide) in paragraph at lines 332--332
+Overfull \hbox (10.20825pt too wide) in paragraph at lines 330--330
  [][] 
  []
 
-[36
+[32
 
- <./size_bags.png (PNG copy)> <./size_test.png (PNG copy)>] [37
+ <./size_bags.png (PNG copy)> <./size_test.png (PNG copy)>] [33
 
- <./rel_threshold.png (PNG copy)>] [38
+ <./rel_threshold.png (PNG copy)>] [34
 
- <./spam_thr.png (PNG copy)>] [39
+ <./spam_thr.png (PNG copy)>] [35
 
- <./feats_threshold_1.png (PNG copy)>] [40
+ <./feats_threshold_1.png (PNG copy)>] [36
+
+] [37
+
+] [38
+
+] [39
+
+] [40
 
 ] [41
-
-] [42
-
-] [43
-
-] [44
-
-] [45
 
 ]
 \tf@nav=\write6
@@ -1020,26 +1011,25 @@ Overfull \hbox (13.89236pt too wide) in paragraph at lines 332--332
 
  (./spambayes_slides.aux) ) 
 Here is how much of TeX's memory you used:
- 17708 strings out of 493848
- 340865 string characters out of 1152822
+ 17698 strings out of 493848
+ 340773 string characters out of 1152822
  417280 words of memory out of 3000000
- 20409 multiletter control sequences out of 15000+50000
+ 20407 multiletter control sequences out of 15000+50000
  20197 words of font info for 58 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
  49i,19n,57p,405b,739s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.en
 c}</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/sha
-re/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-te
-xlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/
-type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/publi
-c/amsfonts/cm/cmsy8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/s
-ymbols/msam10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/symbols
-/msam7.pfb></usr/share/texmf-texlive/fonts/type1/urw/courier/ucrr8a.pfb></usr/s
-hare/texmf-texlive/fonts/type1/urw/palatino/uplr8a.pfb></usr/share/texmf-texliv
-e/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on spambayes_slides.pdf (45 pages, 664466 bytes).
+re/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-tex
+live/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/
+type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-texlive/fonts/type1/public
+/amsfonts/symbols/msam10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfo
+nts/symbols/msam7.pfb></usr/share/texmf-texlive/fonts/type1/urw/courier/ucrr8a.
+pfb></usr/share/texmf-texlive/fonts/type1/urw/palatino/uplr8a.pfb></usr/share/t
+exmf-texlive/fonts/type1/urw/palatino/uplri8a.pfb>
+Output written on spambayes_slides.pdf (41 pages, 614527 bytes).
 PDF statistics:
- 1877 PDF objects out of 2073 (max. 8388607)
- 100 named destinations out of 1000 (max. 500000)
+ 1677 PDF objects out of 1728 (max. 8388607)
+ 92 named destinations out of 1000 (max. 500000)
  170 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -119,30 +119,27 @@
 
 \frame {
     \frametitle{The Bayesian approach}
+    Bayes rule:
+          $$
+          P(A|B) = \frac{P(A \cap B)}{P(B)} = \frac{P(B|A)P(A)}{P(B)}
+          $$
     \begin{itemize}
-        \item<1->Bayes rule:
-        $$
-        P(A|B) = \frac{P(A \cap B)}{P(B)} = \frac{P(B|A)P(A)}{P(B)}
-        $$
-        defines the \textit{a posteriori} probability of event $A$, knowing the event $B$ has already occurred.
-
-        \item<2->In other words, we can estimate the probability of an hypothesis, given that we know the consequences.
-        \item<3->This has led to two different interpretations of the theorem.
+        \item<1->$P(A|B)$ is the \textit{a posteriori} probability of event $A$, knowing the event $B$ has already occurred.
+        \item<2->$P(B|A)$ is the \textit{likelihood}
+        \item<3->$P(B|A)P(A)$ is the \textit{prior} probability
+        \item<4->$P(B) = \sum_{a \in A}P(B|A=a)P(A=a)$ is the \textit{total} probability
     \end{itemize}
 }
 
 \frame {
     \frametitle{The Bayesian approach}
+    Bayes rule:
+        $$
+        P(A|B) = \frac{P(A \cap B)}{P(B)} = \frac{P(B|A)P(A)}{P(B)}
+        $$
     \begin{itemize}
-        \item<1->Bayes rule:
-          $$
-          P(A|B) = \frac{P(A \cap B)}{P(B)} = \frac{P(B|A)P(A)}{P(B)}
-          $$
-
-        \item<2->$P(A|B)$ is the \textit{a posteriori} probability
-        \item<3->$P(B|A)$ is the \textit{likelihood}
-        \item<4->$P(B|A)P(A)$ is the \textit{prior} probability
-        \item<5->$P(B) = \sum_{a \in A}P(B|A=a)P(A=a)$ is the \textit{total} probability
+        \item<1->In other words, we can estimate the probability of an hypothesis, given that we know the consequences.
+        \item<2->This has led to two different interpretations of the theorem.
     \end{itemize}
 }
 
@@ -183,7 +180,7 @@
 
 \frame {
     \frametitle{What it is}
-    A Bayes network is a way to describe causal relationships between events.
+    A Bayesian network is a way to describe causal relationships between events (J. Pearl, 1985).
       \begin{itemize}
           \item<1->Nodes = events
           \item<1->(Directed) Edges = causal relationship
@@ -206,20 +203,20 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\subsection{Conditional Independence}
-\begin{frame}{Conditional independence}
-  \begin{itemize}
-    \item<1->{If
-    $$
-    P(A|B,C) = P(A|B)
-    $$
-    then we say that $B$ and $C$ are \textit{conditionally independent}.}
-    \item<2->{
-        Note that \textit{conditional independence} $\neq$ \textit{independence}
-    }
-    \item<3->Explaining away: if we know that one possible cause of the event has happened, this may \textit{explain away} the event, being all the other causes less probable once we know the one that happened.
-  \end{itemize}
-\end{frame}
+% %\subsection{Conditional Independence}
+% \begin{frame}{Conditional independence}
+%   \begin{itemize}
+%     \item<1->{If
+%     $$
+%     P(A|B,C) = P(A|B)
+%     $$
+%     then we say that $B$ and $C$ are \textit{conditionally independent}.}
+%     \item<2->{
+%         Note that \textit{conditional independence} $\neq$ \textit{independence}
+%     }
+%     \item<3->Explaining away: if we know that one possible cause of the event has happened, this may \textit{explain away} the event, being all the other causes less probable once we know the one that happened.
+%   \end{itemize}
+% \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -266,7 +263,7 @@ Formulas:
     \item<1->For each word: $$P_{word|spam} = \frac{\mbox{\# occurrences of word in spam mails}}{\mbox{\# total occurrences of word}}$$
     \item<2->Final for spam is: $$P_{spam} = \prod_{words \in mail} P_{spam|word}$$
     \item<3->same for ham
-    \item<4->Outcome is the class that maximizes the probabilities.
+    \item<4->Outcome is the class that maximizes the probability of belonging to that class.
 \end{itemize}
 \end{frame}
 
@@ -300,7 +297,8 @@ Formulas:
     \item<1->Smoothing:
       $$P_{word|spam} = \frac{\mbox{\# occurrences of word in spam mails} + k}{\mbox{\# total occurrences of the word} + |C|\times k}$$
     \item<2->Calculations can be simplified: some words bring little contribution to the mail status
-    \item<3->Several parameters to be tuned: we describe the more relevant ones
+    \item<3->Several mail features detected
+    \item<4->Several parameters to be tuned: we describe the more relevant ones
 \end{itemize}
 \end{frame}
 

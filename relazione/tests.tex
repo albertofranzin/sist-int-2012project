@@ -59,7 +59,7 @@ Training & Validation & \shortstack{Validation\\ accuracy} & \shortstack{Testing
 As we see, the best accuracy is obtained using 800 spam mails and 800 ham mails for training, and 200+200 mails for validation. Furthermore, if we compare all the results, we observe that with fewer mails the variance of the results is higher.
 
 \paragraph{Size of test sets}
-As for training and validation set, we look for the optimal size of the training set. Because of the self-improving nature of Naive Bayes networks, we expect the accuracy to grow along with the size of the training set. Results of the trials are shown in table \ref{tab:sizetest}.
+As for training and validation set, we look for the optimal size of the test set. Because of the self-improving nature of Naive Bayes networks, we expect the accuracy to grow along with the size of the test set. Results of the trials are shown in table \ref{tab:sizetest}.
 
 \begin{center}
 \begin{table}[h]
@@ -68,10 +68,10 @@ As for training and validation set, we look for the optimal size of the training
 \toprule
 Size of test set & \shortstack{Validation\\ accuracy} & \shortstack{Testing\\ accuracy}\\
 \midrule
-100  & 0.7575 & 0.82     \\
-200  & 0.74   & 0.835    \\
-500  & 0.7275 & 0.827    \\
-800  & 0.6975 & 0.842605 \\
+100  & 0.71 & 0.82     \\
+200  & 0.71   & 0.835    \\
+500  & 0.71 & 0.827    \\
+800  & 0.71 & 0.842605 \\
 1000 & 0.71   & 0.8515   \\
 \bottomrule
 \end{tabular}
@@ -214,7 +214,7 @@ Here we show and analyze some interesting results observed. Of course, these sta
 As expected, ``very short'' and ``very long'' words (out of our thresholds) are mostly common in spam mails, as well as all-caps words, non-valid words and mail addresses. Spam mails also contain an average number of words higher than ham ones. Surprisingly, in the SpamAssassin dataset ham mails contain more links than spam mails.
 
 %\paragraph{Most common words}
-It's interesting also to look at the statistics of the single words. We have already discussed about how the distribution of unusually long words. In our dataset, the words that contribute most to ham are technology-related words like debian, cpp, gaim, 0xdeadbeef (hex code used by \textsc{IBM}). Spam mails, instead, are characterized by meaningless words and words that suggest the selling of some good, in particular drugs, as for example botanical, dieting, aphrodisia.
+It's interesting also to look at the statistics of the single words. We have already discussed about how the distribution of unusually long words. In our dataset, the words that contribute most to ham are technology-related words like \texttt{debian}, \texttt{cpp}, \texttt{gaim}, 0\texttt{xdeadbeef} (hex code used by \textsc{ibm}). Spam mails, instead, are characterized by meaningless words and words that suggest the selling of some goods, in particular drugs, as, for example, \texttt{botanical}, \texttt{dieting}, \texttt{aphrodisia}.
 
 % \begin{center}
 % \begin{tabular}{cc}
