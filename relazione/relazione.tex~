@@ -13,6 +13,7 @@
 \usepackage{multirow}
 \usepackage{amsfonts}
 \usepackage{booktabs}
+\usepackage{wrapfig}
 \usepackage[numbers]{natbib}
 
 \usepackage{listings}

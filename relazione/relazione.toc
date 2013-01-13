@@ -1,31 +1,31 @@
 \select@language {english}
-\contentsline {section}{\numberline {1}Introduction}{3}{section.1}
-\contentsline {section}{\numberline {2}Bayesian networks}{3}{section.2}
-\contentsline {subsection}{\numberline {2.1}The Bayes' theorem}{3}{subsection.2.1}
-\contentsline {subsection}{\numberline {2.2}Bayesian networks}{3}{subsection.2.2}
-\contentsline {subsubsection}{\numberline {2.2.1}Conditional independence}{4}{subsubsection.2.2.1}
-\contentsline {subsection}{\numberline {2.3}The \textit {naive} approach}{5}{subsection.2.3}
-\contentsline {subsection}{\numberline {2.4}Naive Bayes for spam classification}{5}{subsection.2.4}
-\contentsline {subsubsection}{\numberline {2.4.1}Algorithm}{5}{subsubsection.2.4.1}
-\contentsline {paragraph}{Data structures}{5}{section*.2}
-\contentsline {paragraph}{Training}{5}{section*.3}
-\contentsline {paragraph}{Validation}{6}{section*.4}
-\contentsline {paragraph}{Testing}{6}{section*.5}
-\contentsline {subsubsection}{\numberline {2.4.2}Computing the probability}{6}{subsubsection.2.4.2}
-\contentsline {subsubsection}{\numberline {2.4.3}Updating the knowledge}{6}{subsubsection.2.4.3}
-\contentsline {section}{\numberline {3}Implementation}{6}{section.3}
-\contentsline {subsection}{\numberline {3.1}Structure}{6}{subsection.3.1}
-\contentsline {subsubsection}{\numberline {3.1.1}Notes on implementation}{7}{subsubsection.3.1.1}
-\contentsline {section}{\numberline {4}Tests and results}{8}{section.4}
-\contentsline {subsection}{\numberline {4.1}Dataset}{8}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}Modalities}{8}{subsection.4.2}
-\contentsline {subsection}{\numberline {4.3}Features of spam and ham mails}{8}{subsection.4.3}
-\contentsline {subsection}{\numberline {4.4}The design parameters}{8}{subsection.4.4}
-\contentsline {paragraph}{Size of the training and validation sets}{9}{section*.6}
-\contentsline {paragraph}{Size of test sets}{9}{section*.7}
-\contentsline {paragraph}{``Spamicity'' threshold}{10}{section*.8}
-\contentsline {paragraph}{Relevance threshold}{10}{section*.9}
-\contentsline {paragraph}{Feature/words stats proportion}{10}{section*.10}
-\contentsline {subsection}{\numberline {4.5}Analysis of results}{11}{subsection.4.5}
-\contentsline {section}{\numberline {5}Conclusions}{11}{section.5}
-\contentsline {section}{References}{12}{section*.11}
+\contentsline {section}{\numberline {1}Introduction}{1}{section.1}
+\contentsline {section}{\numberline {2}Bayesian networks}{1}{section.2}
+\contentsline {subsection}{\numberline {2.1}The Bayes' theorem}{1}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Bayesian networks}{1}{subsection.2.2}
+\contentsline {subsubsection}{\numberline {2.2.1}Conditional independence}{2}{subsubsection.2.2.1}
+\contentsline {subsection}{\numberline {2.3}The \textit {naive} approach}{3}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Naive Bayes for spam classification}{3}{subsection.2.4}
+\contentsline {subsubsection}{\numberline {2.4.1}Algorithm}{3}{subsubsection.2.4.1}
+\contentsline {paragraph}{Data structures}{3}{section*.2}
+\contentsline {paragraph}{Training}{3}{section*.3}
+\contentsline {paragraph}{Validation}{4}{section*.4}
+\contentsline {paragraph}{Testing}{4}{section*.5}
+\contentsline {subsubsection}{\numberline {2.4.2}Computing the probability}{4}{subsubsection.2.4.2}
+\contentsline {subsubsection}{\numberline {2.4.3}Updating the knowledge}{4}{subsubsection.2.4.3}
+\contentsline {section}{\numberline {3}Implementation}{4}{section.3}
+\contentsline {subsection}{\numberline {3.1}Structure}{4}{subsection.3.1}
+\contentsline {subsubsection}{\numberline {3.1.1}Notes on implementation}{5}{subsubsection.3.1.1}
+\contentsline {section}{\numberline {4}Tests and results}{6}{section.4}
+\contentsline {subsection}{\numberline {4.1}Dataset}{6}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Modalities}{6}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Features of spam and ham mails}{6}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}The design parameters}{6}{subsection.4.4}
+\contentsline {paragraph}{Size of the training and validation sets}{7}{section*.6}
+\contentsline {paragraph}{Size of test sets}{7}{section*.7}
+\contentsline {paragraph}{``Spamicity'' threshold}{8}{section*.8}
+\contentsline {paragraph}{Relevance threshold}{8}{section*.9}
+\contentsline {paragraph}{Feature/words stats proportion}{8}{section*.10}
+\contentsline {subsection}{\numberline {4.5}Analysis of results}{9}{subsection.4.5}
+\contentsline {section}{\numberline {5}Conclusions}{10}{section.5}
+\contentsline {section}{References}{10}{section*.11}
