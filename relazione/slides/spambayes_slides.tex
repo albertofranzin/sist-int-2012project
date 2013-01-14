@@ -246,21 +246,22 @@ We want to build a classifier that distinguishes good mails from undesired mails
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Algorithm}
-Algorithm:
-\begin{itemize}
-    \item<1->Training
-    \item<2->Validation
-    \item<3->Testing
-\end{itemize}
-\end{frame}
+% \begin{frame}{Algorithm}
+% Algorithm:
+% \begin{itemize}
+%     \item<1->Training
+%     \item<2->Validation
+%     \item<3->Testing
+% \end{itemize}
+% \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Naive Bayes for spam classification}
 Formulas:
 \begin{itemize}
-    \item<1->For each word: $$P_{word|spam} = \frac{\mbox{\# occurrences of word in spam mails}}{\mbox{\# total occurrences of word}}$$
+    \item<1->For each word: $$P_{word|spam} = \frac{\mbox{\# occurrences of word in spam mails}}{\mbox{\# total occurrences of word}}$$\\
+    $$P_{spam|word} = \frac{P_{word|spam}P_{spam}}{P_{word}}$$
     \item<2->Final for spam is: $$P_{spam} = \prod_{words \in mail} P_{spam|word}$$
     \item<3->same for ham
     \item<4->Outcome is the class that maximizes the probability of belonging to that class.

@@ -179,7 +179,7 @@
 \subsection{Definition}
 
 \frame {
-    \frametitle{What it is}
+    \frametitle{Bayesian networks}
     A Bayesian network is a way to describe causal relationships between events (J. Pearl, 1985).
       \begin{itemize}
           \item<1->Nodes = events
