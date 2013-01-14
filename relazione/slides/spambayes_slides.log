@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.10.15)  13 JAN 2013 23:32
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.10.15)  14 JAN 2013 14:46
 entering extended mode
  %&-line parsing enabled.
 **spambayes_slides.tex
@@ -950,54 +950,48 @@ File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 ] [22
 
 ]
-[23
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 282.
+
+
+(/usr/share/texmf-texlive/tex/latex/psnfss/ot1pcr.fd
+File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
+) [23
 
 ] [24
 
-] [25
+ <./uml.png>]
+[25
+
+] [26
+
+] [27
+
+] [28
 
 ]
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 281.
-
- (/usr/share/texmf-texlive/tex/latex/psnfss/ot1pcr.fd
-File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-) [26
-
-]
-[27
-
- <./uml.png>] [28
-
-] [29
-
-] [30
-
-] [31
-
-]
-Overfull \hbox (10.20825pt too wide) in paragraph at lines 330--330
+Overfull \hbox (10.20825pt too wide) in paragraph at lines 331--331
  [][] 
  []
 
-[32
+[29
 
- <./size_bags.png (PNG copy)> <./size_test.png (PNG copy)>] [33
+ <./size_bags.png (PNG copy)> <./size_test.png (PNG copy)>] [30
 
- <./rel_threshold.png (PNG copy)>] [34
+ <./rel_threshold.png (PNG copy)>] [31
 
- <./spam_thr.png (PNG copy)>] [35
+ <./spam_thr.png (PNG copy)>] [32
 
- <./feats_threshold_1.png (PNG copy)>] [36
+ <./feats_threshold_1.png (PNG copy)>] [33
+
+] [34
+
+] [35
+
+] [36
 
 ] [37
 
 ] [38
-
-] [39
-
-] [40
-
-] [41
 
 ]
 \tf@nav=\write6
@@ -1011,10 +1005,10 @@ Overfull \hbox (10.20825pt too wide) in paragraph at lines 330--330
 
  (./spambayes_slides.aux) ) 
 Here is how much of TeX's memory you used:
- 17698 strings out of 493848
- 340773 string characters out of 1152822
- 417280 words of memory out of 3000000
- 20407 multiletter control sequences out of 15000+50000
+ 17690 strings out of 493848
+ 340700 string characters out of 1152822
+ 416280 words of memory out of 3000000
+ 20405 multiletter control sequences out of 15000+50000
  20197 words of font info for 58 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
  49i,19n,57p,405b,739s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1027,9 +1021,9 @@ type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-texlive/fonts/type1/public
 nts/symbols/msam7.pfb></usr/share/texmf-texlive/fonts/type1/urw/courier/ucrr8a.
 pfb></usr/share/texmf-texlive/fonts/type1/urw/palatino/uplr8a.pfb></usr/share/t
 exmf-texlive/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on spambayes_slides.pdf (41 pages, 614527 bytes).
+Output written on spambayes_slides.pdf (38 pages, 584297 bytes).
 PDF statistics:
- 1677 PDF objects out of 1728 (max. 8388607)
- 92 named destinations out of 1000 (max. 500000)
+ 1526 PDF objects out of 1728 (max. 8388607)
+ 86 named destinations out of 1000 (max. 500000)
  170 words of extra memory for PDF output out of 10000 (max. 10000000)
 
